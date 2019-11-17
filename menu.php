@@ -3,6 +3,7 @@ function show_menu($dataroot){
 	$cat = "";
 	echo '<ul class="navi" id="categories">';
 	$menu_items = glob("$dataroot*");
+
 	foreach($menu_items as $items ){
 		$itemarray = explode("/",$items);
 		$item_name = array_pop($itemarray);
@@ -15,7 +16,7 @@ function show_menu($dataroot){
 				$cat = $item_name;
 			}
 			if(isset($_GET['article'])){
-				$path = get_article_path($_GET['article']);
+				$path = get_article_path($_GET['article'],$dataroot);
 				if(strpos($path[0],$item_name) !== false){
 					echo 'class="active"';
 					$cat = $item_name;

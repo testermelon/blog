@@ -56,7 +56,7 @@
 
 <footer>
 <ul class="navi">
-<li><a href="/article/about" >About</a></li>
+<li><a href="/article/about" >About Me</a></li>
 </ul>
 </footer>
 

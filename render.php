@@ -3,7 +3,7 @@
 <head>
 	<title>
 <?php
-	if(is_file(config.php))
+	if(is_file("config.php"))
 		$config = include('config.php');
 	else
 		$config = include('defaults.php');

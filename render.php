@@ -3,7 +3,10 @@
 <head>
 	<title>
 <?php
-	$config = include('config.php');
+	if(is_file(config.php))
+		$config = include('config.php');
+	else
+		$config = include('defaults.php');
 	include 'menu.php';
 
 	if(isset($_GET['category']))

@@ -1,5 +1,5 @@
 <?php
 
 return array(
-	'dataroot'=>'note/data/content/',
+	'dataroot'=>'blog/content/',
 );

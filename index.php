@@ -3,7 +3,7 @@
 <head>
 	<title> <?php
 		//check if config file exists, if exist, include it, if not load default config file
-		if(file_exists('/config.php'))
+		if(file_exists('config.php'))
 			$config = include('config.php');
 		else
 			$config = include('defaults.php');

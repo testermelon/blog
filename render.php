@@ -38,7 +38,6 @@
 ?>
 
 </header>
-OK, bisa dipush LOL edit lagi
 
 <div class="main">
 <?php

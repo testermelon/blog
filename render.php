@@ -3,11 +3,11 @@
 <head>
 	<title>
 <?php
-	if(is_file("config.php"))
-		$config = include('config.php');
+	if(is_file(dirname(__FILE__) . '/config.php'))
+		$config = include(dirname(__FILE__) . '/config.php');
 	else
-		$config = include('defaults.php');
-	include 'menu.php';
+		$config = include(dirname(__FILE__) . '/defaults.php');
+	include(dirname(__FILE__) . '/menu.php');
 
 	if(isset($_GET['category']))
 		echo "testermelon - ". $_GET['category'];

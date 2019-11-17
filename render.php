@@ -38,7 +38,7 @@
 ?>
 
 </header>
-TEST
+
 <div class="main">
 <?php
 	if(isset($_GET['category']))

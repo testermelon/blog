@@ -30,7 +30,7 @@ include(dirname(__FILE__) . '/renderer.php');
 	<link rel="stylesheet" type="text/css" 
 		href="<?php 
 		//using '//' to force the link as absolute reference to file
-		echo '//' . $_SERVER['SERVER_NAME'] . '/' . $config['csspath']; 
+		echo '//' . $_SERVER['SERVER_NAME'] . $config['csspath']; 
 	?>">
 
 		<link type="image/x-icon" rel="icon" href="favicon-blog.ico" >

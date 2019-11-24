@@ -12,6 +12,7 @@ include(dirname(__FILE__) . '/renderer.php');
 <!DOCTYPE html>
 <html>
 <head>
+	<base href="<?php echo $config['base']; ?>" >
 	<title> <?php
 		if(isset($_GET['category']))
 			echo "testermelon - ". $_GET['category'];
@@ -32,7 +33,7 @@ include(dirname(__FILE__) . '/renderer.php');
 		echo '//' . $_SERVER['SERVER_NAME'] . '/' . $config['csspath']; 
 	?>">
 
-	<link type="image/x-icon" rel="icon" href="favicon-blog.ico" >
+		<link type="image/x-icon" rel="icon" href="favicon-blog.ico" >
 
 	<meta property="og:image" 
 		content="<?php

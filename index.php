@@ -60,11 +60,12 @@ include(dirname(__FILE__) . '/renderer.php');
 			show_category($_GET['category'],$config['dataroot']);
 		else
 		if(isset($_GET['article'])){
-			show_article($content);
+			show_article_header($content);
+			show_article_body($content);
 		}
 		else{
 			show_recent($config['dataroot']);
-	}
+		}
 	?>
 	</div>
 

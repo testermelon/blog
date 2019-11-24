@@ -178,6 +178,9 @@ function get_article_data($filepath){
  * and then passes the filepath to get_article_data.
  *
  * Returns the article content array
+ *
+ * Note: This function is where article data passed around,
+ * expand data as required in the future
  */
 function get_article_content($article,$dataroot){
 	$filepath = get_article_path($article,$dataroot);
@@ -186,7 +189,10 @@ function get_article_content($article,$dataroot){
 		return false;
 	}
 
-	return get_article_data($filepath);
+	$content = get_article_data($filepath);
+	$content['urlname'] = $article;
+
+	return $content;
 }
 
 /* Use regex to parse and convert markdown syntaxes to html
@@ -224,30 +230,44 @@ function render_to_html($string){
 	return $string;
 }
 
+function show_article_body($content){
+	if($content === false){
+		echo "Kosong";
+		return;
+	}
 
-/*
- * Spits out the html content of the article with the article title under <h2>
- *
- * Parameter is article content array extracted from file
- */
-function show_article($content){
+	//convert to html
+	echo render_to_html($content['body']);
+}
+
+
+function show_share_buttons($urlname){
+
+	$fb_link = "https://www.facebook.com/sharer/sharer.php?u=";
+	$tw_link = "https://twitter.com/intent/tweet?url=";
+	$sharelink = "https://testermelon.com/article/" . $urlname;
+	echo '<div id="social-links">';
+	echo "Bagikan ke: ";
+	echo '<a target="_blank" href="' . $fb_link . $sharelink . '"> Facebook </a>';
+	echo ", ";
+	echo '<a target="_blank" href="' . $tw_link . $sharelink . '"> Twitter  </a>';
+	echo '</div>';
+}
+
+function show_article_header($content){
 	if($content === false){
 		echo "Ups, artikel itu sepertinya tidak ada atau belum dibuat.";
 		return;
 	}
 
-	//convert to html
-	$content['body'] = render_to_html($content['body']);
-
 	echo "<h2>" ;
 	echo $content['title'];
 	echo '<br>';
 	echo "</h2>";
-	echo "<p> <small> ". format_date($content['date']) . " </small> </p>";
+	echo "<small> ". format_date($content['date']) . " </small>" ;
+	echo "<br>";
+	show_share_buttons($content['urlname']);
 	echo "<hr>";
-
-	echo $content['body'];
-
 }
 
 ?>

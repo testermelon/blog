@@ -68,7 +68,12 @@ a:hover{
 	color:brown;
 }
 
-h2,h3{
+h2{
+margin-top:1em;
+margin-bottom:1em;
+}
+
+h3{
 margin-top:2em;
 margin-bottom:1em;
 }

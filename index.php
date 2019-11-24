@@ -1,15 +1,18 @@
+<?php
+//check if config file exists, 
+//if exist, include it, if not load default config file
+if(file_exists('config.php'))
+	$config = include('config.php');
+else
+	$config = include('defaults.php');
+
+include(dirname(__FILE__) . '/renderer.php');
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
 	<title> <?php
-		//check if config file exists, if exist, include it, if not load default config file
-		if(file_exists('config.php'))
-			$config = include('config.php');
-		else
-			$config = include('defaults.php');
-		
-		include(dirname(__FILE__) . '/renderer.php');
-
 		if(isset($_GET['category']))
 			echo "testermelon - ". $_GET['category'];
 		else
@@ -28,6 +31,8 @@
 		//using '//' to force the link as absolute reference to file
 		echo '//' . $_SERVER['SERVER_NAME'] . '/' . $config['csspath']; 
 	?>">
+
+	<link type="image/x-icon" rel="icon" href="favicon-blog.ico" >
 
 	<meta property="og:image" 
 		content="<?php
@@ -54,7 +59,7 @@
 			show_category($_GET['category'],$config['dataroot']);
 		else
 		if(isset($_GET['article'])){
-			show_article($content,$config['dataroot']);
+			show_article($content);
 		}
 		else{
 			show_recent($config['dataroot']);

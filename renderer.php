@@ -1,37 +1,48 @@
 <?php
+/*Show category menu
+ * Reads $dataroot and show directories as categories,
+ * formatted as unordered list.
+ * Returns the currently selected category name (case sensitive)
+ */
 function show_menu($dataroot){
+	//category to be returned
 	$cat = "";
-	echo '<ul class="navi" id="categories">';
+
+	//reads files and dirs in $dataroot
 	$menu_items = glob("$dataroot*");
 
+	//generating list of categories
+	echo '<ul class="navi" id="categories">';
 	foreach($menu_items as $items ){
-		$itemarray = explode("/",$items);
-		$item_name = array_pop($itemarray);
-		$link = "/category/" . $item_name;
 		if(is_dir($items)){
-			echo '<li>';
-			echo '<a href="' . $link . '"';
+			//take required data of each categories
+			$itemarray = explode("/",$items);
+			$item_name = array_pop($itemarray);
+			$link = "/category/" . $item_name;
+
+			//render each category link
+			echo '<li> <a href="' . $link . '"';
+			//determine if category was set and give appropriate class
 			if($item_name == $_GET['category']) {
 				echo 'class="active"';
 				$cat = $item_name;
 			}
 			if(isset($_GET['article'])){
 				$path = get_article_path($_GET['article'],$dataroot);
-				if(strpos($path[0],$item_name) !== false){
+				if(strpos($path,$item_name) !== false){
 					echo 'class="active"';
 					$cat = $item_name;
 				}
 			}
-			echo '>' ;
-			echo $item_name;
-			echo '</a>';
-			echo "</li>";
+			echo '>' . $item_name . '</a> </li>';
 		}
 	}
 	echo "</ul>";
 	return $cat;
 }
 
+/*takes date in format YYYYMMDD and spits out date text string
+ */
 function format_date($date){
 	$year = substr($date,0,4);
 	$month = substr($date,4,2);
@@ -52,6 +63,11 @@ function format_date($date){
 	return $day . " " . $month . " " . $year;
 }
 
+/*takes array of file path string and spits out html of
+ * the article list
+ *
+ * Currently fixed to sort by date (newest first)
+ */
 function show_itemlist($all_files){
 
 	if($all_files == []){
@@ -60,21 +76,27 @@ function show_itemlist($all_files){
 	}
 
 	$urlname_list = [];
+
+	//open files and obtain metadata of each files
 	foreach($all_files as $files ){
 		$hfile = fopen($files, 'r');
 
+		//take data and append to list
 		$date = fgets($hfile);
 		$title = fgets($hfile);
 		$path = explode('/',$files);
 		$urlname = array_pop($path);
 		$cat = array_pop($path);
+		//use date as key to enable simple sorting below
 		$urlname_list += array($date => [$title,$urlname,$cat]);
 
 		fclose($hfile);
 	}
 
+	//sort list according to date (used as key)
 	krsort($urlname_list);
 
+	//print data to html
 	foreach($urlname_list as $date => $details){
 		$link = '/article/' . $details[1];
 		$linkcat = '/category/' . $details[2];
@@ -89,6 +111,7 @@ function show_itemlist($all_files){
 	}
 }
 
+//Print recent articles
 function show_recent($dataroot){
 	echo '<h2> Artikel Terbaru </h2>';
 	$all_files = glob("$dataroot*/*");
@@ -97,6 +120,7 @@ function show_recent($dataroot){
 	echo "</p>";
 }
 
+//Print recent articles in a category
 function show_category($cat,$dataroot){
 	echo "<h2> $cat </h2>";
 	$all_files = glob("$dataroot$cat/*");
@@ -105,6 +129,9 @@ function show_category($cat,$dataroot){
 	echo "</p>";
 }
 
+/*Obtain article path from article url-name
+ * $article = url-name to find
+ */
 function get_article_path($article,$dataroot){
 	$filepath = glob("$dataroot$article");
 	if($filepath == [])
@@ -112,6 +139,12 @@ function get_article_path($article,$dataroot){
 	return $filepath[0];
 }
 
+/*Obtain article data for a given article filepath
+ * Returns array of data for an article with the following keys:
+ * date: YYYYMMDD
+ * title: article title string
+ * body: article text body
+ */
 function get_article_data($filepath){
 	$hfile = fopen($filepath,'r');
 
@@ -139,6 +172,13 @@ function get_article_data($filepath){
 	return $content;
 }
 
+/* Function as front end for get_article_data() 
+ *
+ * Uses get_article_path to extract file path of the actual article file
+ * and then passes the filepath to get_article_data.
+ *
+ * Returns the article content array
+ */
 function get_article_content($article,$dataroot){
 	$filepath = get_article_path($article,$dataroot);
 	if($filepath == ""){
@@ -149,6 +189,10 @@ function get_article_content($article,$dataroot){
 	return get_article_data($filepath);
 }
 
+/* Use regex to parse and convert markdown syntaxes to html
+ *
+ * Not complete as markdown parser, only subset
+ */
 function render_to_html($string){
 	//links
 	$string = preg_replace('/(?<=[^!])\[(.*?)\]\((.*?)\)/','<a href="$2">$1</a>',$string);
@@ -182,12 +226,11 @@ function render_to_html($string){
 
 
 /*
- * Shows the content of an article whose urlname is provided with $urlname
- * and the category is $category
  * Spits out the html content of the article with the article title under <h2>
+ *
+ * Parameter is article content array extracted from file
  */
 function show_article($content){
-
 	if($content === false){
 		echo "Ups, artikel itu sepertinya tidak ada atau belum dibuat.";
 		return;

@@ -90,6 +90,7 @@ case 'article':
 case 'fixed': 
 	$content = get_article_content($request_article ,$config['dataroot']);
 	$comp_main .= print_article_body($content);
+	break;
 case 'preview': 
 	$content = get_article_data($request_path);
 	if ($content == []){

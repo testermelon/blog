@@ -170,14 +170,16 @@ function print_category($cat,$dataroot){
 }
 
 function print_article_nav_away($content){
-	$catlink = 'https://testermelon.com/category/' . $content['cat'];
+	$catlink = '/category/'. $content['cat'];
 	$html = "";
-	$html .= '<div id="nav-away">';
-	$html .= 'Kembali ke kategori '; 
-	$html .= '<a href="'. $catlink . '">' . $content['cat'] . '</a>';
+	$html .= '<div id="nav-away"> ';
+	$html .= "Kembali ke:";
+	$html .= "<br>";
+	$html .= '<a href="'. $catlink . '">' ;
+	$html .= '&#171 Kategori ' . $content['cat'] ;
+	$html .= '</a>';
 	$html .= '<br>'; 
-	$html .= 'Kembali ke '; 
-	$html .= '<a href="https://testermelon.com"> Halaman Depan  </a>';
+	$html .= '<a href="/"> &#171 Halaman Depan  </a>';
 	$html .= '</div>';
 
 	return $html;

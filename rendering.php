@@ -68,27 +68,28 @@ else{
  * ******************************************************************
  */
 
-//category menu content
-$comp_category_menu = print_cat_menu($request_cat, $config['dataroot']);
-
 $comp_main = "";
 switch ($layout){
 case 'home': 
 	$content['title'] =  "testermelon - Home";
+	$comp_category_menu = print_cat_menu($request_cat, $config['dataroot']);
 	$comp_main .= print_recent($config['dataroot']);
 	break;
 case 'category': 
 	$content['title'] = "testermelon - ". $request_cat;
+	$comp_category_menu = print_cat_menu($request_cat, $config['dataroot']);
 	$comp_main .= print_category($request_cat,$config['dataroot']);
 	break;
 case 'article': 
 	$content = get_article_content($request_article,$config['dataroot']);
+	$comp_category_menu = print_cat_menu($content['cat'], $config['dataroot']);
 	$comp_main .= print_article_header($content);
 	$comp_main .= print_article_body($content);
 	$comp_main .= print_article_nav_away($content);
 	break;
 case 'fixed': 
 	$content = get_article_content($request_article ,$config['dataroot']);
+	$comp_category_menu = print_cat_menu($request_cat, $config['dataroot']);
 	$comp_main .= print_article_body($content);
 	break;
 case 'preview': 

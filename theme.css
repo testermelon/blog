@@ -30,12 +30,15 @@ h1 a{
 	text-decoration:none;
 }
 
-ul.navi {
+.navi {
 	margin:auto;
 	list-style-type:none;
 	padding:0;
-background-color:#333333
+	background-color:#333333;
+	width:100%;
 }
+
+
 
 .navi li{
 	margin:0;
@@ -48,13 +51,13 @@ background-color:#333333
 	color:white;
 }
 
-.navi a:hover{
+.navi li:hover {
 	color:white;
 	background-color:#444444;
 
 }
 
-.navi a.active{
+.navi li.active a{
 	color:black;
 	background-color:salmon;
 }
@@ -65,7 +68,7 @@ a{
 }
 
 a:hover{
-	color:brown;
+	color:white;
 }
 
 h2{
@@ -108,3 +111,42 @@ h3{
 	margin-top:0.5em;
 }
 
+#menu-toggle,label{
+	display:none;
+
+}
+
+@media screen and (max-width:500px){
+
+	#categories{
+		display:none;
+		position:absolute;
+		width:calc(100% - 20px);
+	}
+
+	label{
+		display:block;
+	}
+	label:hover{
+		cursor:pointer;
+	}
+
+	#menu-toggle:checked + label{
+		display:block;
+	}
+
+	#menu-toggle:checked ~ #categories{
+		display:block;
+	}
+
+	.navi li{
+		display:block;
+	}
+
+	.navi li a{
+		display:inline-block;
+		padding:0;
+		padding-left:10px;
+		width:calc(100% - 10px);
+	}
+}

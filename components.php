@@ -61,7 +61,10 @@ function print_article_header($content){
  * Return the html of the list
  */
 function print_cat_menu($request_cat, $dataroot){
-	$html = '<ul class="navi" id="categories">';
+	$html = "";
+	$html .= '<label class="navi" for="menu-toggle"> <li> <a> &#11206; Kategori: ' . $request_cat . '</a></li> </label>';
+	$html .= '<input id="menu-toggle" type="checkbox"> </input>';
+	$html .= '<ul class="navi" id="categories">';
 
 	//reads files and dirs in $dataroot
 	$menu_items = glob("$dataroot*");
@@ -75,11 +78,14 @@ function print_cat_menu($request_cat, $dataroot){
 			$link = "/category/" . $item_name;
 
 			//render each category link
-			$html .= '<li> <a href="' . $link . '"';
+			$html .= '<li ';
 			//determine if category was set and give appropriate class
 			if($item_name == $request_cat) {
 				$html .= 'class="active"';
-			}/*
+			}
+			$html .= '>';
+			$html .= '<a href="' . $link . '"';
+			/*
 			if(isset($_GET['article'])){
 				$path = get_article_path($_GET['article'],$dataroot);
 				if(strpos($path,$item_name) !== false){

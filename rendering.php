@@ -45,8 +45,7 @@ if(isset($_GET['category'])){
 	$layout = "category";
 	$request_cat = $_GET['category'];
 }
-else
-if(isset($_GET['article'])){
+else if(isset($_GET['article'])){
 	if( $_GET['article'] == 'about' || $_GET['article'] == 'links'){
 		$layout = 'fixed';
 	}
@@ -54,6 +53,10 @@ if(isset($_GET['article'])){
 		$layout = "article";
 	}
 	$request_article = $_GET['article'];
+}
+else if(isset($_GET['preview'])){
+	$layout = "preview";
+	$request_path = $_GET['preview'];
 }
 else{
 	$layout = "home";
@@ -64,12 +67,6 @@ else{
  *
  * ******************************************************************
  */
-
-//load image for social media if set. If not load default thumbnail image
-if (!isset($content['thumbnail']))
-	$content['thumbnail'] = 'http://testermelon.com/img/testermelon-banner.png';
-
-//rendering components into layouts
 
 //category menu content
 $comp_category_menu = print_cat_menu($request_cat, $config['dataroot']);
@@ -93,6 +90,15 @@ case 'article':
 case 'fixed': 
 	$content = get_article_content($request_article ,$config['dataroot']);
 	$comp_main .= print_article_body($content);
+case 'preview': 
+	$content = get_article_data($request_path);
+	if ($content == []){
+		$comp_main .= "File tidak ditemukan atau tidak bisa dibuka.";
+		break;
+	}
+	$comp_main .= print_article_header($content);
+	$comp_main .= print_article_body($content);
+	break;
 }
 
 ?>

@@ -43,9 +43,11 @@ function get_article_path($article,$dataroot){
  * body: article text body
  */
 function get_article_data($filepath){
-	$hfile = fopen($filepath,'r');
-
 	$content = [];
+
+	$hfile = fopen($filepath,'r');
+	if(!$hfile)
+		return $content;
 
 	$content['date']  = fgets($hfile);
 	$content['title'] = fgets($hfile);
@@ -90,11 +92,16 @@ function get_article_content($article,$dataroot){
 
 	//getting data that is not inside the file
 	//but inferred from context
+	
 	$content['urlname'] = $article;
 
 	$path_nodes = explode('/',$filepath);
 	array_pop($path_nodes);
 	$content['cat'] = array_pop($path_nodes);
+
+	//load image for social media if set. If not load default thumbnail image
+	if ($content['thumbnail']=="")
+		$content['thumbnail'] = 'http://testermelon.com/img/testermelon-banner.png';
 
 	return $content;
 }

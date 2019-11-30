@@ -62,7 +62,9 @@ function print_article_header($content){
  */
 function print_cat_menu($request_cat, $dataroot){
 	$html = "";
-	$html .= '<label class="navi" for="menu-toggle"> <li> <a> &#11206; Kategori: ' . $request_cat . '</a></li> </label>';
+	$html .= '<label class="navi" for="menu-toggle">'; 
+	$html .= '<li> <a>&#9776 Kategori: ' . $request_cat . '</a></li> ';
+	$html .= '</label>';
 	$html .= '<input id="menu-toggle" type="checkbox"> </input>';
 	$html .= '<ul class="navi" id="categories">';
 

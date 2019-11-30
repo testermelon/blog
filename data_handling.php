@@ -87,7 +87,14 @@ function get_article_content($article,$dataroot){
 	}
 
 	$content = get_article_data($filepath);
+
+	//getting data that is not inside the file
+	//but inferred from context
 	$content['urlname'] = $article;
+
+	$path_nodes = explode('/',$filepath);
+	array_pop($path_nodes);
+	$content['cat'] = array_pop($path_nodes);
 
 	return $content;
 }

@@ -1,66 +1,98 @@
 <?php
-/*
- * This file renders html according to data and layouts
+/* This file renders html according to data and layouts
  *
+ * 	Load Libraries
+ * 		|
+ * 	Process http request 
+ * 		|
+ * 	Obtain data & prints html 
+ * 	according to layout 
+ *
+ */
+
+/* **********************
+ * Load these libraries
+ *
+ ************************
  */
 
 include(dirname(__FILE__) . '/data_handling.php');
 include(dirname(__FILE__) . '/components.php');
 
-//Loading Config file, if not exist load defaults
+//Loading Config file, if not exist load defaults [
+//
+//and create the config file TODO
+
 if(file_exists('config.php'))
 	$config = include('config.php');
 else
 	$config = include('defaults.php');
 
-//Set CSS path
+//Set CSS path according to servername
 //using '//' to force the link as absolute reference to file
 $css_path =  '//' . $_SERVER['SERVER_NAME'] . $config['csspath']; 
 
-//load image for social media if set. If not load default thumbnail image
-if (isset($content['thumbnail']))
-	$page_thumbnail = $content['thumbnail'];
-else 
-	$page_thumbnail = 'http://testermelon.com/img/testermelon-banner.png';
+/* *****************************************************************
+ * Determine type of content and layout to use based on http request.
+ *
+ * Perform checks as necessary (TODO).
+ *
+ * After this section there should be no reference to http request.
+ *******************************************************************
+ */
 
-//Determine type of content and layout to use based on http request
 if(isset($_GET['category'])){
-	$page_title = "testermelon - ". $_GET['category'];
 	$layout = "category";
+	$request_cat = $_GET['category'];
 }
 else
 if(isset($_GET['article'])){
-	$content = get_article_content($_GET['article'],$config['dataroot']);
-	$page_title = $content['title'];
-	if( $_GET['article'] == 'about' || $_GET['article'] == 'links')
+	if( $_GET['article'] == 'about' || $_GET['article'] == 'links'){
 		$layout = 'fixed';
-	else
+	}
+	else{
 		$layout = "article";
+	}
+	$request_article = $_GET['article'];
 }
 else{
-	$page_title =  "testermelon - Home";
 	$layout = "home";
 }
 
-//rendering components into layouts:
+/* ******************************************************************
+ * Obtain data and prints html according to set layout
+ *
+ * ******************************************************************
+ */
+
+//load image for social media if set. If not load default thumbnail image
+if (!isset($content['thumbnail']))
+	$content['thumbnail'] = 'http://testermelon.com/img/testermelon-banner.png';
+
+//rendering components into layouts
 
 //category menu content
-$comp_category_menu = print_categories($config['dataroot']);
+$comp_category_menu = print_cat_menu($request_cat, $config['dataroot']);
 
 $comp_main = "";
 switch ($layout){
 case 'home': 
+	$content['title'] =  "testermelon - Home";
 	$comp_main .= print_recent($config['dataroot']);
 	break;
 case 'category': 
-	$comp_main .= print_category($_GET['category'],$config['dataroot']);
+	$content['title'] = "testermelon - ". $request_cat;
+	$comp_main .= print_category($request_cat,$config['dataroot']);
 	break;
 case 'article': 
+	$content = get_article_content($request_article,$config['dataroot']);
 	$comp_main .= print_article_header($content);
 	$comp_main .= print_article_body($content);
+	$comp_main .= print_article_nav_away($content);
 	break;
 case 'fixed': 
+	$content = get_article_content($request_article ,$config['dataroot']);
 	$comp_main .= print_article_body($content);
 }
-?>
 
+?>

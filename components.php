@@ -15,6 +15,7 @@ function print_article_body($content){
 
 	//convert to html
 	$html .= render_to_html($content['body']);
+	$html .= "<hr>";
 	return $html;
 }
 
@@ -59,7 +60,7 @@ function print_article_header($content){
  *
  * Return the html of the list
  */
-function print_categories($dataroot){
+function print_cat_menu($request_cat, $dataroot){
 	$html = '<ul class="navi" id="categories">';
 
 	//reads files and dirs in $dataroot
@@ -76,15 +77,15 @@ function print_categories($dataroot){
 			//render each category link
 			$html .= '<li> <a href="' . $link . '"';
 			//determine if category was set and give appropriate class
-			if($item_name == $_GET['category']) {
+			if($item_name == $request_cat) {
 				$html .= 'class="active"';
-			}
+			}/*
 			if(isset($_GET['article'])){
 				$path = get_article_path($_GET['article'],$dataroot);
 				if(strpos($path,$item_name) !== false){
 					$html .= 'class="active"';
 				}
-			}
+			}*/
 			$html .= '>' . $item_name . '</a> </li>';
 		}
 	}
@@ -102,7 +103,7 @@ function print_itemlist($all_files){
 
 	if($all_files == []){
 		$html .= "<p> Masih Kosong </p>";
-		return;
+		return $html;
 	}
 
 	$urlname_list = [];
@@ -168,4 +169,17 @@ function print_category($cat,$dataroot){
 	return $html;
 }
 
+function print_article_nav_away($content){
+	$catlink = 'https://testermelon.com/category/' . $content['cat'];
+	$html = "";
+	$html .= '<div id="nav-away">';
+	$html .= 'Kembali ke kategori '; 
+	$html .= '<a href="'. $catlink . '">' . $content['cat'] . '</a>';
+	$html .= '<br>'; 
+	$html .= 'Kembali ke '; 
+	$html .= '<a href="https://testermelon.com"> Halaman Depan  </a>';
+	$html .= '</div>';
+
+	return $html;
+}
 ?>

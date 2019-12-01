@@ -63,7 +63,12 @@ function print_article_header($content){
 function print_cat_menu($request_cat, $dataroot){
 	$html = "";
 	$html .= '<label class="navi" for="menu-toggle">'; 
-	$html .= '<li> <a>&#9776 Kategori: ' . $request_cat . '</a></li> ';
+	$html .= '<li> <a>&#9776 ';
+	if($request_cat == "")
+		$html .= 'Pilih kategori ';
+	else
+		$html .= $request_cat;
+	$html .= '</a></li> ';
 	$html .= '</label>';
 	$html .= '<input id="menu-toggle" type="checkbox"> </input>';
 	$html .= '<ul class="navi" id="categories">';
@@ -169,7 +174,7 @@ function print_category($cat,$dataroot){
 	$html = "";
 	$all_files = glob("$dataroot$cat/*");
 
-	$html .= "<h2> $cat </h2>";
+	$html .= "<h2> Kategori: $cat </h2>";
 	$html .= "<p>";
 	$html .= print_itemlist($all_files);
 	$html .= "</p>";

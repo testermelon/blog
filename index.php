@@ -26,7 +26,7 @@ include "rendering.php";
 
 	<footer>
 		<ul class="navi">
-			<li><a href="/article/about" >About Me</a></li>
+			<li><a href="/article/about" >Tentang</a></li>
 		</ul>
 	</footer>
 

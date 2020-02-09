@@ -7,10 +7,6 @@
   RewriteRule index.php - [QSA,L,C]
   RewriteRule .* - [QSA,L]
 
-  # deny access php files
-  RewriteCond %{REQUEST_URI} ^.*\.php$
-  RewriteRule ^.*\.php$ - [R=404,L]
-
   # deny access to content
   RewriteCond %{REQUEST_URI} ^content/*$
   RewriteRule ^content/*$ - [R=404,L]

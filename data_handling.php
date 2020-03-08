@@ -112,7 +112,7 @@ function get_article_content($article,$dataroot){
  */
 function render_to_html($string){
 	//links
-	$string = preg_replace('/(?<=[^!])\[(.*?)\]\((.*?)\)/','<a href="$2">$1</a>',$string);
+	$string = preg_replace('/(?<=[^!])\[(.*?)\]\((.*?)\)/','<a href="$2" target="_blank">$1</a>',$string);
 	
 	//images
 	$string = preg_replace('/!\[(.*?)\]\((.*?)\)/','<img src="$2" alt="$1" />',$string);

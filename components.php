@@ -178,7 +178,7 @@ function print_category($cat,$dataroot){
 	$html = "";
 	$all_files = glob("$dataroot$cat/*");
 
-	$html .= "<h2> Kategori: $cat </h2>";
+	$html .= "<h2> Kategori: " . substr($cat, 2) . " </h2>";
 	$html .= "<p>";
 	$html .= print_itemlist($all_files);
 	$html .= "</p>";

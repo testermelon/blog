@@ -46,7 +46,7 @@ if(isset($_GET['category'])){
 	$request_cat = $_GET['category'];
 	if($request_cat == "")
 		//redirect to home
-		header('Location : ' . $_SERVER['SERVER NAME'] );
+		header('Location : ');
 }
 else if(isset($_GET['article'])){
 	if( $_GET['article'] == 'about' || $_GET['article'] == 'links'){
@@ -58,7 +58,7 @@ else if(isset($_GET['article'])){
 	$request_article = $_GET['article'];
 	if($request_article == "")
 		//redirect to home
-		header('Location : ' . $_SERVER['SERVER NAME'] );
+		header('Location : ' );
 }
 else if(isset($_GET['preview'])){
 	$layout = "preview";

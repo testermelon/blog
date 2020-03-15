@@ -56,9 +56,13 @@ function print_article_header($content){
 /*Show category menu
  * Reads $dataroot and show directories as categories,
  * formatted as unordered list.
- * Sorted alphabetically (case sensitive)
  *
- * Return the html of the list
+ * Sorted alphabetically (case sensitive)
+ * The first two character of directory name 
+ * will be discarded when printing, 
+ * use this to order the categories in the list
+ *
+ * Returns the html of the list
  */
 function print_cat_menu($request_cat, $dataroot){
 	$html = "";
@@ -99,7 +103,7 @@ function print_cat_menu($request_cat, $dataroot){
 					$html .= 'class="active"';
 				}
 			}*/
-			$html .= '>' . $item_name . '</a> </li>';
+			$html .= '>' . substr($item_name, 2) . '</a> </li>';
 		}
 	}
 	$html .= "</ul>";
@@ -149,7 +153,7 @@ function print_itemlist($all_files){
 		$html .= "<br>";
 		$html .= "<small>";
 		$html .= format_date($date) . ', dalam ';
-		$html .= '<a href="' . $linkcat . '">' . $details[2] . '</a>';
+		$html .= '<a href="' . $linkcat . '">' . substr($details[2], 2) . '</a>';
 		$html .= "</small>";
 		$html .= "<br> <br>";
 	}

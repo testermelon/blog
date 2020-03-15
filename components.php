@@ -193,7 +193,7 @@ function print_article_nav_away($content){
 	$html .= "Kembali ke:";
 	$html .= "<br>";
 	$html .= '<a href="'. $catlink . '">' ;
-	$html .= '&#171 Kategori ' . $content['cat'] ;
+	$html .= '&#171 Kategori ' . substr($content['cat'], 2) ;
 	$html .= '</a>';
 	$html .= '<br>'; 
 	$html .= '<a href="/"> &#171 Halaman Depan  </a>';

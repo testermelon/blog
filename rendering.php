@@ -42,23 +42,23 @@ $css_path =  '//' . $_SERVER['SERVER_NAME'] . $config['csspath'];
  */
 
 if(isset($_GET['category'])){
-	$layout = "category";
 	$request_cat = $_GET['category'];
 	if($request_cat == "")
 		//redirect to home
-		header('Location : ');
+		$layout = "home";
+	$layout = "category";
 }
 else if(isset($_GET['article'])){
+	$request_article = $_GET['article'];
+	if($request_article == "")
+		//redirect to home
+		$layout = "home";
 	if( $_GET['article'] == 'about' || $_GET['article'] == 'links'){
 		$layout = 'fixed';
 	}
 	else{
 		$layout = "article";
 	}
-	$request_article = $_GET['article'];
-	if($request_article == "")
-		//redirect to home
-		header('Location : ' );
 }
 else if(isset($_GET['preview'])){
 	$layout = "preview";

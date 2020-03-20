@@ -16,7 +16,14 @@ include "rendering.php";
 
 <body>
 	<header>
-		<h1> <a href="/"> <img src="/img/top-logo.png" alt="~testermelon" /> </a> </h1>
+		<h1> 
+			<a href="/"> 
+			<!-- 
+			<img src="/img/top-logo.png" alt="~testermelon" /> 
+			-->
+			∿ testermelon
+			</a> 
+		</h1>
 		<?php echo $comp_category_menu ?>
 	</header>
 

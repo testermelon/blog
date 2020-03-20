@@ -71,7 +71,7 @@ function print_cat_menu($request_cat, $dataroot){
 	if($request_cat == "")
 		$html .= 'Pilih kategori ';
 	else
-		$html .= $request_cat;
+		$html .= substr($request_cat,2);
 	$html .= '</a></li> ';
 	$html .= '</label>';
 	$html .= '<input id="menu-toggle" type="checkbox"> </input>';

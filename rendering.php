@@ -82,7 +82,7 @@ case 'home':
 	$comp_main .= print_recent($config['dataroot']);
 	break;
 case 'category': 
-	$content['title'] = "testermelon - ". $request_cat;
+	$content['title'] = "testermelon - ". substr($request_cat,2);
 	$comp_category_menu = print_cat_menu($request_cat, $config['dataroot']);
 	$comp_main .= print_category($request_cat,$config['dataroot']);
 	break;

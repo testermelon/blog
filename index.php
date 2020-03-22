@@ -33,7 +33,7 @@ include "rendering.php";
 
 	<footer>
 		<ul class="navi">
-			<li><a href="/article/about" >Tentang testermelon</a></li>
+			<li><a href="/article/about" >tentang testermelon</a></li>
 		</ul>
 	</footer>
 

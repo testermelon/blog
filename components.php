@@ -3,13 +3,17 @@
 //--------------------------------------------
 //Components, functions to return html content
 //All starts with print_*
+//
+//TODO All functions' input must be $content or none
+//
+//TODO clear all logic/error handling out
 //--------------------------------------------
 
 
-function print_article_body($content){
+function print_article_body(&$content){
 	$html ="";
 	if($content === false){
-		$html .= "Kosong";
+		$html .= "<br> Kosong <br>";
 		return $html;
 	}
 
@@ -20,11 +24,11 @@ function print_article_body($content){
 }
 
 
-function print_share_buttons($urlname){
+function print_share_buttons(&$content) {
 	$html ="";
 	$fb_link = "https://www.facebook.com/sharer/sharer.php?u=";
 	$tw_link = "https://twitter.com/intent/tweet?url=";
-	$sharelink = "https://testermelon.com/article/" . $urlname;
+	$sharelink = "https://testermelon.com/article/" . $content['urlname'];
 
 	$html .= '<div id="social-links">';
 	$html .= "Bagikan ke: ";
@@ -35,27 +39,33 @@ function print_share_buttons($urlname){
 	return $html;
 }
 
-function print_article_header($content){
-	$html ="";
-	if($content === false){
-		$html .= "Ups, artikel itu sepertinya tidak ada atau belum dibuat.";
-		return $html;
-	}
 
-	$html .= "<h2>" ;
-	$html .= $content['title'];
-	$html .= '<br>';
-	$html .= "</h2>";
+function print_404_article() {
+	$html = "<h2> Ups! Artikel Tidak Ditemukan </h2>";
+	$html .= "<p> Bisa jadi ada salah ketik di URL, 
+		atau mungkin artikel itu sudah dihapus,
+		atau belum dibuat. </p>";
+	return $html;
+}
+	
+function print_article_header(&$content){
+	$html = "<h2>" . $content['title'] . "</h2>";
 	$html .= "<small> ". format_date($content['date']) . " </small>" ;
 	$html .= "<br>";
-	$html .= print_share_buttons($content['urlname']);
+	$html .= print_share_buttons($content);
 	$html .= "<hr>";
+	$html .= "<br>";
+
 	return $html;
 }
 
 /*Show category menu
  * Reads $dataroot and show directories as categories,
  * formatted as unordered list.
+ *
+ * TODO This function has inappropriate abstraction level
+ * Generation of category list should be done in data handling level
+ * THis function should only deal with generation of html building blocks
  *
  * Sorted alphabetically (case sensitive)
  * The first two character of directory name 
@@ -64,64 +74,57 @@ function print_article_header($content){
  *
  * Returns the html of the list
  */
-function print_cat_menu($request_cat, $dataroot){
-	$html = "";
-	$html .= '<label class="navi" for="menu-toggle">'; 
-	$html .= '<li> <a>&#9776 ';
-	if($request_cat == "")
-		$html .= 'Pilih kategori ';
-	else
-		$html .= substr($request_cat,2);
-	$html .= '</a></li> ';
-	$html .= '</label>';
-	$html .= '<input id="menu-toggle" type="checkbox"> </input>';
-	$html .= '<ul class="navi" id="categories">';
-
-	//reads files and dirs in $dataroot
-	$menu_items = glob("$dataroot*");
-
-	//generating list of categories
-	foreach($menu_items as $items ){
-		if(is_dir($items)){
-			//take required data of each categories
-			$itemarray = explode("/",$items);
-			$item_name = array_pop($itemarray);
-			$link = "/category/" . $item_name;
-
-			//render each category link
-			$html .= '<li ';
-			//determine if category was set and give appropriate class
-			if($item_name == $request_cat) {
-				$html .= 'class="active"';
-			}
-			$html .= '>';
-			$html .= '<a href="' . $link . '"';
-			/*
-			if(isset($_GET['article'])){
-				$path = get_article_path($_GET['article'],$dataroot);
-				if(strpos($path,$item_name) !== false){
-					$html .= 'class="active"';
-				}
-			}*/
-			$html .= '>' . substr($item_name, 2) . '</a> </li>';
+function print_cat_menu_li(&$content) {
+	foreach($content['categories']['names'] as $name ){
+		$html .= '<li ';
+		//determine if category was set and give appropriate class
+		if($name == $content['categories']['active']) {
+			$html .= 'class="active"';
 		}
+		$html .= '>';
+		$html .= '<a href="/category/' . $name . '">' . substr($name, 2) . '</a>';
+		$html .= '</li>';
 	}
-	$html .= "</ul>";
 	return $html;
 }
 
-/*takes array of file path string and spits out html of
- * the article list
- *
- * Currently fixed to sort by date (newest first)
- */
-function print_itemlist($all_files){
-	$html ="";
+function print_cat_menu(&$content){
+	$html = "";
+	$html .= '<label class="navi" for="menu-toggle">'; 
+	$html .= '<li>';
+	$html .= '<a>&#9776 '. substr($content['categories']['active'],2) . '</a>';
+	$html .= '</li>';
+	$html .= '</label>';
 
-	if($all_files == []){
-		$html .= "<p> Masih Kosong </p>";
-		return $html;
-	}
+	$html .= '<input id="menu-toggle" type="checkbox" style="display:none"> </input>';
+
+	$html .= '<ul class="navi" id="categories">';
+	$html .= print_cat_menu_li($content);
+	$html .= "</ul>";
+
+	return $html;
+}
+
+function print_article_nav_away($content){
+	$catlink = '/category/'. $content['cat'];
+	$html = "";
+	$html .= '<div id="nav-away"> ';
+	$html .= "Kembali ke:";
+	$html .= "<br>";
+	$html .= '<a href="'. $catlink . '">' ;
+	$html .= '&#171 Kategori ' . substr($content['cat'], 2) ;
+	$html .= '</a>';
+	$html .= '<br>'; 
+	$html .= '<a href="/"> &#171 Halaman Depan  </a>';
+	$html .= '</div>';
+
+	return $html;
+}
+
+//to be fed into $content['urlname-list'] = 
+function get_urlname_list($dataroot, $glob_string ) {
+
+	$all_files = glob("$dataroot$glob_string");
 
 	$urlname_list = [];
 
@@ -144,8 +147,26 @@ function print_itemlist($all_files){
 	//sort list according to date (used as key)
 	krsort($urlname_list);
 
+	return $urlname_list;
+}
+
+/*takes array of file path string and spits out html of
+ * the article list
+ *
+ * TODO This function has inappropriate abstraction level
+ *
+ * Currently fixed to sort by date (newest first)
+ */
+function print_urlname_list($content){
+	$html ="";
+
+	if($content['urlname-list'] == []){
+		$html .= "<p> Masih Kosong </p>";
+		return $html;
+	}
+
 	//print data to html
-	foreach($urlname_list as $date => $details){
+	foreach($content['urlname-list'] as $date => $details){
 		$link = '/article/' . $details[1];
 		$linkcat = '/category/' . $details[2];
 
@@ -167,7 +188,7 @@ function print_recent($dataroot){
 
 	$html .= '<h2> Artikel Terbaru </h2>';
 	$html .= "<p>";
-	$html .= print_itemlist($all_files);
+	$html .= print_urlname_list($content);
 	$html .= "</p>";
 
 	return $html;
@@ -180,25 +201,10 @@ function print_category($cat,$dataroot){
 
 	$html .= "<h2> Kategori: " . substr($cat, 2) . " </h2>";
 	$html .= "<p>";
-	$html .= print_itemlist($all_files);
+	$html .= print_urlname_list($content);
 	$html .= "</p>";
 
 	return $html;
 }
 
-function print_article_nav_away($content){
-	$catlink = '/category/'. $content['cat'];
-	$html = "";
-	$html .= '<div id="nav-away"> ';
-	$html .= "Kembali ke:";
-	$html .= "<br>";
-	$html .= '<a href="'. $catlink . '">' ;
-	$html .= '&#171 Kategori ' . substr($content['cat'], 2) ;
-	$html .= '</a>';
-	$html .= '<br>'; 
-	$html .= '<a href="/"> &#171 Halaman Depan  </a>';
-	$html .= '</div>';
-
-	return $html;
-}
 ?>

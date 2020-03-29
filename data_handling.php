@@ -26,6 +26,32 @@ function format_date($date){
 	return $day . " " . $month . " " . $year;
 }
 
+
+//to be fed to $content['categories'] =
+//
+//input: $menu_items (raw glob reading)
+//output: $cat_data['names'] (just the names), $cat_data['active'] (currently active category)
+//
+function get_categories($request_cat, $dataroot) {
+
+	$cat_data['names'] = [];
+	$cat_data['active'] = $request_cat;
+
+	//reads files and dirs in $dataroot
+	$menu_items = glob("$dataroot*");
+
+	//generating list of categories
+	foreach($menu_items as $items ){
+		if(is_dir($items)){
+			//take required data of each categories
+			$itemarray = explode("/",$items);
+			$name = array_pop($itemarray);
+			array_push($cat_data['names'],$name);
+		}
+	}
+	return $cat_data;
+}
+
 /*Obtain article path from article url-name
  * $article = url-name to find
  */

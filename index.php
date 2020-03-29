@@ -4,38 +4,32 @@ include "rendering.php";
 
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<base href="<?php echo $config['base']; ?>" >
-	<link rel="stylesheet" type="text/css" href="<?php echo $css_path; ?>">
+	<base href="<?php echo $htmlcontent['conf-base']; ?>" >
+	<link rel="stylesheet" type="text/css" href="<?php echo $htmlcontent['active-css']; ?>">
 	<link type="image/x-icon" rel="icon" href="favicon-blog.ico" >
-	<title> <?php echo $content['title']; ?> </title>
-	<meta property="og:image" content="<?php echo $content['thumbnail']; ?>" >
+	<title> <?php echo $htmlcontent['title']; ?> </title>
+	<meta property="og:image" content="<?php echo $htmlcontent['thumbnail']; ?>" >
 	<meta property="og:type" content="article" >
 </head>
 
 <body>
-	<header>
-		<h1> 
-			<a href="/"> 
-			<!-- 
-			<img src="/img/top-logo.png" alt="~testermelon" /> 
-			-->
-			∿ testermelon
-			</a> 
-		</h1>
-		<?php echo $comp_category_menu ?>
-	</header>
+<header>
+	<h1> <a href="/"> ∿ testermelon </a> </h1>
+	<?php echo $htmlcontent['category-menu'] ?>
+</header>
 
-	<div class="main">
-		<?php echo $comp_main; ?>
-	</div>
+<div class="main">
+	<?php echo $htmlcontent['main']; ?>
+</div> <!-- div main --> 
 
-	<footer>
-		<ul class="navi">
-			<li><a href="/article/about" >tentang testermelon</a></li>
-		</ul>
-	</footer>
+<footer>
+	<ul class="navi">
+	<li> <a href="/article/about" >tentang testermelon</a> </li>
+	</ul> <!-- navi -->
+</footer>
 
 </body>
 </html>

@@ -14,7 +14,7 @@ header{
 
 footer{
 	margin-top:1em;
-	background-color:#143030;
+	background-color:#0F2424;
 	border-top: 1px gray solid;
 	min-height: 20vh;
 }
@@ -78,7 +78,7 @@ h3{
 
 .navi li:hover {
 	color:white;
-	background-color:#444444;
+	background-color:#286060;
 
 }
 
@@ -135,6 +135,8 @@ a:hover{
 		position:absolute;
 		width:100%;
 		border-left:1px darkgray solid;
+		border-right:1px darkgray solid;
+		border-bottom:1px darkgray solid;
 	}
 
 	label{
@@ -156,7 +158,7 @@ a:hover{
 	.navi li{
 		display:block;
 		padding:0;
-		background-color:#143030;
+		background-color:#0F2424;
 		width:100%;
 	}
 

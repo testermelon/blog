@@ -92,7 +92,7 @@ function print_cat_menu(&$content){
 	$html = "";
 	$html .= '<label class="navi" for="menu-toggle">'; 
 	$html .= '<li>';
-	$html .= '<a>&#9776 '. substr($content['categories']['active'],2) . '</a>';
+	$html .= '<a>&#9776 Kategori: '. substr($content['categories']['active'],2) . '</a>';
 	$html .= '</li>';
 	$html .= '</label>';
 

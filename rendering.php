@@ -3,10 +3,14 @@
  *
  * 	Load Libraries
  * 		|
- * 	Process http request 
+ * 	Configuration
  * 		|
- * 	Obtain data & prints html 
- * 	according to layout 
+ * 	Process http request (ROUTING)
+ * 	  Determine layout
+ * 		|
+ * 	Obtain data 
+ * 		|
+ * 	prints html 
  *
  */
 
@@ -32,17 +36,40 @@ else
 //
 // TODO use cookie to get/set chosen css file
 // CURRENTLY default set by name in config file
-//
-$config['csspath'] =  '//' . $_SERVER['SERVER_NAME'] . $config['csspath']; 
 
+if(isset($_COOKIE['theme'])){
+	$theme = $_COOKIE['theme'];
+}
 /* *****************************************************************
+ * ROUTER
  * Determine type of content and layout to use based on http request.
- *
  * Perform checks as necessary (TODO).
- *
  * After this section there should be no reference to http request.
  *******************************************************************
  */
+
+
+if(isset($_POST['theme'])){
+	setcookie('theme', $_POST['theme'],time()+365*24*60*60);
+	$theme = $_POST['theme'];
+}
+
+$config['csspath'] =  '//' . $_SERVER['SERVER_NAME'] . $config['csspath']; 
+
+switch($theme) {
+	case 'polos': 
+		$config['csspath'] .= 'plain.css';
+		break;
+
+	case 'terang': 
+		$config['csspath'] .= 'light.css';
+		break;
+
+	case 'gelap':
+	default:
+		$config['csspath'] .= 'dark.css';
+		break;
+}
 
 if(isset($_GET['category'])){
 	$layout = "category";
@@ -82,13 +109,15 @@ else{
 //common to all layouts
 $htmlcontent['conf-base'] = $config['conf-base'];
 $htmlcontent['active-css'] = $config['csspath'];
+$htmlcontent['theme-buttons'] = print_theme_buttons();
 
 switch ($layout){
 case 'home': 
 	$content['categories'] = get_categories($request['category'], $config['dataroot']);
+	$content['urlname-list'] = get_urlname_list($config['dataroot'],'*/*');
+
 	$htmlcontent['category-menu'] = print_cat_menu($content);
 	$htmlcontent['title'] =  "testermelon - Home";
-	$content['urlname-list'] = get_urlname_list($config['dataroot'],'*/*');
 	$htmlcontent['main'] .= '<h2>Artikel Terbaru</h2>';
 	$htmlcontent['main'] .= '<p>' . print_urlname_list($content) . '</p>';
 	break;

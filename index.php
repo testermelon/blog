@@ -29,6 +29,7 @@ include "rendering.php";
 	<ul class="navi">
 	<li> <a href="/article/about" >tentang testermelon</a> </li>
 	</ul> <!-- navi -->
+	<?php echo $htmlcontent['theme-buttons']; ?>
 </footer>
 
 </body>

@@ -121,35 +121,6 @@ function print_article_nav_away($content){
 	return $html;
 }
 
-//to be fed into $content['urlname-list'] = 
-function get_urlname_list($dataroot, $glob_string ) {
-
-	$all_files = glob("$dataroot$glob_string");
-
-	$urlname_list = [];
-
-	//open files and obtain metadata of each files
-	foreach($all_files as $files ){
-		$hfile = fopen($files, 'r');
-
-		//take data and append to list
-		$date = fgets($hfile);
-		$title = fgets($hfile);
-		$path = explode('/',$files);
-		$urlname = array_pop($path);
-		$cat = array_pop($path);
-		//use date as key to enable simple sorting below
-		$urlname_list += array($date => [$title,$urlname,$cat]);
-
-		fclose($hfile);
-	}
-
-	//sort list according to date (used as key)
-	krsort($urlname_list);
-
-	return $urlname_list;
-}
-
 /*takes array of file path string and spits out html of
  * the article list
  *
@@ -203,6 +174,20 @@ function print_category($cat,$dataroot){
 	$html .= "<p>";
 	$html .= print_urlname_list($content);
 	$html .= "</p>";
+
+	return $html;
+}
+
+//print a theme select button
+
+function print_theme_buttons() {
+
+	$html .= '<form '. $req_str . 'method="POST" >';
+	$html .= "warna: ";
+	$html .= '<input type="submit" name="theme" value="gelap">';
+	$html .= '<input type="submit" name="theme" value="terang">';
+	$html .= '<input type="submit" name="theme" value="polos">';
+	$html .= "</form>";
 
 	return $html;
 }

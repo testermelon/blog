@@ -26,12 +26,46 @@ function format_date($date){
 	return $day . " " . $month . " " . $year;
 }
 
+/*******************************************
+ * to be fed into $content['urlname-list'] = 
+ * ****************************************/
+function get_urlname_list($dataroot, $glob_string ) {
 
-//to be fed to $content['categories'] =
-//
-//input: $menu_items (raw glob reading)
-//output: $cat_data['names'] (just the names), $cat_data['active'] (currently active category)
-//
+	$all_files = glob("$dataroot$glob_string");
+
+	$urlname_list = [];
+
+	//open files and obtain metadata of each files
+	foreach($all_files as $files ){
+		$hfile = fopen($files, 'r');
+
+		//take data and append to list
+		$date = fgets($hfile);
+		$title = fgets($hfile);
+		$path = explode('/',$files);
+		$urlname = array_pop($path);
+		$cat = array_pop($path);
+		//use date as key to enable simple sorting below
+		$urlname_list += array($date => [$title,$urlname,$cat]);
+
+		fclose($hfile);
+	}
+
+	//sort list according to date (used as key)
+	krsort($urlname_list);
+
+	return $urlname_list;
+}
+
+/************************************************
+ * to be fed to $content['categories'] =
+ * input: 
+ * 	$menu_items (raw glob reading)
+ * output: 
+ * 	$cat_data['names'] (just the names), 
+ * 	$cat_data['active'] (currently active category)
+ *************************************************/
+
 function get_categories($request_cat, $dataroot) {
 
 	$cat_data['names'] = [];

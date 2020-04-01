@@ -1,3 +1,7 @@
+@root{
+	--hijau-gelap: #0F2424;
+}
+
 body{
 	margin:auto;
 	font-family:sans-serif;
@@ -14,7 +18,7 @@ header{
 
 footer{
 	margin-top:1em;
-	background-color:#0F2424;
+	background-color: #0F2424;
 	border-top: 1px gray solid;
 	min-height: 20vh;
 }
@@ -55,7 +59,7 @@ h3{
 	margin-bottom:1em;
 }
 
-.navi {
+.navi, form{
 	margin:auto;
 	list-style-type:none;
 	padding:0;
@@ -65,7 +69,7 @@ h3{
 
 
 
-.navi li{
+.navi li {
 	margin:0;
 	display:inline-block;
 	line-height:40px;
@@ -76,7 +80,7 @@ h3{
 	color:white;
 }
 
-.navi li:hover {
+.navi li:hover{
 	color:white;
 	background-color:#286060;
 
@@ -127,6 +131,26 @@ a:hover{
 	display:none;
 
 }
+
+form {
+	padding-left:20px;
+	margin-top:5px;
+}
+
+input {
+	color: salmon;
+	border:none;
+	padding-top:5px;
+	padding-bottom:5px;
+	margin-left:10px;
+	background-color:#0F2424;
+}
+
+input:hover{
+	color:white;
+	cursor:pointer;
+}
+
 
 @media screen and (max-width:500px){
 

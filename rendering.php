@@ -50,7 +50,7 @@ if(isset($_COOKIE['theme'])){
 
 
 if(isset($_POST['theme'])){
-	setcookie('theme', $_POST['theme'],time()+365*24*60*60);
+	setcookie('theme', $_POST['theme'],time()+365*24*60*60,'/');
 	$theme = $_POST['theme'];
 }
 

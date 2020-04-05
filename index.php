@@ -9,7 +9,7 @@ include "rendering.php";
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<base href="<?php echo $htmlcontent['conf-base']; ?>" >
 	<link rel="stylesheet" type="text/css" href="<?php echo $htmlcontent['active-css']; ?>">
-	<link type="image/x-icon" rel="icon" href="favicon-blog.ico" >
+	<link type="image/x-icon" rel="icon" href="/favicon-blog.ico" >
 	<title> <?php echo $htmlcontent['title']; ?> </title>
 	<meta property="og:image" content="<?php echo $htmlcontent['thumbnail']; ?>" >
 	<meta property="og:type" content="article" >

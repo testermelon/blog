@@ -19,6 +19,7 @@ function print_article_body(&$content){
 
 	//convert to html
 	$html .= render_to_html($content['body']);
+	$html .= "<br>";
 	$html .= "<hr>";
 	return $html;
 }

@@ -138,9 +138,11 @@ case 'article':
 	$content = get_article_content($request['article'],$config['dataroot']);
 	if($content === false) {
 		$htmlcontent['main'] =  print_404_article();
+		$htmlcontent['title'] =  "testermelon - 404";
 	}else{
 		$htmlcontent['main'] = print_article_header($content);
 		$htmlcontent['main'] .= print_article_body($content);
+		$htmlcontent['title'] = $content['title'];
 	}
 	$htmlcontent['main'] .= print_article_nav_away($content);
 	break;

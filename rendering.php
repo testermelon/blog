@@ -143,6 +143,7 @@ case 'article':
 		$htmlcontent['main'] = print_article_header($content);
 		$htmlcontent['main'] .= print_article_body($content);
 		$htmlcontent['title'] = $content['title'];
+		$htmlcontent['thumbnail'] = $content['thumbnail'];
 	}
 	$htmlcontent['main'] .= print_article_nav_away($content);
 	break;

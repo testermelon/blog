@@ -32,7 +32,6 @@ else
 	$config = include('defaults.php');
 
 //Set CSS path according to servername and cookie settings
-//using '//' to force the link as absolute reference to file
 //
 // TODO use cookie to get/set chosen css file
 // CURRENTLY default set by name in config file
@@ -54,6 +53,7 @@ if(isset($_POST['theme'])){
 	$theme = $_POST['theme'];
 }
 
+//using '//' to force the link as absolute reference to file
 $config['csspath'] =  '//' . $_SERVER['SERVER_NAME'] . $config['csspath']; 
 
 switch($theme) {
@@ -113,7 +113,7 @@ $htmlcontent['theme-buttons'] = print_theme_buttons();
 
 switch ($layout){
 case 'home': 
-	$content['categories'] = get_categories($request['category'], $config['dataroot']);
+	$content['categories'] = get_categories("0_Beranda", $config['dataroot']);
 	$content['urlname-list'] = get_urlname_list($config['dataroot'],'*/*');
 
 	$htmlcontent['category-menu'] = print_cat_menu($content);
@@ -133,8 +133,6 @@ case 'category':
 	break;
 
 case 'article': 
-	$content['categories'] = get_categories($request['category'], $config['dataroot']);
-	$htmlcontent['category-menu'] = print_cat_menu($content);
 	$content = get_article_content($request['article'],$config['dataroot']);
 	if($content === false) {
 		$htmlcontent['main'] =  print_404_article();
@@ -146,6 +144,8 @@ case 'article':
 		$htmlcontent['thumbnail'] = $content['thumbnail'];
 	}
 	$htmlcontent['main'] .= print_article_nav_away($content);
+	$content['categories'] = get_categories($content['cat'], $config['dataroot']);
+	$htmlcontent['category-menu'] = print_cat_menu($content);
 	break;
 
 case 'fixed': 

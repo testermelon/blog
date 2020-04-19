@@ -20,7 +20,6 @@ function print_article_body(&$content){
 	//convert to html
 	$html .= render_to_html($content['body']);
 	$html .= "<br>";
-	$html .= "<hr>";
 	return $html;
 }
 
@@ -54,7 +53,6 @@ function print_article_header(&$content){
 	$html .= "<small> ". format_date($content['date']) . " </small>" ;
 	$html .= "<br>";
 	$html .= print_share_buttons($content);
-	$html .= "<hr>";
 	$html .= "<br>";
 
 	return $html;
@@ -93,14 +91,17 @@ function print_cat_menu(&$content){
 	$html = "";
 	$html .= '<label class="navi" for="menu-toggle">'; 
 	$html .= '<li>';
-	$html .= '<a>&#9776 Kategori: '. substr($content['categories']['active'],2) . '</a>';
+	$html .= '<a>&#9776; &nbsp;' . substr($content['categories']['active'], 2). '</a> ';
 	$html .= '</li>';
 	$html .= '</label>';
-
 	$html .= '<input id="menu-toggle" type="checkbox" style="display:none"> </input>';
 
 	$html .= '<ul class="navi" id="categories">';
+	$html .= '<li id="site-name"> <a href="/" > <img src="/favicon-blog.png" style="vertical-align:middle;height:20px"> testermelon </a> </li>';
+	$html .= '<li id="home-item" > <a href="/"> Beranda  </a> </li>';
 	$html .= print_cat_menu_li($content);
+	$html .= '<li> <a href="/article/about"> ?  </a> </li>';
+
 	$html .= "</ul>";
 
 	return $html;
@@ -184,7 +185,6 @@ function print_category($cat,$dataroot){
 function print_theme_buttons() {
 
 	$html .= '<form '. $req_str . 'method="POST" >';
-	$html .= "warna: ";
 	$html .= '<input type="submit" name="theme" value="gelap">';
 	$html .= '<input type="submit" name="theme" value="terang">';
 	$html .= '<input type="submit" name="theme" value="polos">';

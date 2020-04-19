@@ -9,7 +9,7 @@ include "rendering.php";
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<base href="<?php echo $htmlcontent['conf-base']; ?>" >
 	<link rel="stylesheet" type="text/css" href="<?php echo $htmlcontent['active-css']; ?>">
-	<link type="image/x-icon" rel="icon" href="/favicon-blog.ico" >
+	<link type="image/x-icon" rel="icon" href="/favicon-blog.png" >
 	<title> <?php echo $htmlcontent['title']; ?> </title>
 	<meta property="og:image" content="<?php echo $htmlcontent['thumbnail']; ?>" >
 	<meta property="og:type" content="article" >
@@ -17,7 +17,7 @@ include "rendering.php";
 
 <body>
 <header>
-	<h1> <a href="/"> ∿ testermelon </a> </h1>
+<!--	<h1> <a href="/"> ∿ testermelon </a> </h1> -->
 	<?php echo $htmlcontent['category-menu'] ?>
 </header>
 
@@ -25,11 +25,10 @@ include "rendering.php";
 	<?php echo $htmlcontent['main']; ?>
 </div> <!-- div main --> 
 
+<br>
+
 <footer>
-	<ul class="navi">
-	<li> <a href="/article/about" >tentang testermelon</a> </li>
-	</ul> <!-- navi -->
-	<?php echo $htmlcontent['theme-buttons']; ?>
+	<?php echo $htmlcontent['theme-buttons'] ?>
 </footer>
 
 </body>

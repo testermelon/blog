@@ -22,12 +22,15 @@ body{
 }
 
 header{
-	background-color:#0F2424;
-	/*border-bottom: 1px gray solid;*/
+	position: fixed;
+	top:0;
+	width:100%;
 }
 
 footer{
-	margin-top:1em;
+	position: fixed;
+	bottom:0;
+	width:100%;
 	/*background-color: #0F2424;*/
 	/*border-top: 1px gray solid;*/
 }
@@ -38,12 +41,14 @@ h1{
 	max-width:800px;
 	padding:10px;
 	color:salmon;
-	font-family:sans-serif;
+	font-family:ibm-plexserif;
 	font-weight:Bold;
 
 }
 
 div.main{
+	padding-top:40px;
+	padding-bottom:40px;
 	padding-left:10px;
 	padding-right:10px;
 	margin:auto;
@@ -51,16 +56,18 @@ div.main{
 	min-height: 70vh;
 }
 
-h1 a{
-	color:salmon;
-	text-decoration:none;
-}
-
 h2{
+	font-family:ibm-plexserif;
+	letter-spacing:0.1em;
+	font-size:2em;
+	font-weight:500;
 	padding-top:1em;
 }
 
 h3{
+	font-family:ibm-plexserif;
+	font-size:1.5em;
+	font-weight:300;
 	padding-top:1em;
 	margin-bottom:1em;
 }
@@ -78,13 +85,11 @@ h3{
 .navi li {
 	margin:0;
 	display:inline-block;
-	line-height:30px;
+	line-height:40px;
 }
 
 .navi a{
-	padding:5px;
-	padding-left:10px;
-	padding-right:10px;
+	padding:9px;
 	color:white;
 }
 
@@ -153,7 +158,6 @@ a:hover{
 form {
 	max-width:800px;
 	margin:auto;
-	margin-top:5px;
 }
 
 input {

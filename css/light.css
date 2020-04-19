@@ -11,6 +11,7 @@ header{
 }
 
 footer{
+	background-color:black;
 	/*background-color: #0F2424;*/
 	/*border-top: 1px gray solid;*/
 }
@@ -43,8 +44,8 @@ a:hover{
 }
 
 input {
-	color: salmon;
-	background-color:#0F2424;
+	color: lightgray;
+	background-color:black;
 }
 
 input:hover{

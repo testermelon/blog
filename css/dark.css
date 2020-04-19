@@ -2,29 +2,20 @@
 
 
 body{
-	background-color:#000000;
+	background-color:#191919;
 	color:lightgray;
 }
 
 header{
-	background-color:#111111;
+	background-color:black;
 }
 
 footer{
+	background-color:black;
 	/*background-color: #0F2424;*/
 	/*border-top: 1px gray solid;*/
 }
 
-
-h1{
-	color:salmon;
-
-}
-
-
-h1 a{
-	color:salmon;
-}
 
 .navi a{
 	color:white;
@@ -56,8 +47,8 @@ a:hover{
 }
 
 input {
-	color: white;
-	background-color:#111111;
+	color: salmon;
+	background-color:black;
 }
 
 input:hover{

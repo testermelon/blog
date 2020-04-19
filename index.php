@@ -26,7 +26,6 @@ include "rendering.php";
 </div> <!-- div main --> 
 
 <br>
-
 <footer>
 	<?php echo $htmlcontent['theme-buttons'] ?>
 </footer>

@@ -150,7 +150,7 @@ case 'article':
 
 case 'fixed': 
 	$content = get_article_content($request['article'] ,$config['dataroot']);
-	$content['categories'] = get_categories($content['cat'], $config['dataroot']);
+	$content['categories'] = get_categories("X_Tentang Saya"$config['dataroot']);
 	$htmlcontent['category-menu'] = print_cat_menu($content);
 	$htmlcontent['main'] = '<h2>'.$content['title'] . '</h2>';
 	$htmlcontent['main'] .= print_article_body($content);

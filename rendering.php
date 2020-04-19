@@ -149,10 +149,11 @@ case 'article':
 	break;
 
 case 'fixed': 
-	$content['categories'] = get_categories($request['category'], $config['dataroot']);
-	$htmlcontent['category-menu'] = print_cat_menu($content);
 	$content = get_article_content($request['article'] ,$config['dataroot']);
-	$htmlcontent['main'] = print_article_body($content);
+	$content['categories'] = get_categories($content['cat'], $config['dataroot']);
+	$htmlcontent['category-menu'] = print_cat_menu($content);
+	$htmlcontent['main'] = '<h2>'.$content['title'] . '</h2>';
+	$htmlcontent['main'] .= print_article_body($content);
 	break;
 
 case 'preview': 

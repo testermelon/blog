@@ -98,9 +98,8 @@ function print_cat_menu(&$content){
 
 	$html .= '<ul class="navi" id="categories">';
 	$html .= '<li id="site-name"> <a href="/" > <img src="/favicon-blog.png" style="vertical-align:middle;height:20px"> testermelon </a> </li>';
-	$html .= '<li id="home-item" > <a href="/"> Beranda  </a> </li>';
 	$html .= print_cat_menu_li($content);
-	$html .= '<li> <a href="/article/about"> ?  </a> </li>';
+	$html .= '<li> <a href="/article/about"> Tentang Saya </a> </li>';
 
 	$html .= "</ul>";
 

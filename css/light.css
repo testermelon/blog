@@ -2,8 +2,8 @@
 
 
 body{
+	background-color:oldlace;
 	color:black;
-	background-color:lightgray;
 }
 
 header{
@@ -18,12 +18,16 @@ footer{
 
 
 .navi a{
-	color:darkgray;
+	color:lightgray;
+}
+
+.navi a:hover{
+	color:white;
 }
 
 .navi li:hover{
 	color:white;
-	background-color:#222222;
+	background-color:#111111;
 
 }
 
@@ -36,7 +40,7 @@ a{
 }
 
 a:hover{
-	color:white;
+	color:blue;
 }
 
 .main strong,em{

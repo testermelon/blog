@@ -57,15 +57,15 @@ div.main{
 }
 
 h2{
-	font-family:ibm-plexserif;
-	letter-spacing:0.1em;
+	font-family:opensans;
+	letter-spacing:0.05em;
 	font-size:2em;
-	font-weight:500;
+	font-weight:Bold;
 	padding-top:1em;
 }
 
 h3{
-	font-family:ibm-plexserif;
+	font-family:opensans;
 	font-size:1.5em;
 	font-weight:300;
 	padding-top:1em;

@@ -27,9 +27,6 @@ header{
 }
 
 footer{
-	position:fixed;
-	bottom:20px;
-	right:20px;
 	margin-top:1em;
 	/*background-color: #0F2424;*/
 	/*border-top: 1px gray solid;*/

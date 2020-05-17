@@ -1,5 +1,4 @@
 ServerSignature Off
-ServerTokens Prod
 
 <IfModule mod_rewrite.c>
   RewriteEngine On

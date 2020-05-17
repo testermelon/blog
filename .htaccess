@@ -1,3 +1,6 @@
+ServerSignature Off
+ServerTokens Prod
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
@@ -7,13 +10,15 @@
   RewriteRule index.php - [QSA,L,C]
   RewriteRule .* - [QSA,L]
 
-  # deny access to content
-  RewriteCond %{REQUEST_URI} ^content/*$
+  # deny access to content and img
+  RewriteCond %{REQUEST_URI} ^/content/*$
   RewriteRule ^content/*$ - [R=404,L]
+  RewriteCond %{REQUEST_URI} ^/img/*$
+  RewriteRule ^img/*$ - [R=404,L]
 
   # redirect root access (/) to index.php
   RewriteCond %{REQUEST_URI} ^/$
-  RewriteRule ^$ index.php [QSA,L]
+  RewriteRule ^$/index.php [QSA,L]
 
   # redirect 404 for non existent files
   RewriteCond %{REQUEST_URI} ^(.*)\..*$

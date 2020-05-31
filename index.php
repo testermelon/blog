@@ -11,8 +11,10 @@ include "rendering.php";
 	<link rel="stylesheet" type="text/css" href="<?php echo $htmlcontent['active-css']; ?>">
 	<link type="image/x-icon" rel="icon" href="/favicon-blog.png" >
 	<title> <?php echo $htmlcontent['title']; ?> </title>
+	<meta property="og:title" content="<?php echo $htmlcontent['title']; ?>" >
 	<meta property="og:image" content="<?php echo $htmlcontent['thumbnail']; ?>" >
 	<meta property="og:type" content="article" >
+	
 </head>
 
 <body>

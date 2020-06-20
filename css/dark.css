@@ -2,8 +2,8 @@
 
 
 body{
-	background-color:#181A33;
-	color:lightgray;
+	background-color:#141628;
+	color:#90A0B0;
 }
 
 header{
@@ -39,25 +39,13 @@ a:hover{
 }
 
 .main strong,em{
-	color:white;
+	color:#DDDDDD;
 }
 
-input {
-	color: salmon;
-	background-color:black;
-}
-
-input:hover{
-	color:white;
-	background-color:#444444;
-}
 
 @media screen and (max-width:500px){
 
 	#categories{
-		border-left:1px darkgray solid;
-		border-right:1px darkgray solid;
-		border-bottom:1px darkgray solid;
 	}
 
 	label.navi li a{
@@ -65,7 +53,7 @@ input:hover{
 	}
 
 	.navi li{
-		background-color:#111111;
+		background-color:black;
 	}
 
 }

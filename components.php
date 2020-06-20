@@ -97,7 +97,7 @@ function print_cat_menu(&$content){
 	$html .= '<input id="menu-toggle" type="checkbox" style="display:none"> </input>';
 
 	$html .= '<ul class="navi" id="categories">';
-	$html .= '<li id="site-name"> <a href="/" > <img src="/favicon-blog.png" style="vertical-align:middle;height:20px"> testermelon </a> </li>';
+	$html .= '<li id="site-name"> <a href="/" > <img src="/favicon-blog.png" style="vertical-align:middle;height:20px"> </a> </li>';
 	$html .= print_cat_menu_li($content);
 	$html .= '<li> <a href="/article/about"> Tentang Saya </a> </li>';
 
@@ -184,9 +184,10 @@ function print_category($cat,$dataroot){
 function print_theme_buttons() {
 
 	$html .= '<form '. $req_str . 'method="POST" >';
+	$html .= 'Warna: ';
 	$html .= '<input type="submit" name="theme" value="gelap">';
 	$html .= '<input type="submit" name="theme" value="terang">';
-	$html .= '<input type="submit" name="theme" value="polos">';
+	//$html .= '<input type="submit" name="theme" value="polos">';
 	$html .= "</form>";
 
 	return $html;

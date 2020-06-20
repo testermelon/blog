@@ -17,7 +17,7 @@ body{
 	margin:auto;
 	font-family:ibm-plexserif;
 	background-color:#000000;
-	color:lightgray;
+	color:darkgray;
 	-webkit-text-size-adjust:100%;
 }
 
@@ -58,7 +58,7 @@ div.main{
 
 h2{
 	/*font-family:ibm-plexserif;*/
-	font-family:opensans-bold;
+	font-family:opensans;
 	letter-spacing:0.02em;
 	font-size:2em;
 	font-weight:600;
@@ -126,7 +126,8 @@ a:hover{
 
 .main p{
 	font-family:ibm-plexserif;
-	line-height:2em;
+	font-size:1.2em;
+	line-height:1.6em;
 	margin-bottom:1em;
 }
 
@@ -136,8 +137,9 @@ a:hover{
 }
 
 .main strong,em{
-	color:white;
-	font-weight:bold;
+	color:teal;
+	font-style:normal;
+	font-family:opensans-bold;
 }
 
 
@@ -166,6 +168,9 @@ a:hover{
 form {
 	max-width:800px;
 	margin:auto;
+	padding-left:1em;
+	font-family:opensans;
+	color:lightgray;
 }
 
 input {
@@ -174,12 +179,14 @@ input {
 	-webkit-appearance:none;
 	-moz-appearance:none;
 	appearance:none;
-
+	color:salmon;
+	background-color:black;
 }
 
 input:hover{
 	color:white;
 	cursor:pointer;
+	background-color:#111111
 }
 
 
@@ -197,9 +204,6 @@ input:hover{
 		display:none;
 		position:absolute;
 		width:100%;
-		border-left:1px darkgray solid;
-		border-right:1px darkgray solid;
-		border-bottom:1px darkgray solid;
 	}
 
 	label{
@@ -222,7 +226,7 @@ input:hover{
 	.navi li{
 		display:block;
 		padding:0;
-		background-color:#0F2424;
+		background-color:black;
 		width:100%;
 	}
 

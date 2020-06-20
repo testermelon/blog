@@ -3,7 +3,7 @@
 
 body{
 	background-color:oldlace;
-	color:black;
+	color:dimgrey;
 }
 
 header{
@@ -47,21 +47,10 @@ a:hover{
 	color:black;
 }
 
-input {
-	color: lightgray;
-	background-color:black;
-}
-
-input:hover{
-	color:white;
-}
 
 @media screen and (max-width:500px){
 
 	#categories{
-		border-left:1px darkgray solid;
-		border-right:1px darkgray solid;
-		border-bottom:1px darkgray solid;
 	}
 
 	label.navi li a{

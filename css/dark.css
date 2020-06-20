@@ -16,6 +16,10 @@ footer{
 	/*border-top: 1px gray solid;*/
 }
 
+h2,h3 {
+	color:#CCCCCC;
+}
+
 
 .navi a{
 	color:white;

@@ -58,10 +58,9 @@ div.main{
 
 h2{
 	/*font-family:ibm-plexserif;*/
-	font-family:opensans;
-	letter-spacing:0.02em;
+	font-family:monospace;
 	font-size:2em;
-	font-weight:600;
+	font-weight:500;
 	padding-top:1em;
 }
 

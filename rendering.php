@@ -154,6 +154,7 @@ case 'fixed':
 	$htmlcontent['category-menu'] = print_cat_menu($content);
 	$htmlcontent['main'] = '<h2>'.$content['title'] . '</h2>';
 	$htmlcontent['main'] .= print_article_body($content);
+	$htmlcontent['thumbnail'] = $content['thumbnail'];
 	break;
 
 case 'preview': 

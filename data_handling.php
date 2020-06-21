@@ -174,6 +174,15 @@ function get_article_content($article,$dataroot){
  * Not complete as markdown parser, only subset
  */
 function render_to_html($string){
+
+	//TODO: Make handling for literal tags 
+	// HOW : 
+	// 1. Cut paste the tags, and leave numbered markers on the string
+	// 2. Deal with each of literal tags applying helper converters if necessary
+	// 3. Do regex replacements as usual
+	// 4. Finally paste back the tags into the numbered markers on the string
+	
+
 	//links
 	$string = preg_replace('/(?<=[^!])\[(.*?)\]\((.*?)\)/','<a href="$2" target="_blank">$1</a>',$string);
 	

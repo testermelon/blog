@@ -99,7 +99,11 @@ function print_cat_menu(&$content){
 	$html .= '<ul class="navi" id="categories">';
 	$html .= '<li id="site-name"> <a href="/" > <img src="/favicon-blog.png" style="vertical-align:top;height:40px"> </a> </li>';
 	$html .= print_cat_menu_li($content);
-	$html .= '<li> <a href="/article/about"> Tentang Saya </a> </li>';
+	$html .= '<li ';
+	if($content['urlname'] == 'about') {
+		$html.= 'class="active"';
+	}
+	$html .= '> <a href="/article/about"> Tentang Saya </a> </li>';
 
 	$html .= "</ul>";
 

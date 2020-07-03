@@ -1,13 +1,14 @@
 <?php
-/*Do not modify this file, copy and name it "config.php" and edit that instead
+/*Do not modify defaults.php file, copy and name it "config.php" and edit that instead
  */
 return array(
-	//base is the path to the blog index.php from the document root
-	'dataroot'=>'/blog/',
-	//dataroot is the path to content of the blog relative from index.php
-	'dataroot'=>'content/',
+	//dataroot is the path to posts of the blog relative from index.php
+	//end with /
+	'dataroot'=>'contents/posts/',
 	//path to css file relative from domain name
-	'csspath'=> '/blog/css/',
+	'csspath'=> '/css/',
+	//path to posts image files relative from domain name
+	'imgpath'=> '/contents/img/',
 );
 
 ?>

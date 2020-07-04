@@ -7,8 +7,9 @@ return array(
 	'dataroot'=>'contents/posts/',
 	//path to css file relative from domain name
 	'csspath'=> '/css/',
-	//path to posts image files relative from domain name
-	'imgpath'=> '/contents/img/',
+	//imgpath is the path to images of the blog absolute from root
+	//ends with /
+	'imgpath'=>'contents/img/',
 );
 
 ?>

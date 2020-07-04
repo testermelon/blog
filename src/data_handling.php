@@ -109,9 +109,13 @@ function get_article_data($filepath){
 	if(!$hfile)
 		return $content;
 
+	//first two line is obligatory
+	//and must contain date and title
+	//date format : YYYYMMDD
 	$content['date']  = fgets($hfile);
 	$content['title'] = fgets($hfile);
 
+	//reading metadata
 	do{
 		$temp_read = fgets($hfile);
 		if(feof($hfile)) 
@@ -141,7 +145,7 @@ function get_article_data($filepath){
  * Note: This function is where article data passed around,
  * expand data as required in the future
  */
-function get_article_content($article,$dataroot){
+function get_article_content($article,$dataroot,$imgpath){
 	$filepath = get_article_path($article,$dataroot);
 	if($filepath == ""){
 		//File tidak ditemukan
@@ -150,8 +154,7 @@ function get_article_content($article,$dataroot){
 
 	$content = get_article_data($filepath);
 
-	//getting data that is not inside the file
-	//but inferred from context
+	//manipulate data according to context
 	
 	$content['urlname'] = $article;
 
@@ -161,10 +164,12 @@ function get_article_content($article,$dataroot){
 
 	//load image for social media if set. If not load default thumbnail image
 	if ($content['thumbnail']=="")
-		$content['thumbnail'] = 'http://testermelon.com/img/testermelon-social.png';
+		$content['thumbnail'] = 'http://testermelon.com/testermelon-social.png';
 	else{
-		$content['thumbnail'] = 'http://testermelon.com'. $content['thumbnail'];
+		$content['thumbnail'] = 'http://testermelon.com/contents/'. $content['thumbnail'];
 	}
+
+	$content['body'] = render_to_html($content['body'],$imgpath);
 
 	return $content;
 }
@@ -173,7 +178,7 @@ function get_article_content($article,$dataroot){
  *
  * Not complete as markdown parser, only subset
  */
-function render_to_html($string){
+function render_to_html($string,$dataroot){
 
 	//TODO: Make handling for literal tags 
 	// HOW : 
@@ -187,7 +192,8 @@ function render_to_html($string){
 	$string = preg_replace('/(?<=[^!])\[(.*?)\]\((.*?)\)/','<a href="$2" target="_blank">$1</a>',$string);
 	
 	//images
-	$string = preg_replace('/!\[(.*?)\]\((.*?)\)/','<img src="$2" alt="$1" />',$string);
+	$img_repl_str = '<img src="' . $dataroot . '$2" alt="$1" />';
+	$string = preg_replace('/!\[(.*?)\]\((.*?)\)/',$img_repl_str,$string);
 
 	//emphasis
 	$string = preg_replace('/\*{2}(.*?)\*{2}/','<em>$1</em>',$string);

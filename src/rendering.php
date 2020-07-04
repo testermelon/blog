@@ -106,6 +106,26 @@ else{
  * ******************************************************************
  */
 
+/*
+ * Perencanaan ulang skema data biar lebih fleksibel
+ *
+ * dataroot
+ * 	Musik
+ * 	Blog
+ * 		Teknologi
+ * 			article
+ * 			article
+ * 		Subkultur
+ * 			article
+ * 			article
+ * 	Serbaneka
+ * 		article
+ * 		article
+ * 	about
+ * 	dir.info
+ *
+ *
+ * */
 //common to all layouts
 $htmlcontent['conf-base'] = $config['conf-base'];
 $htmlcontent['active-css'] = $config['csspath'];
@@ -113,59 +133,59 @@ $htmlcontent['theme-buttons'] = print_theme_buttons();
 
 switch ($layout){
 case 'home': 
-	$content['categories'] = get_categories("0_Beranda", $config['dataroot']);
-	$content['urlname-list'] = get_urlname_list($config['dataroot'],'*/*');
+	$data['categories'] = get_categories("0_Beranda", $config['dataroot']);
+	$data['urlname-list'] = get_urlname_list($config['dataroot'],'*/*');
 
-	$htmlcontent['category-menu'] = print_cat_menu($content);
+	$htmlcontent['category-menu'] = print_cat_menu($data);
 	$htmlcontent['title'] =  "testermelon - Home";
 	$htmlcontent['main'] .= '<h2>Artikel Terbaru</h2>';
-	$htmlcontent['main'] .= '<p>' . print_urlname_list($content) . '</p>';
+	$htmlcontent['main'] .= '<p>' . print_urlname_list($data) . '</p>';
 	break;
 
 case 'category': 
-	$content['categories'] = get_categories($request['category'], $config['dataroot']);
-	$htmlcontent['category-menu'] = print_cat_menu($content);
-	$htmlcontent['title'] = "testermelon - ". substr($content['categories']['active'],2);
-	$cat = $request['category'] . '/*';
-	$content['urlname-list'] = get_urlname_list($config['dataroot'],$cat);
-	$htmlcontent['main'] .= '<h2>' . substr($content['categories']['active'],2). '</h2>';
-	$htmlcontent['main'] .= '<p>' . print_urlname_list($content) . '</p>';
+	$data['categories'] = get_categories($request['category'], $config['dataroot']);
+	$htmlcontent['category-menu'] = print_cat_menu($data);
+	$htmlcontent['title'] = "testermelon - ". substr($data['categories']['active'],2);
+
+	$data['urlname-list'] = get_urlname_list($config['dataroot'],$request['category'] . '/*');
+	$htmlcontent['main'] .= '<h2>' . substr($data['categories']['active'],2). '</h2>';
+	$htmlcontent['main'] .= '<p>' . print_urlname_list($data) . '</p>';
 	break;
 
 case 'article': 
-	$content = get_article_content($request['article'],$config['dataroot']);
-	if($content === false) {
+	$data = get_article_content($request['article'],$config['dataroot'],$config['imgpath']);
+	if($data === false) {
 		$htmlcontent['main'] =  print_404_article();
 		$htmlcontent['title'] =  "testermelon - 404";
 	}else{
-		$htmlcontent['main'] = print_article_header($content);
-		$htmlcontent['main'] .= print_article_body($content);
-		$htmlcontent['title'] = $content['title'];
-		$htmlcontent['thumbnail'] = $content['thumbnail'];
+		$htmlcontent['main'] = print_article_header($data);
+		$htmlcontent['main'] .= print_article_body($data);
+		$htmlcontent['title'] = $data['title'];
+		$htmlcontent['thumbnail'] = $data['thumbnail'];
 	}
-	$htmlcontent['main'] .= print_article_nav_away($content);
-	$content['categories'] = get_categories($content['cat'], $config['dataroot']);
-	$htmlcontent['category-menu'] = print_cat_menu($content);
+	$htmlcontent['main'] .= print_article_nav_away($data);
+	$data['categories'] = get_categories($data['cat'], $config['dataroot']);
+	$htmlcontent['category-menu'] = print_cat_menu($data);
 	break;
 
 case 'fixed': 
-	$content = get_article_content($request['article'] ,$config['dataroot']);
-	$content['categories'] = get_categories("X_Tentang Saya",$config['dataroot']);
-	$htmlcontent['category-menu'] = print_cat_menu($content);
-	$htmlcontent['main'] = '<h2>'.$content['title'] . '</h2>';
-	$htmlcontent['main'] .= print_article_body($content);
-	$htmlcontent['thumbnail'] = $content['thumbnail'];
+	$data = get_article_content($request['article'] ,$config['dataroot']);
+	$data['categories'] = get_categories("X_Tentang Saya",$config['dataroot']);
+	$htmlcontent['category-menu'] = print_cat_menu($data);
+	$htmlcontent['main'] = '<h2>'.$data['title'] . '</h2>';
+	$htmlcontent['main'] .= print_article_body($data);
+	$htmlcontent['thumbnail'] = $data['thumbnail'];
 	break;
 
 case 'preview': 
-	$content = get_article_data($request['path']);
+	$data = get_article_data($request['path']);
 	$htmlcontent['main'] = "";
-	if ($content == []){
+	if ($data == []){
 		$htmlcontent['main'] =  print_404_article();
 		break;
 	}
-	$htmlcontent['main'] .= print_article_header($content);
-	$htmlcontent['main'] .= print_article_body($content);
+	$htmlcontent['main'] .= print_article_header($data);
+	$htmlcontent['main'] .= print_article_body($data);
 	break;
 
 }
@@ -177,7 +197,7 @@ case 'preview':
 //After deciding layout based on request, 
 //this should do data handling, and then pass the read data to layout template
 //
-//e.g. echo print_layout($layout,$content);
+//e.g. echo print_layout($layout,$data);
 //
 //This function should read a dir named "layouts" for "*.layout" files, and populate the html
 

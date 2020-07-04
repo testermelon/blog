@@ -17,8 +17,7 @@ function print_article_body(&$content){
 		return $html;
 	}
 
-	//convert to html
-	$html .= render_to_html($content['body']);
+	$html .= $content['body'];
 	$html .= "<br>";
 	return $html;
 }

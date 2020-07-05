@@ -169,7 +169,7 @@ case 'article':
 	break;
 
 case 'fixed': 
-	$data = get_article_content($request['article'] ,$config['dataroot']);
+	$data = get_article_content($request['article'] ,$config['dataroot'], $config['imgpath']);
 	$data['categories'] = get_categories("X_Tentang Saya",$config['dataroot']);
 	$htmlcontent['category-menu'] = print_cat_menu($data);
 	$htmlcontent['main'] = '<h2>'.$data['title'] . '</h2>';

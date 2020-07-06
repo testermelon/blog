@@ -102,8 +102,7 @@ function get_article_path($article,$dataroot){
  * title: article title string
  * body: article text body
  */
-function get_article_data($filepath){
-	$content = [];
+function get_article_data(&$content,$filepath){
 
 	$hfile = fopen($filepath,'r');
 	if(!$hfile)
@@ -131,8 +130,6 @@ function get_article_data($filepath){
 		$content['body'] .= fgets($hfile);
 	}
 	fclose($hfile);
-
-	return $content;
 }
 
 /* Function as front end for get_article_data() 
@@ -145,14 +142,15 @@ function get_article_data($filepath){
  * Note: This function is where article data passed around,
  * expand data as required in the future
  */
-function get_article_content($article,$dataroot,$imgpath){
+function get_article_content(&$content,$article,$dataroot,$imgpath){
 	$filepath = get_article_path($article,$dataroot);
 	if($filepath == ""){
 		//File tidak ditemukan
+		$content['status'] = '404';
 		return false;
 	}
 
-	$content = get_article_data($filepath);
+	get_article_data($content, $filepath);
 
 	//manipulate data according to context
 	
@@ -170,8 +168,6 @@ function get_article_content($article,$dataroot,$imgpath){
 	}
 
 	$content['body'] = render_to_html($content['body'],$imgpath);
-
-	return $content;
 }
 
 /* Use regex to parse and convert markdown syntaxes to html

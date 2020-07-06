@@ -39,11 +39,15 @@ else
 if(isset($_COOKIE['theme'])){
 	$theme = $_COOKIE['theme'];
 }
+
 /* *****************************************************************
  * ROUTER
  * Determine type of content and layout to use based on http request.
  * Perform checks as necessary (TODO).
  * After this section there should be no reference to http request.
+ *
+ * input: http request, config
+ * output: $request, $config
  *******************************************************************
  */
 
@@ -72,70 +76,82 @@ switch($theme) {
 }
 
 if(isset($_GET['category'])){
-	$layout = "category";
+	$request['layout'] = "category";
 	$request['category'] = $_GET['category'];
 	if($request['category'] == "")
 		//serve home
-		$layout = "home";
+		$request['layout'] = "home";
 }
 else if(isset($_GET['article'])){
 	if( $_GET['article'] == 'about' || $_GET['article'] == 'links'){
-		$layout = 'fixed';
+		$request['layout'] = 'fixed';
 	}
 	else{
-		$layout = "article";
+		$request['layout'] = "article";
 	}
 	$request['article'] = $_GET['article'];
 	if($request['article'] == "")
 		//redirect to home
-		$layout = "home";
+		$request['layout'] = "home";
 }
 else if(isset($_GET['preview'])){
-	$layout = "preview";
+	$request['layout'] = "preview";
 	$request['path'] = $_GET['preview'];
 }
 else{
-	$layout = "home";
+	$request['layout'] = "home";
 }
 
-/* ******************************************************************
- * Obtain data and prints html according to set layout
+/* ******************************
+ * Obtain data 
  *
- * input: $layout, $config, $request
- * output: $htmlcontent
- * ******************************************************************
+ * input: $config, $request
+ * output: $data
+ * ******************************
  */
 
-/*
- * Perencanaan ulang skema data biar lebih fleksibel
- *
- * dataroot
- * 	Musik
- * 	Blog
- * 		Teknologi
- * 			article
- * 			article
- * 		Subkultur
- * 			article
- * 			article
- * 	Serbaneka
- * 		article
- * 		article
- * 	about
- * 	dir.info
- *
- *
- * */
-//common to all layouts
-$htmlcontent['conf-base'] = $config['conf-base'];
-$htmlcontent['active-css'] = $config['csspath'];
-$htmlcontent['theme-buttons'] = print_theme_buttons();
+$data = [];
 
-switch ($layout){
+switch ($request['layout']){
 case 'home': 
-	$data['categories'] = get_categories("0_Beranda", $config['dataroot']);
-	$data['urlname-list'] = get_urlname_list($config['dataroot'],'*/*');
+	$request['category'] = "0_Beranda";
+	$globdir = '*/*';
+	$data['categories'] = get_categories($request['category'], $config['dataroot']);
+	$data['urlname-list'] = get_urlname_list($config['dataroot'],$globdir);
+	break;
 
+case 'category': 
+	$globdir = $request['category'] . '*/*';
+	$data['categories'] = get_categories($request['category'], $config['dataroot']);
+	$data['urlname-list'] = get_urlname_list($config['dataroot'],$globdir);
+	break;
+
+case 'article': 
+	get_article_content($data, $request['article'],$config['dataroot'],$config['imgpath']);
+	$data['categories'] = get_categories($data['cat'], $config['dataroot']);
+	break;
+
+case 'fixed': 
+	$request['category'] = "X_Tentang Saya";
+	get_article_content($data, $request['article'],$config['dataroot'],$config['imgpath']);
+	$data['categories'] = get_categories($request['category'],$config['dataroot']);
+	break;
+
+case 'preview': 
+	get_article_data($data, $request['path']);
+	break;
+}
+
+/* ******************************
+ * Render HTML
+ *
+ * input: $data, $request
+ * output: $htmlcontent
+ * ******************************
+ */
+
+switch ($request['layout']){
+case 'home': 
 	$htmlcontent['category-menu'] = print_cat_menu($data);
 	$htmlcontent['title'] =  "testermelon - Home";
 	$htmlcontent['main'] .= '<h2>Artikel Terbaru</h2>';
@@ -143,18 +159,14 @@ case 'home':
 	break;
 
 case 'category': 
-	$data['categories'] = get_categories($request['category'], $config['dataroot']);
 	$htmlcontent['category-menu'] = print_cat_menu($data);
 	$htmlcontent['title'] = "testermelon - ". substr($data['categories']['active'],2);
-
-	$data['urlname-list'] = get_urlname_list($config['dataroot'],$request['category'] . '/*');
 	$htmlcontent['main'] .= '<h2>' . substr($data['categories']['active'],2). '</h2>';
 	$htmlcontent['main'] .= '<p>' . print_urlname_list($data) . '</p>';
 	break;
 
 case 'article': 
-	$data = get_article_content($request['article'],$config['dataroot'],$config['imgpath']);
-	if($data === false) {
+	if($data['status'] == '404') {
 		$htmlcontent['main'] =  print_404_article();
 		$htmlcontent['title'] =  "testermelon - 404";
 	}else{
@@ -164,13 +176,11 @@ case 'article':
 		$htmlcontent['thumbnail'] = $data['thumbnail'];
 	}
 	$htmlcontent['main'] .= print_article_nav_away($data);
-	$data['categories'] = get_categories($data['cat'], $config['dataroot']);
+
 	$htmlcontent['category-menu'] = print_cat_menu($data);
 	break;
 
 case 'fixed': 
-	$data = get_article_content($request['article'] ,$config['dataroot']);
-	$data['categories'] = get_categories("X_Tentang Saya",$config['dataroot']);
 	$htmlcontent['category-menu'] = print_cat_menu($data);
 	$htmlcontent['main'] = '<h2>'.$data['title'] . '</h2>';
 	$htmlcontent['main'] .= print_article_body($data);
@@ -178,9 +188,7 @@ case 'fixed':
 	break;
 
 case 'preview': 
-	$data = get_article_data($request['path']);
-	$htmlcontent['main'] = "";
-	if ($data == []){
+	if ($data['status'] == '404' ){
 		$htmlcontent['main'] =  print_404_article();
 		break;
 	}
@@ -190,6 +198,12 @@ case 'preview':
 
 }
 
+//common to all layouts
+$htmlcontent['conf-base'] = $config['conf-base'];
+$htmlcontent['active-css'] = $config['csspath'];
+$htmlcontent['theme-buttons'] = print_theme_buttons();
+
+
 //TODO 
 //
 //Need to change abstraction scheme
@@ -197,7 +211,7 @@ case 'preview':
 //After deciding layout based on request, 
 //this should do data handling, and then pass the read data to layout template
 //
-//e.g. echo print_layout($layout,$data);
+//e.g. echo print_layout($request['layout'],$data);
 //
 //This function should read a dir named "layouts" for "*.layout" files, and populate the html
 

@@ -162,9 +162,9 @@ function get_article_content(&$content,$article,$dataroot,$imgpath){
 
 	//load image for social media if set. If not load default thumbnail image
 	if ($content['thumbnail']=="")
-		$content['thumbnail'] = 'http://testermelon.com/testermelon-social.png';
+		$content['thumbnail'] = 'https://testermelon.com/testermelon-social.png';
 	else{
-		$content['thumbnail'] = 'http://testermelon.com/contents/'. $content['thumbnail'];
+		$content['thumbnail'] = 'https://testermelon.com'. $imgpath . $content['thumbnail'];
 	}
 
 	$content['body'] = render_to_html($content['body'],$imgpath);

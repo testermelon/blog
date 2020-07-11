@@ -57,8 +57,7 @@ div.main{
 }
 
 h2{
-	/*font-family:ibm-plexserif;*/
-	font-family:monospace;
+	font-family:opensans;
 	font-size:2em;
 	font-weight:500;
 	padding-top:1em;

@@ -73,6 +73,7 @@ function print_article_header(&$content){
  * Returns the html of the list
  */
 function print_cat_menu_li(&$content) {
+	$html = "";
 	foreach($content['categories']['names'] as $name ){
 		$html .= '<li ';
 		//determine if category was set and give appropriate class
@@ -161,7 +162,6 @@ function print_recent($dataroot){
 	$html = "";
 	$all_files = glob("$dataroot*/*");
 
-	$html .= '<h2> Artikel Terbaru </h2>';
 	$html .= "<p>";
 	$html .= print_urlname_list($content);
 	$html .= "</p>";
@@ -174,7 +174,7 @@ function print_category($cat,$dataroot){
 	$html = "";
 	$all_files = glob("$dataroot$cat/*");
 
-	$html .= "<h2> Kategori: " . substr($cat, 2) . " </h2>";
+	$html .= "<h2> " . substr($cat, 2) . " </h2>";
 	$html .= "<p>";
 	$html .= print_urlname_list($content);
 	$html .= "</p>";

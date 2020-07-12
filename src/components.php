@@ -197,7 +197,7 @@ function print_theme_buttons() {
 
 
 function print_song_player() {
-	$html . = '<audio src = ';
+	$html .= '<audio src = ';
 
 }
 

@@ -1,9 +1,8 @@
 <?php
 
 function fetch_data(&$data, $config, $request){
-	$request['category'] = "X_Tentang Saya";
-	get_article_content($data, $request['article'],$config['dataroot'],$config['imgpath']);
-	$data['categories'] = get_categories($request['category'],$config['dataroot']);
+	get_article_content($data, $request['urlname'],$config['dataroot'],$config['imgpath']);
+	$data['categories'] = get_categories( "X_Tentang Saya",$config['dataroot']);
 }
 
 function render(&$htmlcontent,$data){

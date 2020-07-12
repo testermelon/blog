@@ -26,5 +26,5 @@ ServerSignature Off
   
   # no, so we redirect to our front web controller
   RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteRule ^(category|article)/(.*)$ index.php?$1=$2 [QSA,L]
+  RewriteRule ^(music|category|article|preview)/(.*)$ index.php?layout=$1&urlname=$2 [QSA,L]
 </IfModule>

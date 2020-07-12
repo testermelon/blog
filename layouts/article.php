@@ -1,7 +1,7 @@
 <?php
 
 function fetch_data(&$data, $config, $request){
-	get_article_content($data, $request['article'],$config['dataroot'],$config['imgpath']);
+	get_article_content($data, $request['urlname'],$config['dataroot'],$config['imgpath']);
 	$data['categories'] = get_categories($data['cat'], $config['dataroot']);
 
 }

@@ -1,8 +1,8 @@
 <?php
 
 function fetch_data(&$data, $config, $request){
-	$globdir = $request['category'] . '*/*';
-	$data['categories'] = get_categories($request['category'], $config['dataroot']);
+	$globdir = $request['urlname'] . '*/*';
+	$data['categories'] = get_categories($request['urlname'], $config['dataroot']);
 	$data['urlname-list'] = get_urlname_list($config['dataroot'],$globdir);
 }
 

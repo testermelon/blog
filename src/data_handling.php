@@ -1,30 +1,27 @@
 <?php
 
 //--------------------------------------------
-//Content data getter, setter, and manipulators
+//Content data getter and and helper manipulators
 //---------------------------------------------
 
-/*takes date in format YYYYMMDD and spits out date text string
- */
-function format_date($date){
-	$year = substr($date,0,4);
-	$month = substr($date,4,2);
-	if($month == '01') $month = 'Januari';
-	if($month == '02') $month = 'Februari';
-	if($month == '03') $month = 'Maret';
-	if($month == '04') $month = 'April';
-	if($month == '05') $month = 'Mei';
-	if($month == '06') $month = 'Juni';
-	if($month == '07') $month = 'Juli';
-	if($month == '08') $month = 'Agustus';
-	if($month == '09') $month = 'September';
-	if($month == '10') $month = 'Oktober';
-	if($month == '11') $month = 'November';
-	if($month == '12') $month = 'Desember';
-	$day = substr($date,6,2);
-
-	return $day . " " . $month . " " . $year;
-}
+/************************************************
+ *
+ * This library should become an API for data storage of the blog
+ *
+ * Posts are organized in single text files containing metadata
+ * Posts can be grouped into directories
+ * Directories should have a file inside it to contain its metadata
+ *
+ * What requests can be done to this database?
+ * - List items inside a directory
+ * - Retrieve data in a post file
+ * - List directories inside a directory
+ * - Retrieve data about a directory
+ *
+ * This is a read only database 
+ * For writing, use a text editor to directly edit the files
+ *
+ * ********************************************** */
 
 /*******************************************
  * to be fed into $content['urlname-list'] = 
@@ -60,7 +57,6 @@ function get_urlname_list($dataroot, $glob_string ) {
 /************************************************
  * to be fed to $content['categories'] =
  * input: 
- * 	$menu_items (raw glob reading)
  * output: 
  * 	$cat_data['names'] (just the names), 
  * 	$cat_data['active'] (currently active category)
@@ -213,6 +209,28 @@ function render_to_html($string,$dataroot){
 	$string = preg_replace('/(\n\n|\r\n\r\n)/', "</p>\n\n<p>", $string);
 
 	return $string;
+}
+
+/*takes date in format YYYYMMDD and spits out date text string
+ */
+function format_date($date){
+	$year = substr($date,0,4);
+	$month = substr($date,4,2);
+	if($month == '01') $month = 'Januari';
+	if($month == '02') $month = 'Februari';
+	if($month == '03') $month = 'Maret';
+	if($month == '04') $month = 'April';
+	if($month == '05') $month = 'Mei';
+	if($month == '06') $month = 'Juni';
+	if($month == '07') $month = 'Juli';
+	if($month == '08') $month = 'Agustus';
+	if($month == '09') $month = 'September';
+	if($month == '10') $month = 'Oktober';
+	if($month == '11') $month = 'November';
+	if($month == '12') $month = 'Desember';
+	$day = substr($date,6,2);
+
+	return $day . " " . $month . " " . $year;
 }
 
 ?>

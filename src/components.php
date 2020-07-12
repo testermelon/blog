@@ -2,7 +2,7 @@
 
 //--------------------------------------------
 //Components, functions to return html content
-//All starts with print_*
+//All starts with print_
 //
 //TODO All functions' input must be $content or none
 //
@@ -194,5 +194,12 @@ function print_theme_buttons() {
 
 	return $html;
 }
+
+
+function print_song_player() {
+	$html . = '<audio src = ';
+
+}
+
 
 ?>

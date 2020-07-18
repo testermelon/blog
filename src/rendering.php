@@ -135,12 +135,14 @@ if ($request['urlname'] == 'about') {
 
 if(file_exists('layouts/'. $request['layout']. '.php'))
 	include('layouts/'. $request['layout'] . '.php');
-else
+else{
 	die("Unidentified layout");
+}
 
 /*****************************
  * Execute Render
  * ****************************/
+
 
 //data instances for current request
 $data = [];

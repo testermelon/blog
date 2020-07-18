@@ -196,9 +196,17 @@ function print_theme_buttons() {
 }
 
 
-function print_song_player() {
-	$html .= '<audio src = ';
-
+function print_music_item($src,$imgsrc,$title) {
+	$html .= '
+		<div style="padding:5px;margin-top:20px; display:flex ">
+			<img src="'.$imgsrc.'" style="display:block;height:150px;width:150px"> 
+			<div style="line-height:75px">
+				<span style="vertical-align:top;font-size:1.5em;padding:5px;">'.$title.'</span>
+				<audio style="vertical-align:bottom;width:100%;display:inline-block" src="'.$src.'" controls></audio>
+			</div>
+		</div>
+		';
+	return $html;
 }
 
 

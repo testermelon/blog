@@ -97,13 +97,14 @@ function print_cat_menu(&$content){
 	$html .= '<input id="menu-toggle" type="checkbox" style="display:none"> </input>';
 
 	$html .= '<ul class="navi" id="categories">';
-	$html .= '<li id="site-name"> <a href="/" > <img src="/favicon.ico" style="padding-bottom:4px;vertical-align:middle;height:35px"> </a> </li>';
+	$html .= '<li ><a href="/" > Beranda </a> </li>';
+	//$html .= '<li id="site-name"> <a href="/" > <img src="/favicon.ico" style="padding-bottom:4px;vertical-align:middle;height:35px"> </a> </li>';
 	$html .= print_cat_menu_li($content);
 	$html .= '<li ';
 	if($content['urlname'] == 'about') {
 		$html.= 'class="active"';
 	}
-	$html .= '> <a href="/article/about"> Tentang Saya </a> </li>';
+	$html .= '> <a href="/article/about"> ? </a> </li>';
 
 	$html .= "</ul>";
 

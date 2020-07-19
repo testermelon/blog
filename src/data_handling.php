@@ -98,7 +98,7 @@ function get_article_path($article,$dataroot){
  * title: article title string
  * body: article text body
  */
-function get_article_data(&$content,$filepath){
+function get_data(&$content,$filepath){
 
 	$hfile = fopen($filepath,'r');
 	if(!$hfile)
@@ -112,12 +112,12 @@ function get_article_data(&$content,$filepath){
 
 	//reading metadata
 	do{
-		$temp_read = fgets($hfile);
+		$temp_read = trim(fgets($hfile));
 		if(feof($hfile)) 
 			return;
-		if(trim($temp_read) == '----')
+		if($temp_read == '----')
 			break;
-		$metadata = explode(',',$temp_read);
+		$metadata = explode('=',$temp_read);
 		$content[$metadata[0]] = $metadata[1];
 	}while($temp_read != '----');
 
@@ -146,7 +146,7 @@ function get_article_content(&$content,$article,$dataroot,$imgpath){
 		return false;
 	}
 
-	get_article_data($content, $filepath);
+	get_data($content, $filepath);
 
 	//manipulate data according to context
 	

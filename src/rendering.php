@@ -72,84 +72,116 @@ switch($theme) {
 
 /* *****************************************************************
  * ROUTER
- * Determine type of content and layout to use based on http request.
  * Perform checks as necessary (TODO).
  * After this section there should be no reference to http request.
  *
  * Request scheme 
  *
- * HOSTNAME/(layout)/(urlname)
+ * HOSTNAME/($request_path)
  * (use mod_rewrite in .htaccess to perform above substitution)
  *
- * layouts:
- * 	music
+ * Parse $request path to locate requested content 
+ * If the content was a directory check the file named "--info".
+ * It should contain metadata:
+ * - Display name of the directory "displayname"
+ * - sorting order priority in menus "order"
+ * - layout to display index "layout"
+ * - etc
+ * If the content was a file, check the content of the file
+ * It should contain metadata:
+ * - date created (obligatory)
+ * - title (obligatory)
+ * - etc
+ *
+ * Directories serve double function as menu items
+ * in the dataroot, store misc files such as error pages
+ *
+ * 	REASON for this setup is to make flexible menu and content types 
+ * 	just by maintaining content in a flat file system
+ * 	Using directories as menu traversal nodes also simplifies site map
+ * 	resembling vanilla html pages but seperating data and building process
+ *
+ * input: $_GET, $_POST, $config
+ * output: $target_path,$target_name,$req_nodes, $data
+ ******************************************************************* */
+
+$dataroot = $config['dataroot'];
+
+//check special cases of requests and redirect as necessary
+//here, we convert all exceptions into a problem of which data to fetch 
+
+$request = $_GET['request_path'];
+if($request == ""){
+	$request = "beranda";
+}
+
+//take first array element to string
+$target_path = glob("$dataroot$request");
+if($target_path == []) {
+	$target_path = ""; 
+}else {
+	$target_path = $target_path[0];
+}
+
+if($target_path == ""){
+	//glob cannot find the file, show not found error
+	$target_path = "$dataroot/404";
+	if(!file_exists($target_path)){
+		die("<h1> Pencarianmu sungguh sia-sia (404)</h1>");
+	}
+}else {
+	if(is_dir($target_path)){
+		//append path to check the directory's metadata
+		$target_path .= '/--info';
+	}
+	//leave $target_path as it is
+}
+//obtain data from the content file 
+
+$data = [];
+get_data($data, $target_path);
+if($data==[]){
+	//file cannot be opened, show server error
+	get_data($data, "$dataroot/500");
+	die("<h1> Kegagalan dalam menjawab tantangan bermula dari kegagalan menata pikiran (500)(1)");
+}
+var_dump($data);
+
+/* ******************************
+ * Load appropriate layout file
+ * Layouts are handled as modules of the renderer,
+ * included conditioanally based on request of the content file
+ *
+ * example of layouts:
+ * 	music gallery
  * 	song
- * 	category
+ * 	category list
  * 	article
  * 	preview (should be private) 
  *
- * urlname: 
- * 	unique identifier for the content
- *
- * input: $_GET, $_POST, $config
- * output: $request['layout','urlname']
- ******************************************************************* */
-
-$request = [];
-
-if(isset($_GET['layout'])){
-	$request['layout'] = $_GET['layout'];
-}else{
-	//default to home when unidentified
-	//Maybe should leave a message when this happens? 
-	$request['layout'] = 'home';
-}
-
-if(isset($_GET['urlname'])){
-	$request['urlname'] = $_GET['urlname'];
-}else{
-	//default to home when unidentified
-	//Maybe should leave a message when this happens? 
-	$request['layout'] = 'home';
-	$request['urlname'] = "";
-}
-
-//Exception for about page
-if ($request['urlname'] == 'about') {
-	$request['layout'] = 'about';
-}
-
-
-/* ******************************
- * read appropriate layout file
- * layout file should contain 2 functions 
- *
- * fetch_data(&$data,$config,$request);
- * This uses data_handling.php functions to interface with the database 
+ * layout file should contain 1 function:
  *
  * render($htmlcontent, $data);
  * this uses components.php collections of functions to print html elements
  *
  * ******************************
  */
-
-if(file_exists('layouts/'. $request['layout']. '.php'))
-	include('layouts/'. $request['layout'] . '.php');
+var_dump($data['layout']);
+if(file_exists('layouts/'. $data['layout']. '.php'))
+	include('layouts/'. $data['layout'] . '.php');
 else{
-	die("Unidentified layout");
+	die("<h1> Kegagalan dalam menjawab tantangan bermula dari kegagalan menata pikiran (500)(2)");
 }
 
 /*****************************
  * Execute Render
  * ****************************/
 
-
 //data instances for current request
-$data = [];
 $htmlcontent = [];
 
 //populate data and put to frame
-fetch_data($data,$config,$request);
+//fetch_data($data,$config,$request);
 render($htmlcontent,$data);
 
 //common to all layouts

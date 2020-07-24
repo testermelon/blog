@@ -1,18 +1,19 @@
 <?php
 
-function fetch_data(&$data, $config, $request){
-	$request['category'] = "0_Beranda";
-	$globdir = '*/*';
-	$data['categories'] = get_categories($request['category'], $config['dataroot']);
-	$data['urlname-list'] = get_urlname_list($config['dataroot'],$globdir);
-}
+function render($data,$target_path,$config){
+	//html head data
+	$htmlcontent['active-css'] = $config['csspath'];
+	$htmlcontent['title'] = $data['title'];
+	$htmlcontent['thumbnail'] = $data['thumbnail'];
 
-function render(&$htmlcontent,$data){
-	$htmlcontent['category-menu'] = print_cat_menu($data);
-	$htmlcontent['title'] =  "testermelon - Home";
-	$htmlcontent['main'] .= '<h2>Beranda</h2>';
-	$htmlcontent['main'] .= '<p>' . print_urlname_list($data) . '</p>';
+	//html body data
+	$htmlcontent['header'] = print_menu($config['dataroot'],$target_path);
+	$htmlcontent['main'] .= '<h1>'.$data['title'].'</h1>';
+	$htmlcontent['main'] .= '<p>Selamat datang di testermelon.com</p>';
+	$htmlcontent['footer'] = print_theme_buttons();
 
+	//call template to print html response out
+	include("templates/basic.php");
 }
 
 ?>

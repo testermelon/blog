@@ -22,8 +22,7 @@
 
 <body>
 <header>
-<!--	<h1> <a href="/"> ∿ testermelon </a> </h1> -->
-	<?php echo $htmlcontent['category-menu'] ?>
+	<?php echo $htmlcontent['header'] ?>
 </header>
 
 <div class="main">
@@ -32,7 +31,7 @@
 
 <br>
 <footer>
-	<?php echo $htmlcontent['theme-buttons'] ?>
+	<?php echo $htmlcontent['footer'] ?>
 </footer>
 
 </body>

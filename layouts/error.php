@@ -8,12 +8,14 @@ function render($data,$target_path,$config){
 
 	//html body data
 	$htmlcontent['header'] = print_menu($config['dataroot'],$target_path);
-	$htmlcontent['main'] .= '<h1>'.$data['title'].'</h1>';
-	$htmlcontent['main'] .= '<p>' . print_urlname_list($config['dataroot'],$target_path) . '</p>';
+	$htmlcontent['main'] .= '<h1>'. $data['title'] . '</h1>';
+	$htmlcontent['main'] .= print_article_body($data);
+	$htmlcontent['main'] .= print_article_nav_away($data);
 	$htmlcontent['footer'] = print_theme_buttons();
 
 	//call template to print html response out
 	include("templates/basic.php");
+
 }
 
 ?>

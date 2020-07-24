@@ -1,16 +1,17 @@
 <?php
-/* This file renders html according to data and layouts
+/* This file controls html rendition according to data and layouts
  *
  * 	Load Libraries
  * 		|
- * 	Configuration
+ * 	Load Configuration
  * 		|
  * 	Process http request (ROUTING)
- * 	  Determine layout
  * 		|
- * 	Obtain data 
+ * 	Fetch data 
  * 		|
- * 	prints html 
+ * 	Determine layout
+ * 		|
+ * 	Render 
  *
  */
 
@@ -31,6 +32,9 @@ include(dirname(__FILE__) . '/components.php');
  * because we can keep default.php in repo and let 
  * flexible enough for the user copy it and edit 
  * on their own.
+ *
+ * Also set up active css according to defaults
+ * or user settings in cookies
  **************************************************/
 
 if(file_exists('config.php'))
@@ -38,37 +42,29 @@ if(file_exists('config.php'))
 else
 	$config = include('defaults.php');
 
-/****************************************************
- * Set CSS path according to servername and cookie settings
- *******************************************************/
-
+//Set CSS path according to servername and cookie settings
 if(isset($_COOKIE['theme'])){
 	$theme = $_COOKIE['theme'];
 }
-
 if(isset($_POST['theme'])){
 	setcookie('theme', $_POST['theme'],time()+365*24*60*60,'/');
 	$theme = $_POST['theme'];
 }
-
 //using '//' to force the link as absolute reference to file
 $config['csspath'] =  '//' . $_SERVER['SERVER_NAME'] . $config['csspath']; 
-
+//
 switch($theme) {
-	case 'polos': 
-		$config['csspath'] .= 'plain.css';
-		break;
-
-	case 'terang': 
-		$config['csspath'] .= 'light.css';
-		break;
-
-	case 'gelap':
-	default:
-		$config['csspath'] .= 'dark.css';
-		break;
+case 'polos': 
+	$config['csspath'] .= 'plain.css';
+	break;
+case 'terang': 
+	$config['csspath'] .= 'light.css';
+	break;
+case 'gelap':
+default:
+	$config['csspath'] .= 'dark.css';
+	break;
 }
-
 
 /* *****************************************************************
  * ROUTER
@@ -102,50 +98,71 @@ switch($theme) {
  * 	resembling vanilla html pages but seperating data and building process
  *
  * input: $_GET, $_POST, $config
- * output: $target_path,$target_name,$req_nodes, $data
+ * output: $target_path
  ******************************************************************* */
 
-$dataroot = $config['dataroot'];
 
 //check special cases of requests and redirect as necessary
 //here, we convert all exceptions into a problem of which data to fetch 
+//There is also the need to set reasonable defaults here
+//worst case, just show message and die
 
+//define request
 $request = $_GET['request_path'];
 if($request == ""){
-	$request = "beranda";
+	//default to home
+	//when not exist, should redirect again to a default built in response
+	$request = $config['homedir'];
 }
 
-//take first array element to string
+//search for requested file
+//TODO: Expand searchability to enable providing filename only 
+//instead of full file path of target
+$dataroot = $config['dataroot'];
 $target_path = glob("$dataroot$request");
+
+//parse search result to string $target_path
 if($target_path == []) {
 	$target_path = ""; 
 }else {
 	$target_path = $target_path[0];
 }
 
-if($target_path == ""){
-	//glob cannot find the file, show not found error
-	$target_path = "$dataroot/404";
-	if(!file_exists($target_path)){
-		die("<h1> Pencarianmu sungguh sia-sia (404)</h1>");
-	}
-}else {
-	if(is_dir($target_path)){
-		//append path to check the directory's metadata
-		$target_path .= '/--info';
-	}
-	//leave $target_path as it is
+//for directories read data from --info file inside it
+if(is_dir($target_path)){
+	//append path to check the directory's metadata
+	$target_path .= '/--info';
 }
-//obtain data from the content file 
+
+//glob cannot find the file, redirect to error 404
+if($target_path == ""){
+	$target_path = "$dataroot/404";
+	if(!file_exists($target_path))
+	//even the 404 page doesn't exist, just die already.
+		die("<h1> Pencarianmu sungguh sia-sia (404)</h1>");
+}
+
+//var_dump($target_path);
+
+/****************************************
+ * Fetch data pointed by $target_path
+ *
+ * input: $target_path
+ * output: $data
+ *
+ * Data shall contain all meta data and content body text
+ * of the file pointed by the $target_path
+ ****************************************
+ */
 
 $data = [];
-get_data($data, $target_path);
+get_data($data,$target_path,$config);
 if($data==[]){
-	//file cannot be opened, show server error
+	//file cannot be opened, show server error 500
 	get_data($data, "$dataroot/500");
-	die("<h1> Kegagalan dalam menjawab tantangan bermula dari kegagalan menata pikiran (500)(1)");
+	if($data==[])
+		die("<h1> Kegagalan dalam menjawab tantangan bermula dari kegagalan membuka hati (500)");
 }
-var_dump($data);
 
 /* ******************************
  * Load appropriate layout file
@@ -161,37 +178,36 @@ var_dump($data);
  *
  * layout file should contain 1 function:
  *
- * render($htmlcontent, $data);
+ * render($data,$target_path,$config);
  * this uses components.php collections of functions to print html elements
+ *
+ * Components in components.php in turn obtain additional data, 
+ * or infer it from data passed into it.
+ * And then each components returns html code accordingly
+ * The layout file then accepts the components' html and place them into the template php file
+ *
+ * This makes layout php files concerns only about overall layout of the page 
+ * while each components deal with their own contents
+ * Components is allowed in turn call other components for convenience.
  *
  * ******************************
  */
-var_dump($data['layout']);
+
+//var_dump($data['layout']);
+
 if(file_exists('layouts/'. $data['layout']. '.php'))
 	include('layouts/'. $data['layout'] . '.php');
 else{
-	die("<h1> Kegagalan dalam menjawab tantangan bermula dari kegagalan menata pikiran (500)(2)");
+	die("<h1> Kegagalan dalam menjawab tantangan </h1> <br> bermula dari kegagalan menata pikiran (500)");
 }
 
 /*****************************
  * Execute Render
  * ****************************/
 
-//data instances for current request
-$htmlcontent = [];
+//var_dump($target_name);
 
 //populate data and put to frame
-//fetch_data($data,$config,$request);
-render($htmlcontent,$data);
-
-//common to all layouts
-$htmlcontent['active-css'] = $config['csspath'];
-$htmlcontent['theme-buttons'] = print_theme_buttons();
-
-/********************************
- * fetch html template and print
- * ******************************/
-
-include("templates/basic.php");
+render($data,$target_path,$config);
 
 ?>

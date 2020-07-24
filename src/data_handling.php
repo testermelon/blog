@@ -30,18 +30,21 @@ function get_urlname_list($dataroot, $glob_string ) {
 
 	$all_files = glob("$dataroot$glob_string");
 
-	$urlname_list = [];
+	$meta = [];
 
 	//open files and obtain metadata of each files
 	foreach($all_files as $files ){
 		$hfile = fopen($files, 'r');
-
+		if($hfile==false)
+			continue;
+		$path = explode('/',$files);
+		$urlname = array_pop($path);
+		if($urlname=='--info') 
+			continue;
+		$cat = array_pop($path);
 		//take data and append to list
 		$date = fgets($hfile);
 		$title = fgets($hfile);
-		$path = explode('/',$files);
-		$urlname = array_pop($path);
-		$cat = array_pop($path);
 		//use date as key to enable simple sorting below
 		$urlname_list += array($date => [$title,$urlname,$cat]);
 
@@ -64,8 +67,10 @@ function get_urlname_list($dataroot, $glob_string ) {
 
 function get_categories($request_cat, $dataroot) {
 
-	$cat_data['names'] = [];
-	$cat_data['active'] = $request_cat;
+	$cat_data['ids'] = [];
+	$cat_data['title'] = [];
+	$cat_data['order'] = [];
+
 
 	//reads files and dirs in $dataroot
 	$menu_items = glob("$dataroot*");
@@ -97,28 +102,23 @@ function get_article_path($article,$dataroot){
  * date: YYYYMMDD
  * title: article title string
  * body: article text body
+ * and other metadata
  */
-function get_data(&$content,$filepath){
+function get_data(&$content,$filepath,$config){
 
 	$hfile = fopen($filepath,'r');
 	if(!$hfile)
 		return $content;
 
-	//first two line is obligatory
-	//and must contain date and title
-	//date format : YYYYMMDD
-	$content['date']  = fgets($hfile);
-	$content['title'] = fgets($hfile);
-
 	//reading metadata
 	do{
 		$temp_read = trim(fgets($hfile));
-		if(feof($hfile)) 
-			return;
 		if($temp_read == '----')
 			break;
 		$metadata = explode('=',$temp_read);
 		$content[$metadata[0]] = $metadata[1];
+		if(feof($hfile)) 
+			return;
 	}while($temp_read != '----');
 
 	$content['body'] ="";
@@ -126,6 +126,8 @@ function get_data(&$content,$filepath){
 		$content['body'] .= fgets($hfile);
 	}
 	fclose($hfile);
+
+	$content['body'] = render_to_html($content['body'],$config['imgpath']);
 }
 
 /* Function as front end for get_article_data() 

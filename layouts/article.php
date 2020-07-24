@@ -1,24 +1,20 @@
 <?php
 
-function fetch_data(&$data, $config, $request){
-	get_article_content($data, $request['urlname'],$config['dataroot'],$config['imgpath']);
-	$data['categories'] = get_categories($data['cat'], $config['dataroot']);
+function render($data,$target_path,$config){
+	//html head data
+	$htmlcontent['active-css'] = $config['csspath'];
+	$htmlcontent['title'] = $data['title'];
+	$htmlcontent['thumbnail'] = $data['thumbnail'];
 
-}
-
-function render(&$htmlcontent,$data){
-	if($data['status'] == '404') {
-		$htmlcontent['main'] =  print_404_article();
-		$htmlcontent['title'] =  "testermelon - 404";
-	}else{
-		$htmlcontent['main'] = print_article_header($data);
-		$htmlcontent['main'] .= print_article_body($data);
-		$htmlcontent['title'] = $data['title'];
-		$htmlcontent['thumbnail'] = $data['thumbnail'];
-	}
+	//html body data
+	$htmlcontent['header'] = print_menu($config['dataroot'],$target_path);
+	$htmlcontent['main'] .= print_article_header($data);
+	$htmlcontent['main'] .= print_article_body($data);
 	$htmlcontent['main'] .= print_article_nav_away($data);
+	$htmlcontent['footer'] = print_theme_buttons();
 
-	$htmlcontent['category-menu'] = print_cat_menu($data);
+	//call template to print html response out
+	include("templates/basic.php");
 
 }
 

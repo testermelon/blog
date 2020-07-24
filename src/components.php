@@ -4,9 +4,11 @@
 //Components, functions to return html content
 //All starts with print_
 //
-//TODO All functions' input must be $content or none
+//This should contain functions to return elements of page (components)
 //
-//TODO clear all logic/error handling out
+//If the component needs to fetch or manipulate data,
+//preferably it should be the one to do it independently.
+//The caller (layouts) should just call them without fetching or manipulating data first.
 //--------------------------------------------
 
 
@@ -47,67 +49,95 @@ function print_404_article() {
 	return $html;
 }
 	
-function print_article_header(&$content){
-	$html = "<h2>" . $content['title'] . "</h2>";
-	$html .= "<small> ". format_date($content['date']) . " </small>" ;
+function print_article_header($data){
+	$html = "<h1>" . $data['title'] . "</h1>";
+	$html .= "<small> ". format_date($data['date']) . " </small>" ;
 	$html .= "<br>";
-	$html .= print_share_buttons($content);
+	$html .= print_share_buttons($data);
 	$html .= "<br>";
 
 	return $html;
 }
 
-/*Show category menu
+/*Show menu
  * Reads $dataroot and show directories as categories,
  * formatted as unordered list.
- *
- * TODO This function has inappropriate abstraction level
- * Generation of category list should be done in data handling level
- * THis function should only deal with generation of html building blocks
- *
- * Sorted alphabetically (case sensitive)
- * The first two character of directory name 
- * will be discarded when printing, 
- * use this to order the categories in the list
- *
- * Returns the html of the list
+ * 
+ * Sorted by the metadata "order" in the --info file
  */
-function print_cat_menu_li(&$content) {
-	$html = "";
-	foreach($content['categories']['names'] as $name ){
-		$html .= '<li ';
-		//determine if category was set and give appropriate class
-		if($name == $content['categories']['active']) {
-			$html .= 'class="active"';
-		}
-		$html .= '>';
-		$html .= '<a href="/category/' . $name . '">' . substr($name, 2) . '</a>';
-		$html .= '</li>';
-	}
-	return $html;
-}
 
-function print_cat_menu(&$content){
+function print_menu($dataroot,$target_path){
+
+	//getting list of directories
+	$lsroot = glob("$dataroot*");
+	$cats = [];
+	foreach($lsroot as $it) {
+		if(is_dir($it)){
+			array_push($cats,$it);
+		}
+	}
+	//var_dump($cats);
+
+	//obtaining directories data and extract relevant info
+	$ol_cat = [];
+	$active_dir = "";
+	foreach($cats as $catit){
+	//	var_dump($catit);
+		$fname = $catit . "/--info";
+		$hfile = fopen($fname, 'r');
+		if($hfile == false) {
+			return false;
+		}
+
+		$meta = [];
+		do{
+			$temp_read = trim(fgets($hfile));
+			if($temp_read == '----')
+				break;
+			$metadata = explode('=',$temp_read);
+			$meta[$metadata[0]] = $metadata[1];
+		}while( ($temp_read != '----' ) && !feof($hfile) );
+
+		$dir_link = end(explode('/',$catit));
+		//var_dump($dir_link);
+
+		//use order as key to enable simple sorting
+		$ol_cat += array($meta['order']  => ['title' => $meta['title'],'path' => $dir_link]);
+		//take note of active dir title
+
+		//var_dump($fname);
+		//var_dump($target_path);
+		if($fname == $target_path) 
+			$active_dir = $meta['title'];
+		fclose($hfile);
+	}
+	//var_dump($ol_cat);
+	
+	//sort list according to order (used as key)
+	ksort($ol_cat);
+
 	$html = "";
+
+	//element for mobile
 	$html .= '<label class="navi" for="menu-toggle">'; 
 	$html .= '<li>';
-	$html .= '<a>&#9776; &nbsp;' . substr($content['categories']['active'], 2). '</a> ';
+	$html .= '<a>&#9776; &nbsp;' . $active_dir . '</a> ';
 	$html .= '</li>';
 	$html .= '</label>';
 	$html .= '<input id="menu-toggle" type="checkbox" style="display:none"> </input>';
 
+	//menu list
 	$html .= '<ul class="navi" id="categories">';
-	$html .= '<li ><a href="/" > Beranda </a> </li>';
-	//$html .= '<li id="site-name"> <a href="/" > <img src="/favicon.ico" style="padding-bottom:4px;vertical-align:middle;height:35px"> </a> </li>';
-	$html .= print_cat_menu_li($content);
-	$html .= '<li ';
-	if($content['urlname'] == 'about') {
-		$html.= 'class="active"';
+	foreach($ol_cat as $order => $dirs ){
+		$html .= '<li ';
+		//determine if category was set and give appropriate class
+		if($dirs['title'] == $active_dir)
+			$html .= 'class="active"';
+		$html .= '>';
+		$html .= '<a href="/'.$dirs['path'].'">'.$dirs['title'].'</a>';
+		$html .= '</li>';
 	}
-	$html .= '> <a href="/article/about"> ? </a> </li>';
-
 	$html .= "</ul>";
-
 	return $html;
 }
 
@@ -134,8 +164,13 @@ function print_article_nav_away($content){
  *
  * Currently fixed to sort by date (newest first)
  */
-function print_urlname_list($content){
-	$html ="";
+function print_urlname_list($dataroot,$target_path){
+
+	$dirpath = end(explode($dataroot,$target_path));
+	$dirpath = str_replace('--info','',$dirpath);
+	var_dump($dirpath);
+
+	$content['urlname_list'] = get_urlname_list($dataroot,"$dirpath*");
 
 	if($content['urlname-list'] == []){
 		$html .= "<p> Masih Kosong </p>";
@@ -144,14 +179,14 @@ function print_urlname_list($content){
 
 	//print data to html
 	foreach($content['urlname-list'] as $date => $details){
-		$link = '/article/' . $details[1];
-		$linkcat = '/category/' . $details[2];
+		$link = '/'.$details[2] . '/' . $details[1];
+		$linkcat = '/' . $details[2];
 
 		$html .= '<a href="' . $link . '">' . $details[0] . '</a>';
 		$html .= "<br>";
 		$html .= "<small>";
 		$html .= format_date($date) . ', dalam ';
-		$html .= '<a href="' . $linkcat . '">' . substr($details[2], 2) . '</a>';
+		$html .= '<a href="' . $linkcat . '">' . $details[2] . '</a>';
 		$html .= "</small>";
 		$html .= "<br> <br>";
 	}

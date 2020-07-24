@@ -35,17 +35,6 @@ footer{
 	/*border-top: 1px gray solid;*/
 }
 
-
-h1{
-	margin:auto;
-	max-width:800px;
-	padding:10px;
-	color:salmon;
-	font-family:ibm-plexserif;
-	font-weight:Bold;
-
-}
-
 div.main{
 	padding-top:40px;
 	padding-bottom:40px;
@@ -56,14 +45,14 @@ div.main{
 	min-height: 70vh;
 }
 
-h2{
+h1{
 	font-family:opensans;
 	font-size:2em;
 	font-weight:500;
 	padding-top:1em;
 }
 
-h3{
+h2{
 	font-family:opensans;
 	font-size:1.5em;
 	font-weight:300;
@@ -73,6 +62,7 @@ h3{
 
 .navi {
 	margin:auto;
+	max-width:800px;
 	list-style-type:none;
 	padding:0;
 /*	background-color:#333333;*/

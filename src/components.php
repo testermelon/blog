@@ -12,14 +12,14 @@
 //--------------------------------------------
 
 
-function print_article_body(&$content){
+function print_article_body($content,$imgpath){
 	$html ="";
 	if($content === false){
 		$html .= "<br> Kosong <br>";
 		return $html;
 	}
 
-	$html .= $content['body'];
+	$html .= render_to_html($content['body'],$imgpath);
 	$html .= "<br>";
 	return $html;
 }
@@ -40,15 +40,6 @@ function print_share_buttons(&$content) {
 	return $html;
 }
 
-
-function print_404_article() {
-	$html = "<h2> Ups! Artikel Tidak Ditemukan </h2>";
-	$html .= "<p> Bisa jadi ada salah ketik di URL, 
-		atau mungkin artikel itu sudah dihapus,
-		atau belum dibuat. </p>";
-	return $html;
-}
-	
 function print_article_header($data){
 	$html = "<h1>" . $data['title'] . "</h1>";
 	$html .= "<small> ". format_date($data['date']) . " </small>" ;
@@ -160,33 +151,46 @@ function print_article_nav_away($content){
 /*takes array of file path string and spits out html of
  * the article list
  *
- * TODO This function has inappropriate abstraction level
- *
  * Currently fixed to sort by date (newest first)
  */
 function print_urlname_list($dataroot,$target_path){
 
-	$dirpath = end(explode($dataroot,$target_path));
+	//this function only accept directories
+	if(strpos($target_path,'--info') == false)
+		return "<p>Tidak ada data</p>";
+	//cd .. 
+	$dirpath = str_replace($dataroot,'',$target_path);
 	$dirpath = str_replace('--info','',$dirpath);
-	var_dump($dirpath);
+	//var_dump($dirpath);
 
-	$content['urlname_list'] = get_urlname_list($dataroot,"$dirpath*");
-
-	if($content['urlname-list'] == []){
-		$html .= "<p> Masih Kosong </p>";
-		return $html;
+	//fetching data of files in the directory
+	$urlname_list = [];
+	$dirls = glob("$dataroot$dirpath*");
+	if($dirls == []){
+		return "<p> Kategori Kosong </p>";
 	}
+	foreach($dirls as $files){
+		if(strpos($files,'--info') != false)
+			continue;
+		$meta = get_file_metadata($files,array('title','date'));
+		if($meta == [])
+			continue;
+		$link = str_replace($datarot,'',$files);
+		$linkcat = str_replace($datarot,'',$files);
+		$urlname_list[$meta['date']] = array('title' => $meta['title'], 'link' => $link);
+	}
+	if($urlname_list == [])
+		return "<p> Masih Kosong </p>";
+	krsort($urlname_list);
 
 	//print data to html
-	foreach($content['urlname-list'] as $date => $details){
-		$link = '/'.$details[2] . '/' . $details[1];
+	foreach($urlname_list as $date => $details){
 		$linkcat = '/' . $details[2];
 
-		$html .= '<a href="' . $link . '">' . $details[0] . '</a>';
+		$html .= '<a href="' . $details['link']. '">' . $details['title'] . '</a>';
 		$html .= "<br>";
 		$html .= "<small>";
-		$html .= format_date($date) . ', dalam ';
-		$html .= '<a href="' . $linkcat . '">' . $details[2] . '</a>';
+		$html .= format_date($date);
 		$html .= "</small>";
 		$html .= "<br> <br>";
 	}
@@ -242,6 +246,12 @@ function print_music_item($src,$imgsrc,$title) {
 			</div>
 		</div>
 		';
+	return $html;
+}
+
+function print_footer(){
+	$html .= print_theme_buttons();
+	$html .= '<a style="float:right" href="/iabout"> tentang testermelon </a> ';
 	return $html;
 }
 

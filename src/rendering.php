@@ -21,6 +21,7 @@
  */
 
 include(dirname(__FILE__) . '/data_handling.php');
+include(dirname(__FILE__) . '/data_interface.php');
 include(dirname(__FILE__) . '/components.php');
 
 /***************************************************
@@ -142,8 +143,6 @@ if($target_path == ""){
 		die("<h1> Pencarianmu sungguh sia-sia (404)</h1>");
 }
 
-//var_dump($target_path);
-
 /****************************************
  * Fetch data pointed by $target_path
  *
@@ -155,11 +154,10 @@ if($target_path == ""){
  ****************************************
  */
 
-$data = [];
-get_data($data,$target_path,$config);
+$data = get_data($target_path);
 if($data==[]){
 	//file cannot be opened, show server error 500
-	get_data($data, "$dataroot/500");
+	$data = get_data("$dataroot"."500");
 	if($data==[])
 		die("<h1> Kegagalan dalam menjawab tantangan bermula dari kegagalan membuka hati (500)");
 }

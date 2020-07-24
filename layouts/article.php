@@ -9,9 +9,9 @@ function render($data,$target_path,$config){
 	//html body data
 	$htmlcontent['header'] = print_menu($config['dataroot'],$target_path);
 	$htmlcontent['main'] .= print_article_header($data);
-	$htmlcontent['main'] .= print_article_body($data);
+	$htmlcontent['main'] .= print_article_body($data,$config['imgpath']);
 	$htmlcontent['main'] .= print_article_nav_away($data);
-	$htmlcontent['footer'] = print_theme_buttons();
+	$htmlcontent['footer'] = print_footer();
 
 	//call template to print html response out
 	include("templates/basic.php");

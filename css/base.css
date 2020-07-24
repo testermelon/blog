@@ -153,6 +153,7 @@ a:hover{
 }
 
 form {
+	display:inline;
 	max-width:800px;
 	margin:auto;
 	padding-left:1em;

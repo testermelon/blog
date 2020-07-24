@@ -31,7 +31,6 @@ function get_urlname_list($dataroot, $glob_string ) {
 	$all_files = glob("$dataroot$glob_string");
 
 	$meta = [];
-
 	//open files and obtain metadata of each files
 	foreach($all_files as $files ){
 		$hfile = fopen($files, 'r');
@@ -46,7 +45,7 @@ function get_urlname_list($dataroot, $glob_string ) {
 		$date = fgets($hfile);
 		$title = fgets($hfile);
 		//use date as key to enable simple sorting below
-		$urlname_list += array($date => [$title,$urlname,$cat]);
+		array_push($urlname_list,array($date => [$title,$urlname,$cat]));
 
 		fclose($hfile);
 	}
@@ -104,31 +103,6 @@ function get_article_path($article,$dataroot){
  * body: article text body
  * and other metadata
  */
-function get_data(&$content,$filepath,$config){
-
-	$hfile = fopen($filepath,'r');
-	if(!$hfile)
-		return $content;
-
-	//reading metadata
-	do{
-		$temp_read = trim(fgets($hfile));
-		if($temp_read == '----')
-			break;
-		$metadata = explode('=',$temp_read);
-		$content[$metadata[0]] = $metadata[1];
-		if(feof($hfile)) 
-			return;
-	}while($temp_read != '----');
-
-	$content['body'] ="";
-	while(!feof($hfile)){
-		$content['body'] .= fgets($hfile);
-	}
-	fclose($hfile);
-
-	$content['body'] = render_to_html($content['body'],$config['imgpath']);
-}
 
 /* Function as front end for get_article_data() 
  *

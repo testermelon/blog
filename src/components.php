@@ -200,13 +200,47 @@ function print_urlname_list($dataroot,$target_path){
 function print_music_item($src,$imgsrc,$title) {
 	$html .= '
 		<div class="mplayer" >
-			<img src="'.$imgsrc.'" style="padding:0;padding-bottom:5px;vertical-align:middle;float:left;display:inline-block;max-height:150px;max-width:150px; overflow:hidden"> 
+			<img src="'.$imgsrc.'" style="padding:0;padding-bottom:5px;border-radius:5px;float:left;display:inline-block;max-height:150px;max-width:150px; overflow:hidden"> 
 			<span style="float:left;vertical-align:middle ;padding:40px;overflow:hidden">'.$title.'</span>
 			<audio style="vertical-align:bottom;width:100%;display:inline-block" src="'.$src.'" controls></audio>
 		</div>
 		';
 	return $html;
 }
+
+function print_music_playlist($songpath,$imgpath,$target_path){
+	//obtain dir path
+	if(is_dir($target_path))
+		$dirpath = $target_path;
+	else{
+		if(strpos($target_path,'--info') == false)
+			//not having --info means not directory metadata
+			return "Bukan data playlist";
+		else
+			//yep a directory metadata, take out the --info, and use this
+			$dirpath = str_replace('--info','',$target_path);
+	}
+
+	$dirls = glob("$dirpath*");
+	if($dirls == [])
+		return "Masih kosong";
+
+	foreach($dirls as $songs){
+		//skip the dir metadata
+		var_dump($songs);
+		if(strpos($songs,'--info') !== false)
+			continue;
+		$meta = get_file_metadata($songs,[]);
+		if($meta == [])
+			continue; 
+		var_dump($meta);
+		$songfile = $meta['songfile'];
+		$imgfile = $meta['illust'];
+		$html .= print_music_item("$songpath$songfile","$imgpath$imgfile",$meta['title']);
+	}
+	return $html;
+}
+
 
 //print a theme select button
 function print_theme_buttons($active_css) {

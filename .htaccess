@@ -9,11 +9,9 @@ ServerSignature Off
   RewriteRule index.php - [QSA,L,C]
   RewriteRule .* - [QSA,L]
 
-  # deny access to content and img
-  RewriteCond %{REQUEST_URI} ^/content/*$
-  RewriteRule ^content/*$ - [R=404,L]
-  RewriteCond %{REQUEST_URI} ^/img/*$
-  RewriteRule ^img/*$ - [R=404,L]
+  # deny access to contents
+  RewriteCond %{REQUEST_URI} ^/contents/*$
+  RewriteRule ^contents/*$ - [R=404,L]
 
   # redirect root access (/) to index.php
   RewriteCond %{REQUEST_URI} ^/$

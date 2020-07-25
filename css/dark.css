@@ -46,6 +46,11 @@ a:hover{
 	color:#DDDDDD;
 }
 
+div.mplayer {
+	/*background-color:#281421;*/
+	background-color:#222222;
+
+}
 
 @media screen and (max-width:500px){
 

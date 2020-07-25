@@ -38,10 +38,10 @@ footer{
 div.main{
 	padding-top:40px;
 	padding-bottom:40px;
-	padding-left:2em;
-	padding-right:2em;
+	padding-left:1em;
+	padding-right:1em;
 	margin:auto;
-	max-width:44em;
+	max-width:45em;
 	min-height: 70vh;
 }
 
@@ -68,8 +68,6 @@ h2{
 /*	background-color:#333333;*/
 	font-family:opensans; font-weight:normal;
 }
-
-
 
 .navi li {
 	margin:0;
@@ -113,7 +111,7 @@ a:hover{
 
 .main p{
 	font-family:ibm-plexserif;
-	font-size:1.2em;
+	font-size:1.1em;
 	line-height:1.6em;
 	margin-bottom:1em;
 }
@@ -152,31 +150,56 @@ a:hover{
 
 }
 
-form {
+.footer-navi {
+	max-width:800px;
+	margin:auto;
+}
+
+.footer-navi > a{
+	color: salmon;
+}
+
+.footer-navi > a:hover{
+	color: white;
+
+}
+#theme-button {
 	display:inline;
 	max-width:800px;
 	margin:auto;
 	padding-left:1em;
 	font-family:opensans;
-	color:lightgray;
 }
 
-input {
+button {
+	color: salmon;
+	font-size:1em;
+	font-family:opensans;
 	border:none;
-	padding:10px;
+	border-radius:5px;
+	margin:5px;
+	padding:5px;
 	-webkit-appearance:none;
 	-moz-appearance:none;
 	appearance:none;
-	color:salmon;
 	background-color:black;
+	vertical-align:middle;
 }
 
-input:hover{
+button:hover{
 	color:white;
 	cursor:pointer;
-	background-color:#111111
+	background-color:#222222;
 }
 
+div.mplayer {
+	font-size:1.2em;
+	border-radius:5px;
+	padding:5px;
+	margin-top:20px;
+	margin-bottom:20px;
+	overflow:hidden;
+}
 
 @media screen and (max-width:500px){
 

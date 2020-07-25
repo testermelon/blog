@@ -25,12 +25,10 @@ function print_article_body($content,$imgpath){
 }
 
 
-function print_share_buttons(&$content) {
-	$html ="";
+function print_share_buttons($social_uri) {
 	$fb_link = "https://www.facebook.com/sharer/sharer.php?u=";
 	$tw_link = "https://twitter.com/intent/tweet?url=";
-	$sharelink = "https://testermelon.com/article/" . $content['urlname'];
-
+	$sharelink = $_SERVER['SERVER_NAME'].'/'.$social_uri;
 	$html .= '<div id="social-links">';
 	$html .= "Bagikan ke: ";
 	$html .= '<a target="_blank" href="' . $fb_link . $sharelink . '"> Facebook </a>';
@@ -40,22 +38,16 @@ function print_share_buttons(&$content) {
 	return $html;
 }
 
-function print_article_header($data){
+function print_article_header($data,$dataroot,$target_path){
+	$social_uri	= str_replace($dataroot,'',$target_path);
 	$html = "<h1>" . $data['title'] . "</h1>";
 	$html .= "<small> ". format_date($data['date']) . " </small>" ;
 	$html .= "<br>";
-	$html .= print_share_buttons($data);
+	$html .= print_share_buttons($social_uri);
 	$html .= "<br>";
 
 	return $html;
 }
-
-/*Show menu
- * Reads $dataroot and show directories as categories,
- * formatted as unordered list.
- * 
- * Sorted by the metadata "order" in the --info file
- */
 
 function print_menu($dataroot,$target_path){
 
@@ -96,10 +88,11 @@ function print_menu($dataroot,$target_path){
 		$ol_cat += array($meta['order']  => ['title' => $meta['title'],'path' => $dir_link]);
 		//take note of active dir title
 
-		//var_dump($fname);
+		//var_dump($catit);
 		//var_dump($target_path);
-		if($fname == $target_path) 
+		if(strpos($target_path, $catit) !== false){
 			$active_dir = $meta['title'];
+		}
 		fclose($hfile);
 	}
 	//var_dump($ol_cat);
@@ -109,7 +102,7 @@ function print_menu($dataroot,$target_path){
 
 	$html = "";
 
-	//element for mobile
+	//elements for mobile
 	$html .= '<label class="navi" for="menu-toggle">'; 
 	$html .= '<li>';
 	$html .= '<a>&#9776; &nbsp;' . $active_dir . '</a> ';
@@ -132,17 +125,24 @@ function print_menu($dataroot,$target_path){
 	return $html;
 }
 
-function print_article_nav_away($content){
-	$catlink = '/category/'. $content['cat'];
+function print_article_nav_away($dataroot,$target_link){
+	var_dump($target_link);
+	$catlink = str_replace($dataroot,'',$target_link);
+	var_dump($catlink);
+	$catlink = explode('/',$catlink);
+	array_pop($catlink);
+	$catlink = implode('/',$catlink);
+	var_dump($catlink);
+
 	$html = "";
 	$html .= '<div id="nav-away"> ';
 	$html .= "Kembali ke:";
 	$html .= "<br>";
-	$html .= '<a href="'. $catlink . '">' ;
-	$html .= '&#171 Kategori ' . substr($content['cat'], 2) ;
+	$html .= '<a href="/'.$catlink.'">' ;
+	$html .= '&#171 Kategori ' ;
 	$html .= '</a>';
 	$html .= '<br>'; 
-	$html .= '<a href="/"> &#171 Halaman Depan  </a>';
+	$html .= '<a href="/"> &#171 Beranda  </a>';
 	$html .= '</div>';
 
 	return $html;
@@ -158,6 +158,7 @@ function print_urlname_list($dataroot,$target_path){
 	//this function only accept directories
 	if(strpos($target_path,'--info') == false)
 		return "<p>Tidak ada data</p>";
+
 	//cd .. 
 	$dirpath = str_replace($dataroot,'',$target_path);
 	$dirpath = str_replace('--info','',$dirpath);
@@ -175,8 +176,7 @@ function print_urlname_list($dataroot,$target_path){
 		$meta = get_file_metadata($files,array('title','date'));
 		if($meta == [])
 			continue;
-		$link = str_replace($datarot,'',$files);
-		$linkcat = str_replace($datarot,'',$files);
+		$link = str_replace($dataroot,'',$files);
 		$urlname_list[$meta['date']] = array('title' => $meta['title'], 'link' => $link);
 	}
 	if($urlname_list == [])
@@ -197,63 +197,38 @@ function print_urlname_list($dataroot,$target_path){
 	return $html;
 }
 
-//Print recent articles
-function print_recent($dataroot){
-	$html = "";
-	$all_files = glob("$dataroot*/*");
-
-	$html .= "<p>";
-	$html .= print_urlname_list($content);
-	$html .= "</p>";
-
-	return $html;
-}
-
-//Print recent articles in a category
-function print_category($cat,$dataroot){
-	$html = "";
-	$all_files = glob("$dataroot$cat/*");
-
-	$html .= "<h2> " . substr($cat, 2) . " </h2>";
-	$html .= "<p>";
-	$html .= print_urlname_list($content);
-	$html .= "</p>";
-
-	return $html;
-}
-
-//print a theme select button
-
-function print_theme_buttons() {
-
-	$html .= '<form '. $req_str . 'method="POST" >';
-	$html .= '<input type="submit" name="theme" value="gelap">';
-	$html .= '<input type="submit" name="theme" value="terang">';
-	//$html .= '<input type="submit" name="theme" value="polos">';
-	$html .= "</form>";
-
-	return $html;
-}
-
-
 function print_music_item($src,$imgsrc,$title) {
 	$html .= '
-		<div style="padding:5px;margin-top:20px; display:flex ">
-			<img src="'.$imgsrc.'" style="display:block;height:150px;width:150px"> 
-			<div style="line-height:75px">
-				<span style="vertical-align:top;font-size:1.5em;padding:5px;">'.$title.'</span>
-				<audio style="vertical-align:bottom;width:100%;display:inline-block" src="'.$src.'" controls></audio>
-			</div>
+		<div class="mplayer" >
+			<img src="'.$imgsrc.'" style="padding:0;padding-bottom:5px;vertical-align:middle;float:left;display:inline-block;max-height:150px;max-width:150px; overflow:hidden"> 
+			<span style="float:left;vertical-align:middle ;padding:40px;overflow:hidden">'.$title.'</span>
+			<audio style="vertical-align:bottom;width:100%;display:inline-block" src="'.$src.'" controls></audio>
 		</div>
 		';
 	return $html;
 }
 
-function print_footer(){
-	$html .= print_theme_buttons();
-	$html .= '<a style="float:right" href="/iabout"> tentang testermelon </a> ';
+//print a theme select button
+function print_theme_buttons($active_css) {
+
+	$html .= '<form id="theme-button" method="POST" >';
+	if(strpos($active_css, "light") != false)
+		$html .= '<button type="submit" name="theme" value="gelap">&#127769; Gelap </button>';
+	if(strpos($active_css, "dark") != false)
+		$html .= '<button type="submit" name="theme" value="terang"> &#128262; Terang </button>';
+
+	$html .= "</form>";
+
 	return $html;
 }
 
+function print_footer($config){
+	$html .= '<div class="footer-navi">';
+	$html .= print_theme_buttons($config['csspath']);
+	$html .= '<a style="font-family:opensans;padding:9px;float:right" href="/about"> tentang testermelon </a> ';
+	$html .= '</div>';
+
+	return $html;
+}
 
 ?>

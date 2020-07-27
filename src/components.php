@@ -204,8 +204,8 @@ function print_music_item($src,$imgsrc,$title) {
 				<img src="'.$imgsrc.'" style="max-width:150px;padding:0;padding-bottom:5px;border-radius:5px;"> 
 			</div>
 			<div style="display:flex;flex-direction:column;flex-grow:1;justify-content:space-between">
-				<div style="padding:10px;">'.$title.'</div>
-				<div style="padding:10px;">
+				<div style="margin:auto">'.$title.'</div>
+				<div style="flex:grow;padding:10px;">
 					<audio style="vertical-align:bottom;width:100%;" src="'.$src.'" controls></audio>
 				</div>
 			</div>

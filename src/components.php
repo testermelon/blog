@@ -201,7 +201,7 @@ function print_music_item($src,$imgsrc,$title) {
 	$html .= '
 		<div class="mplayer" style="display:flex">
 			<div style="border-radius:5px;max-height:150px;max-width:150px;overflow:hidden">	
-				<img src="'.$imgsrc.'" style="max-width:initial;padding:0;padding-bottom:5px;border-radius:5px;"> 
+				<img src="'.$imgsrc.'" style="max-width:150px;padding:0;padding-bottom:5px;border-radius:5px;"> 
 			</div>
 			<div style="display:flex;flex-direction:column;flex-grow:1;justify-content:space-between">
 				<div style="padding:10px;">'.$title.'</div>

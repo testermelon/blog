@@ -126,13 +126,13 @@ function print_menu($dataroot,$target_path){
 }
 
 function print_article_nav_away($dataroot,$target_link){
-	var_dump($target_link);
+	//var_dump($target_link);
 	$catlink = str_replace($dataroot,'',$target_link);
-	var_dump($catlink);
+	//var_dump($catlink);
 	$catlink = explode('/',$catlink);
 	array_pop($catlink);
 	$catlink = implode('/',$catlink);
-	var_dump($catlink);
+	//var_dump($catlink);
 
 	$html = "";
 	$html .= '<div id="nav-away"> ';
@@ -199,10 +199,16 @@ function print_urlname_list($dataroot,$target_path){
 
 function print_music_item($src,$imgsrc,$title) {
 	$html .= '
-		<div class="mplayer" >
-			<img src="'.$imgsrc.'" style="padding:0;padding-bottom:5px;border-radius:5px;float:left;display:inline-block;max-height:150px;max-width:150px; overflow:hidden"> 
-			<span style="float:left;vertical-align:middle ;padding:40px;overflow:hidden">'.$title.'</span>
-			<audio style="vertical-align:bottom;width:100%;display:inline-block" src="'.$src.'" controls></audio>
+		<div class="mplayer" style="display:flex">
+			<div style="border-radius:5px;max-height:150px;max-width:150px;overflow:hidden">	
+				<img src="'.$imgsrc.'" style="max-width:initial;padding:0;padding-bottom:5px;border-radius:5px;"> 
+			</div>
+			<div style="display:flex;flex-direction:column;flex-grow:1;justify-content:space-between">
+				<div style="padding:10px;">'.$title.'</div>
+				<div style="padding:10px;">
+					<audio style="vertical-align:bottom;width:100%;" src="'.$src.'" controls></audio>
+				</div>
+			</div>
 		</div>
 		';
 	return $html;
@@ -227,13 +233,13 @@ function print_music_playlist($songpath,$imgpath,$target_path){
 
 	foreach($dirls as $songs){
 		//skip the dir metadata
-		var_dump($songs);
+		//var_dump($songs);
 		if(strpos($songs,'--info') !== false)
 			continue;
 		$meta = get_file_metadata($songs,[]);
 		if($meta == [])
 			continue; 
-		var_dump($meta);
+		//var_dump($meta);
 		$songfile = $meta['songfile'];
 		$imgfile = $meta['illust'];
 		$html .= print_music_item("$songpath$songfile","$imgpath$imgfile",$meta['title']);
@@ -241,18 +247,14 @@ function print_music_playlist($songpath,$imgpath,$target_path){
 	return $html;
 }
 
-
 //print a theme select button
 function print_theme_buttons($active_css) {
-
 	$html .= '<form id="theme-button" method="POST" >';
 	if(strpos($active_css, "light") != false)
-		$html .= '<button type="submit" name="theme" value="gelap">&#127769; Gelap </button>';
+		$html .= '<button type="submit" name="theme" value="gelap">&#127769; </button>';
 	if(strpos($active_css, "dark") != false)
-		$html .= '<button type="submit" name="theme" value="terang"> &#128262; Terang </button>';
-
+		$html .= '<button type="submit" name="theme" value="terang"> &#128262;  </button>';
 	$html .= "</form>";
-
 	return $html;
 }
 

@@ -142,6 +142,19 @@ function get_article_content(&$content,$article,$dataroot,$imgpath){
 	$content['body'] = render_to_html($content['body'],$imgpath);
 }
 
+function render_puisi($puisi){
+	$rendition =[];
+	foreach($puisi as $poem){
+		$poem = str_replace('{puisi}','',$poem);
+		$poem = str_replace('{/puisi}','',$poem);
+		$poem = preg_replace("/(\n|\r\n)/",'<br>',$poem);
+		$poem = trim($poem);
+		$poem = '<span class="poem" style="font-style:italic">' . $poem . '</span>';
+		array_push($rendition,$poem);
+	}
+	return $rendition;
+}
+
 /* Use regex to parse and convert markdown syntaxes to html
  *
  * Not complete as markdown parser, only subset
@@ -154,7 +167,11 @@ function render_to_html($string,$dataroot){
 	// 2. Deal with each of literal tags applying helper converters if necessary
 	// 3. Do regex replacements as usual
 	// 4. Finally paste back the tags into the numbered markers on the string
-	
+
+	$puisi = [];
+	preg_match_all('/{puisi}.*?{\/puisi}/s',$string,$puisi);
+	$string = preg_replace('/{puisi}.*?{\/puisi}/s','{..puisi..}',$string);
+	$puisi = render_puisi($puisi[0]);
 
 	//links
 	$string = preg_replace('/(?<=[^!])\[(.*?)\]\((.*?)\)/','<a href="$2" target="_blank">$1</a>',$string);
@@ -183,6 +200,10 @@ function render_to_html($string,$dataroot){
 	$string = preg_replace('/\A/', '<p>', $string);
 	$string = preg_replace('/\Z/', '</p>', $string);
 	$string = preg_replace('/(\n\n|\r\n\r\n)/', "</p>\n\n<p>", $string);
+
+	foreach($puisi as $poem){
+		$string = preg_replace('/{..puisi..}/',$poem,$string,1);
+	}
 
 	return $string;
 }

@@ -197,15 +197,15 @@ function print_urlname_list($dataroot,$target_path){
 	return $html;
 }
 
-function print_music_item($src,$imgsrc,$title) {
+function print_music_item($src,$imgsrc,$title,$link) {
 	$html .= '
 		<div class="mplayer" style="display:flex">
 			<div style="border-radius:5px;width:150px;">	
 				<img src="'.$imgsrc.'" style="max-width:150px;padding:0;border-radius:5px;"> 
 			</div>
 			<div style="display:flex;flex-direction:column;flex-grow:1;justify-content:space-between">
-				<div style="margin:auto;text-align:center">'
-					.$title.'
+				<div style="margin:auto;text-align:center">
+					<a href="' .$link. '">' .$title. '</a>
 				</div>
 				<div style="flex:grow;padding:10px;">
 					<audio style="vertical-align:bottom;width:100%;" src="'.$src.'" controls></audio>
@@ -216,8 +216,16 @@ function print_music_item($src,$imgsrc,$title) {
 	return $html;
 }
 
-function print_music_playlist($songpath,$imgpath,$target_path){
-	//obtain dir path
+function print_music_player(){
+}
+
+function print_music_playlist($config,$target_path){
+
+	$songpath = $config['songpath'];
+	$imgpath = $config['imgpath'];
+	$dataroot = $config['dataroot'];
+
+	//obtain dir path:
 	if(is_dir($target_path))
 		$dirpath = $target_path;
 	else{
@@ -244,7 +252,8 @@ function print_music_playlist($songpath,$imgpath,$target_path){
 		//var_dump($meta);
 		$songfile = $meta['songfile'];
 		$imgfile = $meta['illust'];
-		$html .= print_music_item("$songpath$songfile","$imgpath$imgfile",$meta['title']);
+		$link = str_replace($dataroot,'',$songs);
+		$html .= print_music_item("$songpath$songfile","$imgpath$imgfile",$meta['title'],$link);
 	}
 	return $html;
 }

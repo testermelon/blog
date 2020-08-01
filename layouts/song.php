@@ -1,16 +1,20 @@
 
 <?php
 
-function fetch_data(&$data, $config, $request){
-	get_article_content($data, $request['urlname'],$config['dataroot'],$config['imgpath']);
-	$data['categories'] = get_categories( "X_Tentang Saya",$config['dataroot']);
-}
-
-function render(&$htmlcontent,$data){
-	$htmlcontent['category-menu'] = print_cat_menu($data);
-	$htmlcontent['main'] = '<h2>'.$data['title'] . '</h2>';
-	$htmlcontent['main'] .= print_article_body($data);
+function render($data,$target_path,$config){
+	//html head data
+	$htmlcontent['active-css'] = $config['csspath'];
+	$htmlcontent['title'] = $data['title'];
 	$htmlcontent['thumbnail'] = $data['thumbnail'];
+
+	//html body data
+	$htmlcontent['header'] = print_menu($config['dataroot'],$target_path);
+	$htmlcontent['main'] .= '<h1>'.$data['title'].'</h1>';
+	$htmlcontent['main'] .= '<p>'.render_to_html($data['body'],$config['imgpath']). '</p>';
+	$htmlcontent['footer'] = print_footer($config);
+
+	//call template to print html response out
+	include("templates/basic.php");
 }
 
 ?>

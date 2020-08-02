@@ -13,6 +13,11 @@
 	src: url(/fonts/IBMPlexSerif-Regular.ttf);
 }
 
+@font-face{
+	font-family: ibm-plexserif-italic;
+	src: url(/fonts/IBMPlexSerif-Italic.ttf);
+}
+
 body{
 	margin:auto;
 	font-family:ibm-plexserif;
@@ -199,6 +204,10 @@ div.mplayer {
 	margin-top:20px;
 	margin-bottom:20px;
 	overflow:hidden;
+}
+
+span.poem {
+	font-family:ibm-plexserif-italic;
 }
 
 @media screen and (max-width:500px){

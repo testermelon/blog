@@ -149,7 +149,7 @@ function render_puisi($puisi){
 		$poem = str_replace('{/puisi}','',$poem);
 		$poem = preg_replace("/(\n|\r\n)/",'<br>',$poem);
 		$poem = trim($poem);
-		$poem = '<span class="poem" style="font-style:italic">' . $poem . '</span>';
+		$poem = '<span class="poem" >' . $poem . '</span>';
 		array_push($rendition,$poem);
 	}
 	return $rendition;
@@ -197,10 +197,12 @@ function render_to_html($string,$dataroot){
 	$string = preg_replace('/#{2}([^\r^\n]+)/',"<h3>$1</h3>",$string);
 
 	//paragraphs
+	// Paragraphs should be the last to process due to it's nature to break newlines
 	$string = preg_replace('/\A/', '<p>', $string);
 	$string = preg_replace('/\Z/', '</p>', $string);
 	$string = preg_replace('/(\n\n|\r\n\r\n)/', "</p>\n\n<p>", $string);
 
+	//the reason literal tags is processed separately is to escape from paragraph processing
 	foreach($puisi as $poem){
 		$string = preg_replace('/{..puisi..}/',$poem,$string,1);
 	}

@@ -216,8 +216,6 @@ function print_music_item($src,$imgsrc,$title,$link) {
 	return $html;
 }
 
-function print_music_player(){
-}
 
 function print_music_playlist($config,$target_path){
 
@@ -255,6 +253,26 @@ function print_music_playlist($config,$target_path){
 		$link = str_replace($dataroot,'',$songs);
 		$html .= print_music_item("$songpath$songfile","$imgpath$imgfile",$meta['title'],$link);
 	}
+	return $html;
+}
+
+function print_large_music_item($config,$data){
+
+	$imgsrc = $config['imgpath'] . $data['illust'];
+	$src = $config['songpath'] . $data['songfile'];
+
+	$html .= '
+		<div class="mplayer" style="display:flex;flex-direction:column">
+			<div style="border-radius:5px;">	
+				<img src="'.$imgsrc.'" style="padding:0;border-radius:5px;"> 
+			</div>
+			<div style="display:flex;flex-direction:column;flex-grow:1;justify-content:space-between">
+				<div style="flex:grow;padding:10px;">
+					<audio style="vertical-align:bottom;width:100%;" src="'.$src.'" controls></audio>
+				</div>
+			</div>
+		</div>
+	';
 	return $html;
 }
 

@@ -157,7 +157,8 @@ if($target_path == ""){
 $data = get_data($target_path);
 if($data==[]){
 	//file cannot be opened, show server error 500
-	$data = get_data("$dataroot"."500");
+	$target_path = "$dataroot/500";
+	$data = get_data($target_path);
 	if($data==[])
 		die("<h1> Kegagalan dalam menjawab tantangan bermula dari kegagalan membuka hati (500)");
 }
@@ -196,7 +197,11 @@ if($data==[]){
 if(file_exists('layouts/'. $data['layout']. '.php'))
 	include('layouts/'. $data['layout'] . '.php');
 else{
-	die("<h1> Kegagalan dalam menjawab tantangan </h1> <br> bermula dari kegagalan menata pikiran (500)");
+	//file cannot be opened, show server error 500
+	$target_path = "$dataroot/500";
+	$data = get_data($target_path);
+	if($data==[])
+		die("<h1> Kegagalan dalam menjawab tantangan </h1> <br> bermula dari kegagalan menata pikiran (500)");
 }
 
 /*****************************

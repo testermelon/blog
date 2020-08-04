@@ -296,4 +296,13 @@ function print_footer($config){
 	return $html;
 }
 
+function print_head_thumbnail($imgpath,$thumbnail){
+	if($thumbnail == ''){
+		$thumbnail = 'testermelon-social.png';
+	}else{
+		$thumbnail = $imgpath . $thumbnail;
+	}
+	return $_SERVER['SERVER_NAME'] . $thumbnail;
+}
+
 ?>

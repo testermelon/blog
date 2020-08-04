@@ -4,7 +4,7 @@ function render($data,$target_path,$config){
 	//html head data
 	$htmlcontent['active-css'] = $config['csspath'];
 	$htmlcontent['title'] = $data['title'];
-	$htmlcontent['thumbnail'] = $data['thumbnail'];
+	$htmlcontent['thumbnail'] = print_head_thumbnail($config['imgpath'],$data['thumbnail']);
 
 	//html body data
 	$htmlcontent['header'] = print_menu($config['dataroot'],$target_path);

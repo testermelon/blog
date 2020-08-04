@@ -298,11 +298,11 @@ function print_footer($config){
 
 function print_head_thumbnail($imgpath,$thumbnail){
 	if($thumbnail == ''){
-		$thumbnail = 'testermelon-social.png';
+		$thumbnail = '/testermelon-social.png';
 	}else{
 		$thumbnail = $imgpath . $thumbnail;
 	}
-	return $_SERVER['SERVER_NAME'] . $thumbnail;
+	return 'https://'.$_SERVER['SERVER_NAME'] . $thumbnail;
 }
 
 ?>

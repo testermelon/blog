@@ -194,7 +194,7 @@ function render_to_html($string,$dataroot){
 	$string = preg_replace('/<oli>(.*)<li>/','<li>$1</li>', $string);
 
 	//Headings
-	$string = preg_replace('/#{2}([^\r^\n]+)/',"<h3>$1</h3>",$string);
+	$string = preg_replace('/#{2}([^\r^\n]+)/',"<h2>$1</h2>",$string);
 
 	//paragraphs
 	// Paragraphs should be the last to process due to it's nature to break newlines

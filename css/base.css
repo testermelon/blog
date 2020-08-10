@@ -127,9 +127,8 @@ a:hover{
 }
 
 .main strong,em{
-	color:teal;
-	font-style:normal;
-	font-family:opensans-bold;
+	font-style:bold;
+	font-family:ibm-plexserif-italic;
 }
 
 

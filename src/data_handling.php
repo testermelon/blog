@@ -173,13 +173,14 @@ function render_to_html($string,$dataroot){
 	$string = preg_replace('/{puisi}.*?{\/puisi}/s','{..puisi..}',$string);
 	$puisi = render_puisi($puisi[0]);
 
-	//links
-	$string = preg_replace('/(?<=[^!])\[(.*?)\]\((.*?)\)/','<a href="$2" target="_blank">$1</a>',$string);
-	
 	//images
 	$img_repl_str = '<img src="' . $dataroot . '$2" alt="$1" />';
 	$string = preg_replace('/!\[(.*?)\]\((.*?)\)/',$img_repl_str,$string);
 
+
+	//links
+	$string = preg_replace('/(?<=[^!])\[(.*?)\]\((.*?)\)/','<a href="$2" target="_blank">$1</a>',$string);
+	
 	//emphasis
 	$string = preg_replace('/\*{2}(.*?)\*{2}/','<em>$1</em>',$string);
 

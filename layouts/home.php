@@ -10,6 +10,7 @@ function render($data,$target_path,$config){
 	$htmlcontent['header'] = print_menu($config['dataroot'],$target_path);
 	$htmlcontent['main'] .= '<h1>'.$data['title'].'</h1>';
 	$htmlcontent['main'] .= '<p>Selamat datang di testermelon.com</p>';
+	$htmlcontent['main'] .= print_article_body($data,$config['imgpath']);
 	//planning to add these
 	//same with menu in header, but fancier with image n animations
 	//$htmlcontent['main'] .= print_menu_elaborate($config['dataroot'],$target_path);

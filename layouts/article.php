@@ -5,6 +5,7 @@ function render($data,$target_path,$config){
 	$htmlcontent['active-css'] = $config['csspath'];
 	$htmlcontent['title'] = $data['title'];
 	$htmlcontent['thumbnail'] = print_head_thumbnail($config['imgpath'],$data['thumbnail']);
+	$htmlcontent['head-js-modules'] = ' <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>	<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> ';
 
 	//html body data
 	$htmlcontent['header'] = print_menu($config['dataroot'],$target_path);

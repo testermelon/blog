@@ -194,6 +194,14 @@ function render_to_html($string,$dataroot){
 	$string = preg_replace('/((<oli>.*<li>\s*)+)/','<ol>$1</ol>',$string);
 	$string = preg_replace('/<oli>(.*)<li>/','<li>$1</li>', $string);
 
+	//tables
+	$string = preg_replace('/\|\s*(.*)/','<tabl>|$1</tabl>',$string);
+	$string = preg_replace('/((<tabl>.*<\/tabl>\s*)+)/',"</p><table>\n$1\n</table><p>",$string);
+	$string = preg_replace('/<tabl>(.*)<\/tabl>/','<tr>$1</tr>', $string);
+	$string = preg_replace('/<tr>\|/','<tr><td>', $string);
+	//$string = preg_replace('/\|<\/tr>/','</tr>', $string);
+	$string = preg_replace('/(.+?)(?:\|)/','$1</td><td>', $string);
+
 	//Headings
 	$string = preg_replace('/#{2}([^\r^\n]+)/',"<h2>$1</h2>",$string);
 

@@ -209,6 +209,10 @@ span.poem {
 	font-family:ibm-plexserif-italic;
 }
 
+table,td {
+	border: 1px solid;
+}
+
 @media screen and (max-width:500px){
 
 	#site-name {

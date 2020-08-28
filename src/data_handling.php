@@ -248,6 +248,10 @@ function datalist_sort($list, $sortby, $descending) {
 		if(is_dir($item))
 			$item .= "/--info";
 		$meta = get_file_metadata($item,array($sortby));
+		//evade same key colision
+		while($listout[$meta[$sortby]] != ""){
+			$meta[$sortby] .= "+";
+		}
 		$listout[$meta[$sortby]] = $item ;
 	}
 

@@ -209,8 +209,15 @@ span.poem {
 	font-family:ibm-plexserif-italic;
 }
 
-table,td {
-	border: 1px solid;
+table {
+	table-layout: fixed;
+	width :100%;
+	border-collapse: collapse;
+	border: 3px solid;
+}
+
+td {
+	border:1px dashed;
 }
 
 @media screen and (max-width:500px){

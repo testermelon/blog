@@ -1,7 +1,14 @@
 <?php
 
 include("src/data_interface.php");
+include("src/data_handling.php");
 
-var_dump( get_data_item("contents/posts/", 'bitter-girls'));
+
+$list = get_list_items("contents/posts/","musik/","no");
+var_dump($list);
+echo "<br>";
+echo "<br>";
+$list = datalist_sort($list, "date", true);
+var_dump($list);
 
 ?>

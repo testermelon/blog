@@ -8,15 +8,17 @@
  *
  * This library should become an API for data storage of the blog
  *
- * Posts are organized in single text files containing metadata
- * Posts can be grouped into directories
- * Directories should have a file inside it to contain its metadata
+ * Data are organized as files and directories
+ * Single items represents an addressable page 
+ * Single items has metadata and body text 
+ * Single items can have other single items as children
+ * Parent items are implemented as below pair 
+ * 	directory/ 
+ * 	directory/--info (to contain its data)
  *
  * What requests can be done to this database?
- * - List items inside a directory
- * - List directories inside a directory
- * - Retrieve data in a post file
- * - Retrieve data about a directory
+ * - List children of items (contents of a dir)
+ * - Retrieve data in an item
  * - Search for file name
  *
  * This is a read only database 

@@ -241,4 +241,28 @@ function format_date($date){
 	return $day . " " . $month . " " . $year;
 }
 
+function datalist_sort($list, $sortby, $descending) {
+	$listout = [];
+	
+	foreach($list as $item){
+		if(is_dir($item))
+			$item .= "/--info";
+		$meta = get_file_metadata($item,array($sortby));
+		$listout[$meta[$sortby]] = $item ;
+	}
+
+	if(!$descending){
+		ksort($listout);
+	}else{
+		krsort($listout);
+	}
+
+	$result = [];
+	foreach($listout as $key => $item){
+		echo "$key => $item <br>";
+		array_push($result,$item);
+	}
+	return $result;
+}
+
 ?>

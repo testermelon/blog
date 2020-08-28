@@ -259,7 +259,6 @@ function datalist_sort($list, $sortby, $descending) {
 
 	$result = [];
 	foreach($listout as $key => $item){
-		echo "$key => $item <br>";
 		array_push($result,$item);
 	}
 	return $result;

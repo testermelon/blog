@@ -155,6 +155,9 @@ function print_article_nav_away($dataroot,$target_link){
  *
  * Currently fixed to sort by date (newest first)
  */
+
+/* TO BE DELETED
+ * ****************************************************************
 function print_urlname_list($dataroot,$target_path){
 
 	//this function only accept directories
@@ -199,6 +202,8 @@ function print_urlname_list($dataroot,$target_path){
 	return $html;
 }
 
+ **************************/
+
 function print_music_item($src,$imgsrc,$title,$link) {
 	$html .= '
 		<div class="mplayer" style="display:flex">
@@ -241,12 +246,11 @@ function print_music_playlist($config,$target_path){
 	if($dirls == [])
 		return "Masih kosong";
 
-	//TODO Make sorting logic
-	
+	$dirls = datalist_sort($dirls,"date",true);
+
 	$html = "";
 	foreach($dirls as $songs){
 		//skip the dir metadata
-		//var_dump($songs);
 		if(strpos($songs,'--info') !== false)
 			continue;
 		$meta = get_file_metadata($songs,[]);

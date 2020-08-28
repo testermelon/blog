@@ -62,6 +62,8 @@ function print_menu($dataroot,$target_path){
 	//var_dump($cats);
 
 	//obtaining directories data and extract relevant info
+	//SORTING AND DATA FETCHING SIMULTANEOUSLY
+	//TODO: make sorting a function: array of files -> sorted array of files (using one parameter)
 	$ol_cat = [];
 	$active_dir = "";
 	foreach($cats as $catit){
@@ -239,6 +241,9 @@ function print_music_playlist($config,$target_path){
 	if($dirls == [])
 		return "Masih kosong";
 
+	//TODO Make sorting logic
+	
+	$html = "";
 	foreach($dirls as $songs){
 		//skip the dir metadata
 		//var_dump($songs);
@@ -253,6 +258,7 @@ function print_music_playlist($config,$target_path){
 		$link = str_replace($dataroot,'',$songs);
 		$html .= print_music_item("$songpath$songfile","$imgpath$imgfile",$meta['title'],$link);
 	}
+
 	return $html;
 }
 

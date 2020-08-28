@@ -156,8 +156,6 @@ function print_article_nav_away($dataroot,$target_link){
  * Currently fixed to sort by date (newest first)
  */
 
-/* TO BE DELETED
- * ****************************************************************
 function print_urlname_list($dataroot,$target_path){
 
 	//this function only accept directories
@@ -201,8 +199,6 @@ function print_urlname_list($dataroot,$target_path){
 	}
 	return $html;
 }
-
- **************************/
 
 function print_music_item($src,$imgsrc,$title,$link) {
 	$html .= '

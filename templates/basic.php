@@ -3,7 +3,8 @@
 
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<base href="<?php echo $htmlcontent['conf-base']; ?>" >
+	<base href="<?php echo $_SERVER['SERVER_NAME'] ?>" >
+	<link rel="stylesheet" type="text/css" href="<?php echo $_SERVER['SERVER_NAME'].'/css/base.css' ?>">
 	<link rel="stylesheet" type="text/css" href="<?php echo $htmlcontent['active-css']; ?>">
 	<title> <?php echo $htmlcontent['title']; ?> </title>
 	<meta property="og:title" content="<?php echo $htmlcontent['title']; ?>" >

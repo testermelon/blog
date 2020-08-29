@@ -211,6 +211,7 @@ span.poem {
 
 table {
 	margin: auto;
+	min-width: 80%;
 	table-layout: fixed;
 	border-collapse: collapse;
 	border: 2px solid;

@@ -210,14 +210,15 @@ span.poem {
 }
 
 table {
+	margin: auto;
 	table-layout: fixed;
-	width :100%;
 	border-collapse: collapse;
-	border: 3px solid;
+	border: 2px solid;
 }
 
 td {
 	border:1px dashed;
+	padding: 10px;
 }
 
 @media screen and (max-width:500px){

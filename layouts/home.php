@@ -17,7 +17,6 @@ function render($data,$target_path,$config){
 	//$htmlcontent['main'] .= print_menu_elaborate($config['dataroot'],$target_path);
 	//list of latest 5 posts in every category
 	//$htmlcontent['main'] .= print_latest_posts(5);
-	$htmlcontent['footer'] = print_footer($config);
 
 	//call template to print html response out
 	include("templates/basic.php");

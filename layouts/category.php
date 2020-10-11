@@ -11,7 +11,6 @@ function render($data,$target_path,$config){
 	$htmlcontent['header'] = print_menu($config['dataroot'],$target_path,$config);
 	$htmlcontent['main'] .= '<h1>'.$data['title'].'</h1>';
 	$htmlcontent['main'] .= '<p>' . print_urlname_list($config['dataroot'],$target_path) . '</p>';
-	$htmlcontent['footer'] = print_footer($config);
 
 	//call template to print html response out
 	include("templates/basic.php");

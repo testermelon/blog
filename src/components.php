@@ -299,6 +299,7 @@ function print_theme_buttons($active_css) {
 	return $html;
 }
 
+//deprecated
 function print_footer($config){
 	$html .= '<div class="footer-navi">';
 	$html .= print_theme_buttons($config['csspath']);

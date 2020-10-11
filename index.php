@@ -1,3 +1,3 @@
 <?php
-require "src/rendering.php";
+require "src/controller.php";
 ?>

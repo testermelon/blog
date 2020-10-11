@@ -49,7 +49,7 @@ function print_article_header($data,$dataroot,$target_path){
 	return $html;
 }
 
-function print_menu($dataroot,$target_path){
+function print_menu($dataroot,$target_path,$config){
 
 	//getting list of directories
 	$lsroot = glob("$dataroot*");
@@ -123,6 +123,12 @@ function print_menu($dataroot,$target_path){
 		$html .= '<a href="/'.$dirs['path'].'">'.$dirs['title'].'</a>';
 		$html .= '</li>';
 	}
+	//add more menu items here
+	//please output <li></li> items 
+	//if need to override style, please make class and apply in css
+	$html .= '<li>';
+	$html .= print_theme_buttons($config['csspath']);
+	$html .= '</li>';
 	$html .= "</ul>";
 	return $html;
 }
@@ -296,7 +302,6 @@ function print_theme_buttons($active_css) {
 function print_footer($config){
 	$html .= '<div class="footer-navi">';
 	$html .= print_theme_buttons($config['csspath']);
-	$html .= '<a style="font-family:opensans;padding:9px;float:right" href="/about"> tentang testermelon </a> ';
 	$html .= '</div>';
 
 	return $html;

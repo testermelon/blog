@@ -22,7 +22,8 @@ body{
 	margin:auto;
 	font-family:ibm-plexserif;
 	background-color:#000000;
-	color:darkgray;
+	/*color:darkgray;*/
+	color:#888888;
 	-webkit-text-size-adjust:100%;
 }
 
@@ -171,18 +172,16 @@ a:hover{
 	display:inline;
 	max-width:800px;
 	margin:auto;
-	padding-left:1em;
 	font-family:opensans;
 }
 
 button {
-	color: salmon;
+	color: white;
 	font-size:1rem;
 	font-family:opensans;
-	border:none;
-	border-radius:5px;
-	margin:5px;
-	padding:5px;
+	border:1px solid gray;
+	border-radius:15px;
+	height:30px;
 	-webkit-appearance:none;
 	-moz-appearance:none;
 	appearance:none;

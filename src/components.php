@@ -292,9 +292,9 @@ function print_large_music_item($config,$data){
 function print_theme_buttons($active_css) {
 	$html .= '<form id="theme-button" method="POST" >';
 	if(strpos($active_css, "light") != false)
-		$html .= '<button type="submit" name="theme" value="gelap">Tema: &#127769; </button>';
+		$html .= '<button type="submit" name="theme" value="gelap"> <span style="color:black;">__</span>|&#127769; </button>';
 	if(strpos($active_css, "dark") != false)
-		$html .= '<button type="submit" name="theme" value="terang"> Tema: &#128262;  </button>';
+		$html .= '<button type="submit" name="theme" value="terang"> &#128262;|<span style="color:black;">__</span> </button>';
 	$html .= "</form>";
 	return $html;
 }

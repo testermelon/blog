@@ -52,14 +52,14 @@ div.main{
 
 h1{
 	font-family:opensans;
-	font-size:2em;
+	font-size:2rem;
 	font-weight:500;
 	padding-top:1em;
 }
 
 h2{
 	font-family:opensans;
-	font-size:1.5em;
+	font-size:1.5rem;
 	font-weight:300;
 	padding-top:1.5em;
 	margin-bottom:1em;
@@ -116,7 +116,7 @@ a:hover{
 
 .main p{
 	font-family:ibm-plexserif;
-	font-size:1.1em;
+	font-size:1.1rem;
 	line-height:1.6em;
 	margin-bottom:1em;
 }
@@ -177,7 +177,7 @@ a:hover{
 
 button {
 	color: salmon;
-	font-size:1em;
+	font-size:1rem;
 	font-family:opensans;
 	border:none;
 	border-radius:5px;
@@ -197,7 +197,7 @@ button:hover{
 }
 
 div.mplayer {
-	font-size:1.2em;
+	font-size:1.2rem;
 	border-radius:5px;
 	padding:5px;
 	margin-top:20px;

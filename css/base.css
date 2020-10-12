@@ -86,6 +86,7 @@ h2{
 	color:white;
 }
 
+
 .navi li:hover{
 	color:white;
 	background-color:#286060;
@@ -168,31 +169,30 @@ a:hover{
 	color: white;
 
 }
-#theme-button {
-	display:inline;
-	max-width:800px;
-	margin:auto;
-	font-family:opensans;
-}
 
+.navi form{
+	padding-left:9px;
+	padding-right:9px;
+	padding-bottom:0px;
+}
 button {
+	display:inline-block;
 	color: white;
-	font-size:1rem;
+	font-size:0.9rem;
 	font-family:opensans;
-	border:1px solid gray;
+	border:2px solid slategray;
+	height:27px;
+	width:50px;
 	border-radius:15px;
-	height:30px;
 	-webkit-appearance:none;
 	-moz-appearance:none;
 	appearance:none;
-	background-color:black;
-	vertical-align:middle;
+	background-color:#222222;
 }
-
 button:hover{
 	color:white;
 	cursor:pointer;
-	background-color:#222222;
+	background-color:#444444;
 }
 
 div.mplayer {

@@ -47,9 +47,9 @@ else
 if(isset($_COOKIE['theme'])){
 	$theme = $_COOKIE['theme'];
 }
-if(isset($_POST['theme'])){
+if(isset($_GET['theme'])){
 	setcookie('theme', $_POST['theme'],time()+365*24*60*60,'/');
-	$theme = $_POST['theme'];
+	$theme = $_GET['theme'];
 }
 //using '//' to force the link as absolute reference to file
 $config['csspath'] =  '//' . $_SERVER['SERVER_NAME'] . $config['csspath']; 

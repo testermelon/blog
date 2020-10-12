@@ -44,10 +44,10 @@ footer{
 div.main{
 	padding-top:40px;
 	padding-bottom:40px;
-	padding-left:1em;
-	padding-right:1em;
+	padding-left:1rem;
+	padding-right:1rem;
 	margin:auto;
-	max-width:45em;
+	max-width:45rem;
 	min-height: 70vh;
 }
 
@@ -55,15 +55,15 @@ h1{
 	font-family:opensans;
 	font-size:2rem;
 	font-weight:500;
-	padding-top:1em;
+	padding-top:1rem;
 }
 
 h2{
 	font-family:opensans;
 	font-size:1.5rem;
 	font-weight:300;
-	padding-top:1.5em;
-	margin-bottom:1em;
+	padding-top:1.5rem;
+	margin-bottom:1rem;
 }
 
 .navi {
@@ -118,14 +118,14 @@ a:hover{
 
 .main p{
 	font-family:ibm-plexserif;
-	font-size:1.1rem;
-	line-height:1.6em;
-	margin-bottom:1em;
+	font-size:1.0rem;
+	line-height:1.6rem;
+	margin-bottom:1rem;
 }
 
 .main ul,ol{
-	line-height:1.5em;
-	margin-bottom:1em;
+	line-height:1.5rem;
+	margin-bottom:1rem;
 }
 
 .main strong,em{
@@ -143,12 +143,12 @@ a:hover{
 }
 
 #nav-away{
-	margin-top:0.5em;
-	line-height:1.5em;
+	margin-top:0.5rem;
+	line-height:1.5rem;
 }
 
 #social-links{
-	margin-top:0.5em;
+	margin-top:0.5rem;
 }
 
 #menu-toggle,label{

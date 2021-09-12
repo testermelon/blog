@@ -178,11 +178,11 @@ a:hover{
 button {
 	display:inline-block;
 	color: white;
-	font-size:0.8rem;
+	/*font-size:0.8rem;*/
 	font-family:opensans;
-	border:2px solid #444444;
+	/*border:2px solid #444444;*/
 	height:27px;
-	width:50px;
+	/*width:50px;*/
 	border-radius:15px;
 	-webkit-appearance:none;
 	-moz-appearance:none;

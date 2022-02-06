@@ -185,7 +185,7 @@ function print_urlname_list($dataroot,$target_path){
 		$meta = get_file_metadata($files,array('title','date'));
 		if($meta == [])
 			continue;
-		if(isset($meta['draft'] )
+		if(isset($meta['draft']))
 			continue;
 		$link = str_replace($dataroot,'',$files);
 		$urlname_list[$meta['date']] = array('title' => $meta['title'], 'link' => $link);

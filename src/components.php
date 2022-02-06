@@ -182,10 +182,10 @@ function print_urlname_list($dataroot,$target_path){
 	foreach($dirls as $files){
 		if(strpos($files,'--info') != false)
 			continue;
-		$meta = get_file_metadata($files,array('title','date'));
+		$meta = get_file_metadata($files,array('title','date','draft'));
 		if($meta == [])
 			continue;
-		if(isset($meta['draft']))
+		if($meta['draft'] == 'true' )
 			continue;
 		$link = str_replace($dataroot,'',$files);
 		$urlname_list[$meta['date']] = array('title' => $meta['title'], 'link' => $link);

@@ -203,13 +203,13 @@ function render_to_html($string,$dataroot){
 	$string = preg_replace('/(.+?)(?:\|)/','$1</td><td>', $string);
 
 	//Headings
-	$string = preg_replace('/\A#{7}([^\r^\n]+)/',"<h7>$1</h7>",$string);
-	$string = preg_replace('/\A#{6}([^\r^\n]+)/',"<h6>$1</h6>",$string);
-	$string = preg_replace('/\A#{5}([^\r^\n]+)/',"<h5>$1</h5>",$string);
-	$string = preg_replace('/\A#{4}([^\r^\n]+)/',"<h4>$1</h4>",$string);
-	$string = preg_replace('/\A#{3}([^\r^\n]+)/',"<h3>$1</h3>",$string);
-	$string = preg_replace('/\A#{2}([^\r^\n]+)/',"<h2>$1</h2>",$string);
-	$string = preg_replace('/\A#{1}([^\r^\n]+)/',"<h1>$1</h1>",$string);
+	$string = preg_replace('/(\r\n|\n)#{7}([^\r^\n]+)/',"\n<h7>$1</h7>",$string);
+	$string = preg_replace('/(\r\n|\n)#{6}([^\r^\n]+)/',"\n<h6>$1</h6>",$string);
+	$string = preg_replace('/(\r\n|\n)#{5}([^\r^\n]+)/',"\n<h5>$1</h5>",$string);
+	$string = preg_replace('/(\r\n|\n)#{4}([^\r^\n]+)/',"\n<h4>$1</h4>",$string);
+	$string = preg_replace('/(\r\n|\n)#{3}([^\r^\n]+)/',"\n<h3>$1</h3>",$string);
+	$string = preg_replace('/(\r\n|\n)#{2}([^\r^\n]+)/',"\n<h2>$1</h2>",$string);
+	$string = preg_replace('/(\r\n|\n)#{1}([^\r^\n]+)/',"\n<h1>$1</h1>",$string);
 
 	//paragraphs
 	// Paragraphs should be the last to process due to it's nature to break newlines

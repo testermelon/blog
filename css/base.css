@@ -54,17 +54,26 @@ div.main{
 h1{
 	font-family:opensans;
 	font-size:2rem;
-	font-weight:500;
+	font-weight:700;
 	padding-top:1rem;
 }
 
 h2{
 	font-family:opensans;
-	font-size:1.5rem;
-	font-weight:300;
+	font-size:1.7rem;
+	font-weight:700;
 	padding-top:1.5rem;
 	margin-bottom:1rem;
 }
+
+h3:before {
+	content:"\27e3 ";
+}
+
+h4:before {
+	content:"\2b29  ";
+}
+
 
 .navi {
 	margin:auto;
@@ -119,7 +128,7 @@ a:hover{
 .main p{
 	font-family:ibm-plexserif;
 	font-size:1.0rem;
-	line-height:1.6rem;
+	line-height:1.7rem;
 	margin-bottom:1rem;
 }
 

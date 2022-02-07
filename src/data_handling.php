@@ -187,12 +187,12 @@ function render_to_html($string,$dataroot){
 	//ul
 	$string = preg_replace('/(?<=\n)-\s*(.*)/','<uli>$1<li>',$string);
 	$string = preg_replace('/((<uli>.*<li>\s*)+)/', "</p>\n<ul>$1</ul>\n<p>", $string);
-	$string = preg_replace('/<uli>(.*)<li>/','<li>$1</li>', $string);
+	$string = preg_replace('/<uli>(.*)<li>/','<li>$1</li>\n', $string);
 	
 	//ol
 	$string = preg_replace('/(?<=\n)[0-9]\.\s*(.*)/','<oli>$1<li>',$string);
 	$string = preg_replace('/((<oli>.*<li>\s*)+)/','<ol>$1</ol>',$string);
-	$string = preg_replace('/<oli>(.*)<li>/','<li>$1</li>', $string);
+	$string = preg_replace('/<oli>(.*)<li>/','<li>$1</li>\n', $string);
 
 	//tables
 	$string = preg_replace('/\|\s*(.*)/','<tabl>|$1</tabl>',$string);

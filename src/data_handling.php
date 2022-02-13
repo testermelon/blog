@@ -179,7 +179,7 @@ function render_to_html($string,$dataroot){
 
 
 	//links
-	$string = preg_replace('/(?<=[^!])\[(.*?)\]\((.*?)\)/','<a href="$2" target="_blank">$1</a>',$string);
+	$string = preg_replace('/(?<=[^!])\[(.*?)\]\((.*)\)/','<a href="$2" target="_blank">$1</a>',$string);
 	
 	//emphasis
 	$string = preg_replace('/\*{2}(.*?)\*{2}/','<em>$1</em>',$string);

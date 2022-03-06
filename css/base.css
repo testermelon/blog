@@ -127,10 +127,9 @@ a:hover{
 
 .main p{
 	font-family:ibm-plexserif;
-	font-size:1.0rem;
-	line-height:1.7rem;
+	font-size:1.0em;
+	line-height:1.7em;
 	margin-bottom:1rem;
-	text-align:justify;
 }
 
 .main ul,ol{

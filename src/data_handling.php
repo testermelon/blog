@@ -177,7 +177,7 @@ function parse_spoilers($workstr) {
 			if ($lvl_sq == 0){ $pos_close = $i; break; }
 		}
 		$summary = substr($workstr,$lentkn,$pos_close-$lentkn);
-		$string .= '<details> <summary>'. $summary . '[<u>lihat/tutup</u>]</summary>';
+		$string .= '<details> <summary>'. $summary . ' [<u>lihat/tutup</u>]</summary>';
 		$workstr = substr($workstr,$pos_close+1);
 
 		$id_token = ''; $start_token = '('; $close_token = ')';

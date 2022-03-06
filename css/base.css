@@ -66,6 +66,10 @@ h2{
 	margin-bottom:1rem;
 }
 
+h3 {
+	font:opensans 1.7rem;
+}
+
 h3:before {
 	content:"\27e3 ";
 }

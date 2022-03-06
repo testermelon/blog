@@ -74,6 +74,9 @@ h4:before {
 	content:"\2b29  ";
 }
 
+summary {
+	margin-left:16px;
+}
 
 .navi {
 	margin:auto;

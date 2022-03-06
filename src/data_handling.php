@@ -155,6 +155,51 @@ function render_puisi($puisi){
 	return $rendition;
 }
 
+function parse_spoilers($workstr) {
+	//split the string into $workstr and $string //$string is first half that is done parsing //$workstr is the second half that is not yet done parsing 
+	$string = '';
+	while(strlen($workstr)>0){
+		$id_token = '!sp'; $start_token = '['; $close_token = ']';
+		$pos = strpos($workstr,$id_token.$start_token);
+		if($pos ===false) return $string.$workstr;
+		$string .= substr($workstr,0,$pos);
+		$workstr = substr($workstr,$pos);
+
+		$len = strlen($workstr);
+		$lentkn = strlen($id_token.$start_token);
+		$lvl_sq = 1;
+		$pos_close = 0;
+		for($i=$lentkn; $i < $len; $i++) {
+			switch ($workstr[$i]) {
+			case $start_token: $lvl_sq++; break;
+			case $close_token:  $lvl_sq--; break;
+			}
+			if ($lvl_sq == 0){ $pos_close = $i; break; }
+		}
+		$summary = substr($workstr,$lentkn,$pos_close-$lentkn);
+		$string .= '<details> <summary>'. $summary . '</summary>';
+		$workstr = substr($workstr,$pos_close+1);
+
+		$id_token = ''; $start_token = '('; $close_token = ')';
+		$len = strlen($workstr);
+		$lentkn = strlen($id_token.$start_token);
+		$lvl_sq = 1;
+		$pos_close = 0;
+		for($i=$lentkn; $i < $len; $i++) {
+			switch ($workstr[$i]) {
+			case $start_token: $lvl_sq++; break;
+			case $close_token:  $lvl_sq--; break;
+			}
+
+			if ($lvl_sq == 0){ $pos_close = $i; break; }
+		}
+		$details = substr($workstr,$lentkn,$pos_close-$lentkn);
+		$string .= $details . '</details>';
+		$workstr = substr($workstr,$pos_close+1);
+	}
+	return $string.$workstr;
+}
+
 /* Use regex to parse and convert markdown syntaxes to html
  *
  * Not complete as markdown parser, only subset
@@ -167,6 +212,8 @@ function render_to_html($string,$dataroot){
 	// 2. Deal with each of literal tags applying helper converters if necessary
 	// 3. Do regex replacements as usual
 	// 4. Finally paste back the tags into the numbered markers on the string
+
+	$string = parse_spoilers($string);
 
 	$puisi = [];
 	preg_match_all('/{puisi}.*?{\/puisi}/s',$string,$puisi);

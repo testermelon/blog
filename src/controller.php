@@ -63,7 +63,7 @@ case 'terang':
 	break;
 case 'gelap':
 default:
-	$config['csspath'] .= 'dark.css';
+	$config['csspath'] .= 'light.css';
 	break;
 }
 

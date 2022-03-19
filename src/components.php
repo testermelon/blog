@@ -104,13 +104,17 @@ function print_menu($dataroot,$target_path,$config){
 
 	$html = "";
 
+	$html .= '<nav>';
+
 	//elements for mobile
+	/*
 	$html .= '<label class="navi" for="menu-toggle">'; 
 	$html .= '<li>';
 	$html .= '<a>&#9776; &nbsp;' . $active_dir . '</a> ';
 	$html .= '</li>';
 	$html .= '</label>';
 	$html .= '<input id="menu-toggle" type="checkbox" style="display:none"> </input>';
+	 */
 
 	//menu list
 	$html .= '<ul class="navi" id="categories">';
@@ -130,6 +134,7 @@ function print_menu($dataroot,$target_path,$config){
 	$html .= print_theme_buttons($config['csspath']);
 	$html .= '</li>';
 	$html .= "</ul>";
+	$html .= '</nav>';
 	return $html;
 }
 

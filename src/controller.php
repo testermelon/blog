@@ -58,11 +58,11 @@ switch($theme) {
 case 'polos': 
 	$config['csspath'] .= 'plain.css';
 	break;
-case 'terang': 
-	$config['csspath'] .= 'light.css';
-	break;
 case 'gelap':
+	$config['csspath'] .= 'dark.css';
+	break;
 default:
+case 'terang': 
 	$config['csspath'] .= 'light.css';
 	break;
 }

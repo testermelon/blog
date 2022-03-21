@@ -88,11 +88,13 @@ summary {
 	margin-left:16px;
 }
 
-nav {
+summary:hover {
+	cursor:pointer;
 }
 
 .navi {
 	margin:auto;
+	max-width:45em;
 	display:flex;
 	flex-wrap: nowrap;
 	overflow: auto;
@@ -101,7 +103,8 @@ nav {
 	list-style-type:none;
 	padding:0;
 /*	background-color:#333333;*/
-	font-family:opensans; font-weight:normal;
+	font-family:opensans; 
+	font-weight:normal;
 
 }
 
@@ -219,6 +222,10 @@ div.mplayer {
 	margin-top:20px;
 	margin-bottom:20px;
 	overflow:hidden;
+}
+
+iframe {
+	max-width:100%;
 }
 
 span.poem {

@@ -82,6 +82,10 @@ function print_menu($dataroot,$target_path,$config){
 			$metadata = explode('=',$temp_read);
 			$meta[$metadata[0]] = $metadata[1];
 		}while( ($temp_read != '----' ) && !feof($hfile) );
+		fclose($hfile);
+
+		if( $meta['draft'] == "true")
+			continue;
 
 		$dir_link = end(explode('/',$catit));
 		//var_dump($dir_link);
@@ -95,7 +99,6 @@ function print_menu($dataroot,$target_path,$config){
 		if(strpos($target_path, $catit) !== false){
 			$active_dir = $meta['title'];
 		}
-		fclose($hfile);
 	}
 	//var_dump($ol_cat);
 	

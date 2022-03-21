@@ -173,11 +173,6 @@ a:hover{
 	margin-top:0.5rem;
 }
 
-#menu-toggle,label{
-	display:none;
-
-}
-
 .footer-navi {
 	max-width:800px;
 	margin:auto;

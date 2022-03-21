@@ -1,20 +1,74 @@
+:root {
+	--colorlight-bg-all:oldlace;
+	--colorlight-h-all:black;
+	--colorlight-bodytext:#444444;
+	--colorlight-link:brown;
+	--colorlight-link-hover:salmon;
+	--colorlight-em:black;
+	--colorlight-bg-mplayer:#f1dddd;
 
+	--color-header:black;
+	--color-navtext:white;
+	--color-nav-active:lime;
+	--color-navbg:#111111;
+}
+
+/*dibawah ini fix warnanya
+ */
+header,footer{
+	background-color:var(--color-header);
+}
+
+.navi a, .navi a:hover{
+	color:var(--color-navtext);
+}
+
+.navi li:hover{
+	background-color:var(--color-navbg);
+}
+
+.navi li.active a{
+	color:var(--color-nav-active);
+}
+
+/*di bawah ini warnanya sesuai tema
+ */
+body{
+	background-color:var(--colorlight-bg-all);
+	color:var(--colorlight-bodytext);
+}
+
+h1,h2,h3,h4,h5,h6{
+	color:var(--colorlight-h-all);
+}
+
+a{
+	color:var(--colorlight-link);
+}
+
+a:hover{
+	color:var(--colorlight-link-hover);
+}
+
+.main strong,em{
+	color:var(--colorlight-em);
+}
+
+div.mplayer {
+	background-color:var(--colorlight-bg-mplayer);
+
+}
+/*
 body{
 	background-color:oldlace;
 	color:#444444;
 }
 
-header{
+header, footer{
 	background-color:black;
 }
 
-footer{
-	background-color:black;
-	/*background-color: #0F2424;*/
-	/*border-top: 1px gray solid;*/
-}
-
-h1, h2, h3, h4 {
+h1,h2,h3,h4,h5,h6{
 	color:black;
 }
 
@@ -27,22 +81,15 @@ h1, h2, h3, h4 {
 }
 
 .navi li:hover{
-	color:white;
 	background-color:#111111;
-
 }
 
 .navi li.active a{
 	color:lime;
 }
 
-a{
-	color:brown;
-}
-
-a:hover{
-	color:salmon;
-}
+a{ color:brown; }
+a:hover{ color:salmon; }
 
 .main strong,em{
 	color:black;
@@ -52,17 +99,4 @@ div.mplayer {
 	background-color:#f1dddd;
 }
 
-@media screen and (max-width:500px){
-
-	#categories{
-	}
-
-	label.navi li a{
-		color:lightgray;
-	}
-
-	.navi li{
-		background-color:black;
-	}
-
-}
+*/

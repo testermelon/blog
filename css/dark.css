@@ -1,70 +1,59 @@
 :root {
-	--color-bg-all:#131c25;
+	--colordark-bg-all:#131c25;
+	--colordark-h-all:#CCCCCC;
+	--colordark-bodytext:#BBBBBB;
+	--colordark-link:salmon;
+	--colordark-link-hover:white;
+	--colordark-em:#DDDDDD;
+	--color-colordark-bg-mplayer:#222222;
+
+	--color-header:black;
+	--color-navtext:white;
+	--color-nav-active:lime;
+	--color-navbg:#111111;
 }
 
-body{
-	background-color:var(--color-bg-all);
-/*	color:#90A0B0;*/
-	color:#BBBBBB;
+/*dibawah ini fix warnanya
+ */
+header,footer{
+	background-color:var(--color-header);
 }
 
-header{
-	background-color:black;
-}
-
-footer{
-	background-color:black;
-	/*background-color: #0F2424;*/
-	/*border-top: 1px gray solid;*/
-}
-
-h1,h2,h3,h4,h5,h6{
-	color:#CCCCCC;
-}
-
-
-.navi a{
-	color:white;
+.navi a, .navi a:hover{
+	color:var(--color-navtext);
 }
 
 .navi li:hover{
-	color:white;
-	background-color:#111111;
+	background-color:var(--color-navbg);
 }
 
 .navi li.active a{
-	color:lime;
+	color:var(--color-nav-active);
+}
+
+/*di bawah ini warnanya sesuai tema
+ */
+body{
+	background-color:var(--colordark-bg-all);
+	color:var(--colordark-bodytext);
+}
+h1,h2,h3,h4,h5,h6{
+	color:var(--colordark-h-all);
 }
 
 a{
-	color:salmon;
+	color:var(--colordark-link);
 }
 
 a:hover{
-	color:white;
+	color:var(--colordark-link-hover);
 }
 
 .main strong,em{
-	color:#DDDDDD;
+	color:var(--colordark-em);
 }
 
 div.mplayer {
-	/*background-color:#281421;*/
-	background-color:#222222;
-
-}
-
-@media screen and (max-width:500px){
-
-	#categories{
-	}
-
-	label.navi li a{
-		color:lightgray;
-	}
-
-	.navi li{
-		background-color:black;
-	}
+	background-color:var(--colordark-bg-mplayer);
 
 }

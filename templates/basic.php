@@ -28,8 +28,10 @@
 </head>
 
 <body>
+<input style="display:none" type="checkbox" id="checkbox-theme">
 <header>
 	<?php echo $htmlcontent['header'] ?>
+	<label for="checkbox-theme"> Tema Warna </label> 
 </header>
 
 <div class="main">

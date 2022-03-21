@@ -8,7 +8,7 @@ function render($data,$target_path,$config){
 	$htmlcontent['head-js-modules'] = print_head_js_modules($data['jsmod']);
 
 	//html body data
-	//$htmlcontent['header'] = print_menu($config['dataroot'],$target_path,$config);
+	$htmlcontent['header'] = print_menu($config['dataroot'],$target_path,$config);
 	$htmlcontent['main'] .= '<h1>'. $data['title'] . '</h1>';
 	$htmlcontent['main'] .= print_article_body($data,$config['imgpath']);
 	//$htmlcontent['main'] .= print_article_nav_away($config['dataroot'],$target_path);

@@ -15,7 +15,7 @@
 
 @font-face{
 	font-family: font-serif-italic;
-	src: url(/fonts/IBMPlexSerif-Italic.ttf);
+	src: url(/fonts/Lora-Italic.ttf);
 }
 
 body{
@@ -159,8 +159,8 @@ a:hover{
 	margin-bottom:1rem;
 }
 
-.main strong,em{
-	font-style:normal;
+.main strong, .main em{
+	font-style:bold;
 	font-family:font-serif-italic;
 }
 

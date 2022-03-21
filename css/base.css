@@ -69,20 +69,19 @@ h3 {
 	font-family:opensans;
 	font-size:1.1rem;
 	margin-bottom:0.5rem;
+	padding-top:1em;
 }
 
 h4 {
 	font-family:opensans;
 	margin-bottom:0;
+	padding-top:1em;
 }
 
-h3:before {
+h3:before, h3:after{
 	content:"\27e3 ";
 }
 
-h4:before {
-	content:"\2b29  ";
-}
 
 summary {
 	margin-left:16px;

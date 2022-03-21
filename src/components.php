@@ -303,6 +303,7 @@ function print_theme_buttons($active_css) {
 	if(strpos($active_css, "dark") != false)
 		$html .= '<button type="submit" name="theme" value="terang"> Terang  </button>';
 	$html .= "</form>";
+
 	return $html;
 }
 

@@ -1,5 +1,9 @@
+:root {
+	--color-bg-all:#131c25;
+}
+
 body{
-	background-color:#141628;
+	background-color:var(--color-bg-all);
 /*	color:#90A0B0;*/
 	color:#BBBBBB;
 }

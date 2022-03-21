@@ -160,7 +160,7 @@ a:hover{
 }
 
 .main strong, .main em{
-	font-style:bold;
+	font-weight:bold;
 	font-family:font-serif-italic;
 }
 

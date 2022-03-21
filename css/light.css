@@ -50,7 +50,7 @@ a:hover{
 	color:var(--colorlight-link-hover);
 }
 
-.main strong,em{
+.main strong, .main em{
 	color:var(--colorlight-em);
 }
 

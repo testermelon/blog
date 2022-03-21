@@ -49,7 +49,7 @@ a:hover{
 	color:var(--colordark-link-hover);
 }
 
-.main strong,em{
+.main strong, .main em{
 	color:var(--colordark-em);
 }
 

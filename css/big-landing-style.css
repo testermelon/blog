@@ -60,10 +60,12 @@ body {
 	margin:auto;
 	padding:0;
 	width:60vw;
+	min-width:80vw;
 }
 
 .bigmenu li, nav li {
 	margin:auto;
+	padding:10px;
 	font-family: font-serif-italic;
 	font-size: 25px;
 	color: lightgrey;

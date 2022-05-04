@@ -87,6 +87,9 @@ function print_menu($dataroot,$target_path,$config){
 		if( $meta['draft'] == "true")
 			continue;
 
+		if( $meta['hide'] == "true")
+			continue;
+
 		$dir_link = end(explode('/',$catit));
 		//var_dump($dir_link);
 

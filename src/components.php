@@ -324,7 +324,7 @@ function print_footer($config){
 
 function print_head_thumbnail($imgpath,$thumbnail){
 	if($thumbnail == ''){
-		$thumbnail = '/testermelon-social.png';
+		$thumbnail = '/testermelon-social.jpg';
 	}else{
 		$thumbnail = $imgpath . $thumbnail;
 	}

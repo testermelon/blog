@@ -43,6 +43,9 @@ if(file_exists('config.php'))
 else
 	$config = include('defaults.php');
 
+//set up default theme according to config file
+$theme = $config['defaulttheme'];
+
 //Set CSS path according to servername and cookie settings
 if(isset($_COOKIE['theme'])){
 	$theme = $_COOKIE['theme'];
@@ -53,18 +56,22 @@ if(isset($_GET['theme'])){
 }
 //using '//' to force the link as absolute reference to file
 $config['csspath'] =  '//' . $_SERVER['SERVER_NAME'] . $config['csspath']; 
-//
+
+
+
+
 switch($theme) {
 case 'polos': 
 	$config['csspath'] .= 'plain.css';
 	break;
-case 'gelap':
-	$config['csspath'] .= 'dark.css';
-	break;
-default:
 case 'terang': 
 	$config['csspath'] .= 'light.css';
 	break;
+default:
+case 'gelap':
+	$config['csspath'] .= 'dark.css';
+	break;
+
 }
 
 /* *****************************************************************

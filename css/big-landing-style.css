@@ -60,7 +60,7 @@ body {
 	margin:auto;
 	padding:0;
 	width:60vw;
-	min-width:80vw;
+	max-width:80vw;
 }
 
 .bigmenu li, nav li {

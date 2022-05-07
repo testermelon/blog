@@ -1,0 +1,264 @@
+/*
+ * Based on new design written in testermelon-logo-baru.svg
+ */
+
+
+@font-face{
+	font-family: font-serif;
+	src: url(/fonts/Lora-Regular.ttf);
+}
+
+@font-face{
+	font-family: font-serif-italic;
+	src: url(/fonts/Lora-Italic.ttf);
+}
+@font-face{
+	font-family: font-serif-bold;
+	src: url(/fonts/Lora-Bold.ttf);
+}
+
+/* Common in all layout. Backgrounds and overall container. */
+body {
+	color:lightgrey;
+	margin:0;
+	background-color:black;
+   	background-image:linear-gradient(rgba(-1,0,0,0.7),rgba(0,0,0,0.7)), url("bg.jpg");
+   	background-size:cover;
+   	background-position:center;
+   	background-repeat:no-repeat;
+   	background-attachment:fixed;
+}
+
+.container{
+	height:100vh;
+	display:flex;
+	flex-direction:column;
+}
+
+/*Styling for the landing page. Featuring big logo and front menu.*/
+
+.biglogo {
+	flex: 2 1;
+	margin:auto;
+	display:flex;
+	flex-direction:column-reverse;
+}
+
+.biglogo img {
+	max-width:60vw;
+	max-height:50vh;
+	mix-blend-mode:exclusion;
+	opacity:100%;
+}
+
+
+.bigmenu {
+	display:flex;
+	flex: 1 1;
+	flex-direction:row;
+	flex-wrap:wrap;
+	margin:auto;
+	padding:0;
+	width:60vw;
+}
+
+.bigmenu li {
+	margin:auto;
+	font-family: font-serif-italic;
+	font-size: 25px;
+	color: lightgrey;
+	list-style-type:none;
+}
+
+.bigmenu a {
+	color:white;
+}
+
+.bigmenu a:hover {
+	color:salmon;
+}
+
+/* Stying for banner heading, used in blog and music section */
+
+.banner-title {
+	margin:auto;
+	margin-top:10vh;
+	margin-bottom:10vh;
+	display:flex;
+	max-width:90vw;
+	width:500px;
+}
+
+.logo-icon {
+	flex:1 1;
+	max-width:100%;
+	margin:5px;
+}	
+
+.logo-text {
+	flex:8 8;
+	margin:10px;
+	display:flex;
+	flex-direction:column;
+	align-content:right;
+	color:white;
+}
+
+.logo-text img {
+	max-width:100%;
+	flex:2 1;
+}
+
+.logo-smalltext {
+	margin:5px;
+	text-align:right;
+	font-family:font-serif-italic;
+	font-size:3vh;
+
+}
+
+nav {
+	display:flex;
+   	background-image:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7));
+}
+
+.navlist {
+	display:flex;
+	flex-direction:row;
+	margin:10px;
+	margin-left:10px;
+	padding:0;
+}
+nav li {
+	padding-left:5px;
+	font-family: font-serif-italic;
+	color: lightgrey;
+	list-style-type:none;
+}
+
+nav li:before {
+	content: '> ';
+}
+
+
+
+/*Styling of blog elements */
+
+main {
+	opacity:95%;
+	width:100%;
+	margin:auto;
+}
+
+main iframe {
+	max-width:100%;
+}
+
+article {
+	margin:auto;
+	width:500px;
+	max-width:90vw;
+}
+
+
+
+
+h1{
+	font-family:opensans-bold;
+	font-size:1.5rem;
+	padding-top:1rem;
+}
+
+h2{
+	font-family:opensans-bold;
+	font-size:1.3rem;
+	padding-top:1.5rem;
+	margin-bottom:1rem;
+}
+
+h3 {
+	font-family:opensans;
+	font-size:1.1rem;
+	margin-bottom:0.5rem;
+}
+
+h4 {
+	font-family:opensans;
+	margin-bottom:0;
+}
+
+h3:before {
+	content:"\27e3 ";
+}
+
+h4:before {
+	content:"\2b29  ";
+}
+
+summary {
+	margin-left:16px;
+}
+
+a {
+	text-decoration:none;
+}
+
+main img{
+	display:block;
+	margin:auto;
+	max-width:100%;
+	max-height:500px;
+	padding-top:5px;
+	padding-bottom:5px;
+}
+
+main p{
+	font-family:font-serif;
+	font-size:1.0em;
+	line-height:1.7em;
+	margin-bottom:1rem;
+}
+
+main ul,ol{
+	line-height:1.5rem;
+	margin-bottom:1rem;
+}
+
+main strong, .main em{
+	font-style:normal;
+	font-family:font-serif-italic;
+	font-weight:bold;
+}
+
+a{
+	color:salmon;
+}
+/*
+main {
+	background-color:oldlace;
+	color:#444444;
+}
+
+a:hover{
+	color:brown;
+}
+
+*/
+
+main {
+	background-color:#2e2f33;
+	color:#DDDDDD;
+}
+
+a:hover{
+	color:white;
+}
+
+#theme-button button {
+	margin:auto;
+	-moz-apprearance:none;
+	-webkit-appearance:none;
+	appearance: none;
+	font:inherit;
+}
+

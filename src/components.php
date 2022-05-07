@@ -49,6 +49,40 @@ function print_article_header($data,$dataroot,$target_path){
 	return $html;
 }
 
+function print_banner_blog($config) {
+	$html .= '
+	<img  class="logo-icon" src="'.$config['imgpath'].'logo-icon.svg">
+	<div class="logo-text"> 
+		<img  src="'.$config['imgpath'].'logo-text.svg"> 
+		<div class="logo-smalltext"> blog</div> 
+	</div>';
+	return $html;
+
+}
+
+function print_path_link($target_path, $config) {
+	$html .= '<ul class="navlist">';
+	$html .= '<li> <a href="blog"> blog </a> </li>';	
+	$fromroot = str_replace($config['dataroot'],'',$target_path);
+	$list = explode('/', $fromroot);
+	array_pop($list);
+	$listlen = count($list);
+	var_dump($list);
+	var_dump($listlen);
+	$currenturl = '';
+	for ($i=0; $i<$listlen; $i++) {
+		$currenturl .= $list[$i];
+		if ( !($listlen==1) && !($i==$listlen-2)) {
+			$currenturl .= '/';
+		}
+		$html .= '<li> <a href="'.$currenturl.'">'.$list[$i].'</a></li>';	
+	}
+	$html .= '<li>  here  </li>';	
+	$html .= '<ul class="navlist">';
+
+	return $html;
+}
+
 function print_menu($dataroot,$target_path,$config){
 
 	//getting list of directories

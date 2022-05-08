@@ -144,7 +144,7 @@ if(is_dir($target_path)){
 
 //glob cannot find the file, redirect to error 404
 if($target_path == ""){
-	$target_path = "$dataroot/404";
+	$target_path = "$dataroot"."404";
 	if(!file_exists($target_path))
 	//even the 404 page doesn't exist, just die already.
 		die("<h1> Pencarianmu sungguh sia-sia (404)</h1>");
@@ -164,7 +164,7 @@ if($target_path == ""){
 $data = get_data($target_path);
 if($data==[]){
 	//file cannot be opened, show server error 500
-	$target_path = "$dataroot/500";
+	$target_path = "$dataroot"."500";
 	$data = get_data($target_path);
 	if($data==[])
 		die("<h1> Kegagalan dalam menjawab tantangan bermula dari kegagalan membuka hati (500)");

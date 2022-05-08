@@ -51,9 +51,14 @@ function print_article_header($data,$dataroot,$target_path){
 
 function print_banner_blog($config) {
 	$html .= '
-	<img  class="logo-icon" src="'.$config['imgpath'].'logo-icon.svg">
+	<a class="logo-icon" href="/">
+<img  class="logo-icon" src="'.$config['imgpath'].'logo-icon.svg"> 
+</a>
 	<div class="logo-text"> 
+	<a href="/">
 		<img  src="'.$config['imgpath'].'logo-text.svg"> 
+</a>
+	<div class="logo-text"> 
 		<div class="logo-smalltext"> blog</div> 
 	</div>';
 	return $html;
@@ -62,22 +67,25 @@ function print_banner_blog($config) {
 
 function print_path_link($target_path, $config) {
 	$html .= '<ul class="navlist">';
-	$html .= '<li> <a href="blog"> blog </a> </li>';	
+	$html .= '<li> <a href="/"> beranda </a> &gt </li>';	
 	$fromroot = str_replace($config['dataroot'],'',$target_path);
+	//var_dump($target_path);
 	$list = explode('/', $fromroot);
-	array_pop($list);
+	if ($list[count($list)-1]=='--info')
+		array_pop($list);
 	$listlen = count($list);
-	var_dump($list);
-	var_dump($listlen);
+	//var_dump($list);
+	//var_dump($listlen);
 	$currenturl = '';
 	for ($i=0; $i<$listlen; $i++) {
-		$currenturl .= $list[$i];
-		if ( !($listlen==1) && !($i==$listlen-2)) {
-			$currenturl .= '/';
+		if ( $i<$listlen-1) {
+			if($i>0) $currenturl .= '/';
+			$currenturl .= $list[$i];
+			$html .= '<li> <a href="'.$currenturl.'">'.$list[$i].'</a> &gt </li>';	
+		}else{
+			$html .= '<li> '.$list[$i].'</li>';	
 		}
-		$html .= '<li> <a href="'.$currenturl.'">'.$list[$i].'</a></li>';	
 	}
-	$html .= '<li>  here  </li>';	
 	$html .= '<ul class="navlist">';
 
 	return $html;
@@ -184,16 +192,19 @@ function print_article_nav_away($dataroot,$target_link){
 	//var_dump($catlink);
 	$catlink = explode('/',$catlink);
 	array_pop($catlink);
+	array_pop($catlink);
 	$catlink = implode('/',$catlink);
 	//var_dump($catlink);
 
 	$html = "";
 	$html .= '<div id="nav-away"> ';
 	$html .= "Kembali ke:";
-	$html .= "<br>";
-	$html .= '<a href="/'.$catlink.'">' ;
-	$html .= '&#171 Kategori ' ;
-	$html .= '</a>';
+	if($catlink!='') {
+		$html .= "<br>";
+		$html .= '<a href="/'.$catlink.'">' ;
+		$html .= '&#171 Kategori ' ;
+		$html .= '</a>';
+	}
 	$html .= '<br>'; 
 	$html .= '<a href="/"> &#171 Beranda  </a>';
 	$html .= '</div>';
@@ -211,7 +222,7 @@ function print_urlname_list($dataroot,$target_path){
 
 	//this function only accept directories
 	if(strpos($target_path,'--info') == false)
-		return "<p>Tidak ada data</p>";
+		return "";
 
 	//cd .. 
 	$dirpath = str_replace($dataroot,'',$target_path);
@@ -236,7 +247,7 @@ function print_urlname_list($dataroot,$target_path){
 		$urlname_list[$meta['date']] = array('title' => $meta['title'], 'link' => $link);
 	}
 	if($urlname_list == [])
-		return "<p> Masih Kosong </p>";
+		return "";
 	krsort($urlname_list);
 
 	//print data to html

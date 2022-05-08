@@ -27,7 +27,7 @@
 
 	<style>
 		body {
-		background-image:linear-gradient(rgba(-1,0,0,0.7),rgba(0,0,0,0.7)), url(" <?php echo $config['imgpath']; ?>bg-1.jpg");
+		background-image:linear-gradient(rgba(-1,0,0,0.7),rgba(0,0,0,0.7)), url("bg-1.jpg");
 		}
 	</style>
 </head>
@@ -35,7 +35,7 @@
 <body>
 	<div class="container">
 	<div class="biglogo"> 
-		<img  src="<?php echo $config['imgpath']; ?>biglogo.svg">
+		<img  src="biglogo.svg">
 	</div>
 	<ul class="bigmenu">
 		<li><a href="blog"> blog </a></li>

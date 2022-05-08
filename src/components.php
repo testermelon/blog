@@ -52,11 +52,11 @@ function print_article_header($data,$dataroot,$target_path){
 function print_banner_blog($config) {
 	$html .= '
 	<a class="logo-icon" href="/">
-<img  class="logo-icon" src="'.$config['imgpath'].'logo-icon.svg"> 
+<img  class="logo-icon" src="logo-icon.svg"> 
 </a>
 	<div class="logo-text"> 
 	<a href="/">
-		<img  src="'.$config['imgpath'].'logo-text.svg"> 
+		<img  src="logo-text.svg"> 
 </a>
 	<div class="logo-text"> 
 		<div class="logo-smalltext"> blog</div> 

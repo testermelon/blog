@@ -2,6 +2,15 @@
  * Based on new design written in testermelon-logo-baru.svg
  */
 
+@font-face{
+	font-family: opensans;
+	src: url(/fonts/OpenSans-Regular.ttf);
+}
+
+@font-face{
+	font-family: opensans-bold;
+	src: url(/fonts/OpenSans-SemiBold.ttf);
+}
 
 @font-face{
 	font-family: font-serif;

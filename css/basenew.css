@@ -31,12 +31,25 @@ body {
 	color:lightgrey;
 	margin:0;
 	background-color:black;
-   	background-image:linear-gradient(rgba(-1,0,0,0.7),rgba(0,0,0,0.7)), url("bg.jpg");
+}
+
+.backdrop {
+	position:fixed;
+	top:0;
+	left:0;
+	width:100vw;
+	height:100vh;
+
+   	background-image:linear-gradient(rgba(-1,0,0,0.7),rgba(0,0,0,0.7)), url("/bg-1.jpg");
+   	--webkit-background-size:cover;
+   	--moz-background-size:cover;
    	background-size:cover;
    	background-position:center;
    	background-repeat:no-repeat;
    	background-attachment:fixed;
-	font-size:16px;;
+
+	z-index:-1;
+
 }
 
 .container{

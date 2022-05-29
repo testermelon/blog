@@ -23,14 +23,11 @@
 
 	<?php echo $htmlcontent['head-js-modules'] ?>
 
-	<style>
-		body {
-		background-image:linear-gradient(rgba(-1,0,0,0.7),rgba(0,0,0,0.7)), url("bg-1.jpg");
-		}
-	</style>
 </head>
 
 <body>
+	<div class="backdrop">
+	</div>
 	<div class="container">
 		<header class="banner-title">
 			<?php echo $htmlcontent['header'] ?>

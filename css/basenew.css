@@ -41,7 +41,7 @@ body {
 	height:100vh;
 	z-index:-1;
 
-   	background-image:linear-gradient(rgba(-1,0,0,0.7),rgba(0,0,0,0.7)), url("/bg-1.jpg");
+   	/*background-image:linear-gradient(rgba(-1,0,0,0.7),rgba(0,0,0,0.7)), url("/bg-1.jpg");*/
    	--webkit-background-size:cover;
    	--moz-background-size:cover;
    	background-size:cover;
@@ -105,8 +105,8 @@ body {
 
 .banner-title {
 	margin:auto;
-	margin-top:25vh;
-	margin-bottom:25vh;
+	margin-top:15vh;
+	margin-bottom:15vh;
 	display:flex;
 	max-width:90vw;
 	width:500px;
@@ -143,6 +143,7 @@ body {
 nav {
 	display:flex;
    	background-image:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7));
+	position:fixed;
 }
 
 .navlist {

@@ -31,14 +31,16 @@ body {
 	color:lightgrey;
 	margin:0;
 	background-color:black;
+	overflow:hidden;
 }
 
 .backdrop {
-	position:absolute;
+	position:fixed;
 	top:0;
 	left:0;
 	width:100vw;
 	height:100vh;
+	z-index:-1;
 
    	background-image:linear-gradient(rgba(-1,0,0,0.7),rgba(0,0,0,0.7)), url("/bg-1.jpg");
    	--webkit-background-size:cover;
@@ -48,7 +50,6 @@ body {
    	background-repeat:no-repeat;
    	background-attachment:fixed;
 
-	z-index:-1;
 
 }
 

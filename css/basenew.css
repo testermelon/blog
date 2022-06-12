@@ -111,11 +111,19 @@ body {
 .banner-title {
 	margin:auto;
 	margin-top:35vh;
-	margin-bottom:20vh;
-	margin-right:5vw;
+	margin-bottom:15vh;
 	display:flex;
 	max-width:90vw;
 	width:500px;
+}
+
+hr{
+	border:none;
+	height:10px;
+	background: url("/hr.svg");
+	background-repeat:no-repeat;
+	background-position:center;
+	background-size: contain;
 }
 
 .logo-icon {

@@ -26,8 +26,7 @@
 </head>
 
 <body>
-	<div class="backdrop">
-	</div>
+<div class="backdrop">
 	<div class="container">
 		<header class="banner-title">
 			<?php echo $htmlcontent['header'] ?>
@@ -37,6 +36,7 @@
 		</nav>
 		<main>
 			<article class="main">
+				<hr>
 				<?php echo $htmlcontent['main']; ?>
 			</article>
 		</main>
@@ -45,5 +45,6 @@
 			<?php echo $htmlcontent['footer'] ?>
 		</footer>
 	</div> 
+</div>
 </body>
 </html>

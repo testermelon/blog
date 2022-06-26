@@ -246,6 +246,7 @@ function print_urlname_list($dataroot,$target_path){
 		$link = str_replace($dataroot,'',$files);
 		$urlname_list[$meta['date']] = array('title' => $meta['title'], 'link' => $link);
 	}
+	var_dump($urlname_list);
 	if($urlname_list == [])
 		return "";
 	krsort($urlname_list);

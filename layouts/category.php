@@ -9,12 +9,12 @@ function render($data,$target_path,$config){
 
 	//html body data
 	//$htmlcontent['header'] = print_menu($config['dataroot'],$target_path,$config);
-	$htmlcontent['header'] = print_banner_blog($config);
+	//$htmlcontent['header'] = print_banner_blog($config);
 	$htmlcontent['navigation'] = print_path_link($target_path,$config);
 	$htmlcontent['main'] .= '<h1>'.$data['title'].'</h1>';
 
-	$htmlcontent['main'] .= '<p>' . print_urlname_list($config['dataroot'],$target_path) . '</p>';
 	$htmlcontent['main'] .= print_article_body($data,$config['imgpath']);
+	$htmlcontent['main'] .= print_urlname_list($config['dataroot'],$target_path) ;
 	$htmlcontent['main'] .= print_article_nav_away($config['dataroot'],$target_path);
 
 	//call template to print html response out

@@ -231,36 +231,72 @@ function print_urlname_list($dataroot,$target_path){
 
 	//fetching data of files in the directory
 	$urlname_list = [];
+	$urlname_list_dirs = [];
 	$dirls = glob("$dataroot$dirpath*");
+	//var_dump($dirls);
+
 	if($dirls == []){
 		return "<p> Kategori Kosong </p>";
 	}
 	foreach($dirls as $files){
 		if(strpos($files,'--info') != false)
 			continue;
-		$meta = get_file_metadata($files,array('title','date','draft'));
-		if($meta == [])
-			continue;
-		if($meta['draft'] == 'true' )
-			continue;
-		$link = str_replace($dataroot,'',$files);
-		$urlname_list[$meta['date']] = array('title' => $meta['title'], 'link' => $link);
+		if(is_dir($files)){
+			$meta = get_file_metadata($files.'/--info',array('title','order','draft','summary'));
+			if($meta == [])
+				continue;
+			if($meta['draft'] == 'true' )
+				continue;
+			$link = str_replace($dataroot,'',$files);
+			$urlname_list_dirs[$meta['order']] = 
+				array(
+					'title' => $meta['title'], 
+					'link' => $link,
+					'summary' => $meta['summary']);
+		}else{
+			$meta = get_file_metadata($files,array('title','date','draft'));
+			if($meta == [])
+				continue;
+			if($meta['draft'] == 'true' )
+				continue;
+			$link = str_replace($dataroot,'',$files);
+			$urlname_list[$meta['date']] = 
+				array(
+					'title' => $meta['title'], 
+					'link' => $link);
+		}
 	}
-	//var_dump($urlname_list);
-	if($urlname_list == [])
+	if($urlname_list == [] && $urlname_list_dirs == [] )
 		return "";
 	krsort($urlname_list);
+	krsort($urlname_list_dirs);
+	//var_dump($urlname_list);
 
 	//print data to html
-	foreach($urlname_list as $date => $details){
-		$linkcat = '/' . $details[2];
+	if($urlname_list_dirs != [] ){
+		foreach($urlname_list_dirs as $order => $details){
 
-		$html .= '<a href="' . $details['link']. '">' . $details['title'] . '</a>';
-		$html .= "<br>";
-		$html .= "<small>";
-		$html .= format_date($date);
-		$html .= "</small>";
-		$html .= "<br> <br>";
+			$html .= '<a href="' . $details['link']. '">' ;
+			$html .= '	<div class="directory-link">';
+			$html .= 		$details['title'] ;
+			$html .= "		<br>";
+			$html .= "		<small>". $details['summary'] . "</small>";
+			$html .= '	</div></a>';
+		};
+	}
+
+	if($urlname_list != [] ){
+		$html .= "<p>";
+		foreach($urlname_list as $date => $details){
+
+			$html .= '<a href="' . $details['link']. '">' . $details['title'] . '</a>';
+			$html .= "<br>";
+			$html .= "<small>";
+			$html .= format_date($date);
+			$html .= "</small>";
+			$html .= "<br> <br>";
+		};
+		$html .= "</p>";
 	}
 	return $html;
 }

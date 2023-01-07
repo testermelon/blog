@@ -28,15 +28,11 @@
 <body>
 <div class="backdrop">
 	<div class="container">
-		<header class="banner-title">
-			<?php echo $htmlcontent['header'] ?>
-		</header>
 		<nav>
 			<?php echo $htmlcontent['navigation']; ?>
 		</nav>
 		<main>
 			<article class="main">
-				<hr>
 				<?php echo $htmlcontent['main']; ?>
 			</article>
 		</main>

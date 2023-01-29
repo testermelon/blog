@@ -9,7 +9,7 @@ function render($data,$target_path,$config){
 	$htmlcontent['head-js-modules'] = print_head_js_modules($data['jsmod']);
 
 	//html body data
-	$htmlcontent['header'] = print_menu($config['dataroot'],$target_path,$config);
+//	$htmlcontent['header'] = print_menu($config['dataroot'],$target_path,$config);
 	$htmlcontent['main'] .= print_large_music_item($config,$data);
 	$htmlcontent['main'] .= '<h1>'.$data['title'].'</h1>';
 	$htmlcontent['main'] .= '<p>'.render_to_html($data['body'],$config['imgpath']). '</p>';

@@ -323,7 +323,6 @@ table {
 	table-layout: fixed;
 	border-collapse: collapse;
 	border: 2px solid;
-	width:100%;
 	overflow-x: scroll;
 }
 

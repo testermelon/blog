@@ -350,3 +350,7 @@ div.directory-link small {
 div.directory-link:hover{
 	background-color: rgba(120,170,200,0.5);
 }
+
+pre {
+	color:#53b7b7;
+}

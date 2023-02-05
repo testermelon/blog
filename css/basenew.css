@@ -352,5 +352,8 @@ div.directory-link:hover{
 }
 
 pre {
+	display: block;
+	width: 100%;
+	overflow-x: scroll;
 	color:#53b7b7;
 }

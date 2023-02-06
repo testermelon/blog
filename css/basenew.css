@@ -323,7 +323,9 @@ table {
 	table-layout: fixed;
 	border-collapse: collapse;
 	border: 2px solid;
+	width: 100%;
 	overflow-x: scroll;
+	font-size: calc( 5px + 1vw );
 }
 
 td {

@@ -93,7 +93,7 @@ body {
 	max-width:80vw;
 }
 
-.bigmenu li, nav li {
+.bigmenu li, {
 	margin-left:auto;
 	margin-right:auto;
 	padding:15px;

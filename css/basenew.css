@@ -34,7 +34,7 @@
 body {
 	color:lightgrey;
 	margin:0;
-	background-color:black;
+	background-color:#64002a;
 }
 
 .backdrop {
@@ -44,7 +44,7 @@ body {
 	width:100vw;
 	height:100vh;
 	z-index:-1;
-   	background-image:linear-gradient(rgba(-1,0,0,0.85),rgba(0,0,0,0.85)), url("/bg-1.jpg");
+/*   	background-image:linear-gradient(rgba(-1,0,0,0.85),rgba(0,0,0,0.85)), url("/bg-1.jpg");*/
    	--webkit-background-size:cover;
    	--moz-background-size:cover;
    	background-size:cover;

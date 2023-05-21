@@ -30,7 +30,6 @@
 	src: url(/fonts/Caveat-Regular.ttf);
 }
 
-
 /* Common in all layout. Backgrounds and overall container. */
 body {
 	color:lightgrey;
@@ -73,7 +72,8 @@ body {
 }
 
 .biglogo img {
-	max-width:60vw;
+	height:300px;;
+	max-width:70vw;
 	max-height:50vh;
 	mix-blend-mode:exclusion;
 	opacity:100%;
@@ -83,17 +83,22 @@ body {
 .bigmenu {
 	display:flex;
 	flex: 1 1;
-	flex-direction:row;
+	flex-direction:column;
 	flex-wrap:wrap;
+	justify-content:center;
+	align-content:center;
 	margin:auto;
 	padding:0;
 	width:60vw;
+	max-width:80vw;
 }
 
-.bigmenu li {
-	margin:auto;
+.bigmenu li, nav li {
+	margin-left:auto;
+	margin-right:auto;
+	padding:15px;
 	font-family: font-serif-italic;
-	font-size: 25px;
+	font-size: 20px;
 	color: lightgrey;
 	list-style-type:none;
 }

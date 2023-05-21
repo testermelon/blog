@@ -40,7 +40,11 @@
 	<ul class="bigmenu">
 		<li><a href="blog"> blog </a></li>
 		<li><a href="musik" >musik</a></li>
-		<li><a href="kontak"> kontak </a></li>
+		<li>
+		<a target="_blank" href="https://www.twitter.com/testermelon"> <img src="/contents/img/twitter-color.svg" style="height:2em; margin:5px;"></a>
+		<a target="_blank" href="https://www.youtube.com/@testermelon"> <img src="/contents/img/youtube-color.svg" style="height:2em; margin:5px;"> </a>
+		<a target="_blank" href="mailto:testermelon@protonmail.com"> <img src="/contents/img/email-icon.svg" style="height:2em; margin:5px;"></a>
+</li>
 	</ul>
 	</div>
 </body>

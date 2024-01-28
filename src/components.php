@@ -66,27 +66,27 @@ function print_banner_blog($config) {
 }
 
 function print_path_link($target_path, $config) {
-	$html .= '<ul class="navlist">';
-	$html .= '<li> <a href="/"> beranda </a> &gt </li>';	
-	$fromroot = str_replace($config['dataroot'],'',$target_path);
+	$path_from_root = str_replace($config['dataroot'],'',$target_path);
 	//var_dump($target_path);
-	$list = explode('/', $fromroot);
+
+	$list = explode('/', $path_from_root);
 	if ($list[count($list)-1]=='--info')
+        //it's a directory, so we skip by deleting it
 		array_pop($list);
-	$listlen = count($list);
 	//var_dump($list);
-	//var_dump($listlen);
+
+	$html .= '<ul class="navlist">';
+	$html .= '<li> <a href="/"> beranda </a> </li>';	
 	$currenturl = '';
-	for ($i=0; $i<$listlen; $i++) {
-		if ( $i<$listlen-1) {
+	for ($i=0; $i<count($list); $i++) {
+		if ($i < count($list)-1) {
 			if($i>0) $currenturl .= '/';
 			$currenturl .= $list[$i];
-			$html .= '<li> <a href="'.$currenturl.'">'.$list[$i].'</a> &gt </li>';	
+			$html .= '<li> <a href="'.$currenturl.'">'.$list[$i].'</a> </li>';	
 		}else{
 			$html .= '<li> '.$list[$i].'</li>';	
 		}
 	}
-	$html .= '<ul class="navlist">';
 
 	return $html;
 }

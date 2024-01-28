@@ -4,25 +4,12 @@ ServerSignature Off
   RewriteEngine On
   RewriteBase /
 
-  # skip existent files
+  # deny files using whitelist approach
   RewriteCond %{REQUEST_FILENAME} -f
-  RewriteRule index.php - [QSA,L,C]
-  RewriteRule .* - [QSA,L]
+  RewriteRule !(public|index.php) 404
 
-  # deny access to contents
-  RewriteCond %{REQUEST_URI} ^/contents/*$
-  RewriteRule ^contents/*$ - [R=404,L]
-
-  # redirect root access (/) to index.php
-  RewriteCond %{REQUEST_URI} ^/$
-  RewriteRule ^$/index.php [QSA,L]
-
-  # redirect 404 for non existent files
-  RewriteCond %{REQUEST_URI} ^(.*)\..*$
+  # Pass all non-files to index.php as parameter
   RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteRule ^(.*)\..*$ - [R=404,L]
-  
-  # no, so we redirect to our front web controller
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteRule ^(.*)$ index.php?request_path=$1 [QSA,L]
+  RewriteRule ^(.*)$ index.php?request_path=$1 [qsappend]
+
 </IfModule>

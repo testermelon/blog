@@ -4,7 +4,7 @@
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<base href="<?php echo '//'.$_SERVER['SERVER_NAME'] ?>" >
-	<link rel="stylesheet" type="text/css" href="<?php echo '//'.$_SERVER['SERVER_NAME'].'/css/basenew.css' ?>">
+	<link rel="stylesheet" type="text/css" href="<?php echo '//'.$_SERVER['SERVER_NAME'].'/public/css/style.css.php' ?>">
 	<title> <?php echo $htmlcontent['title']; ?> </title>
 	<meta property="og:title" content="<?php echo $htmlcontent['title']; ?>" >
 	<meta property="og:image" content="<?php echo $htmlcontent['thumbnail']; ?>" >

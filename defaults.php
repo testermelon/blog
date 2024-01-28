@@ -14,7 +14,7 @@ return array(
 	//ends with /
 	'songpath'=>'/contents/songs/',
 	//name of the directory that will be used as landing page/home
-	'homedir' => 'beranda',
+	'homedir' => '',
 	//default theme if no cookies set and no particular request parameter
 	'defaulttheme' => 'gelap',
 );

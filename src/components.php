@@ -200,12 +200,10 @@ function print_article_nav_away($dataroot,$target_link){
 	$html .= '<div id="nav-away"> ';
 	$html .= "Kembali ke:";
 	if($catlink!='') {
-		$html .= "<br>";
 		$html .= '<a href="/'.$catlink.'">' ;
 		$html .= '&#171 Kategori ' ;
 		$html .= '</a>';
 	}
-	$html .= '<br>'; 
 	$html .= '<a href="/"> &#171 Beranda  </a>';
 	$html .= '</div>';
 
@@ -276,12 +274,10 @@ function print_urlname_list($dataroot,$target_path){
 	if($urlname_list_dirs != [] ){
 		foreach($urlname_list_dirs as $order => $details){
 
-			$html .= '<a href="' . $details['link']. '">' ;
-			$html .= '	<div class="directory-link">';
+			$html .= '<a class="directory-link" a href="' . $details['link']. '">' ;
 			$html .= 		$details['title'] ;
-			$html .= "		<br>";
 			$html .= "		<small>". $details['summary'] . "</small>";
-			$html .= '	</div></a>';
+			$html .= '	</a>';
 		};
 	}
 

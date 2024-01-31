@@ -6,7 +6,7 @@ ServerSignature Off
 
   # deny files using whitelist approach
   RewriteCond %{REQUEST_FILENAME} -f
-  RewriteRule !(public|index.php) 404
+  RewriteRule !(favicon|public|index.php|.svg$|.jpeg$|.jpg$|.png$|.webp$|.mp3$|.mp4$) 404
 
   # Pass all non-files to index.php as parameter
   RewriteCond %{REQUEST_FILENAME} !-f
